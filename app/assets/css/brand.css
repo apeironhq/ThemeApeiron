@@ -161,3 +161,11 @@
 .wd-chip-ok { background: var(--navy-50); color: var(--navy); }
 .wd-toast .ap-icon,
 .ap-screen__toast .ap-icon { color: var(--badge-ink); }
+
+/* Ornamen CTA: cincin pernikahan bertaut berwarna emas. */
+.ap-cta__rings { display: block; width: 230px; height: auto; margin: 0 auto 28px; overflow: visible; }
+.ap-cta__rings path,
+.ap-cta__rings circle { fill: none; stroke: var(--sand); stroke-width: 1.4; stroke-linecap: round; }
+.ap-cta__rings .is-line { stroke-width: 1; stroke-opacity: .7; }
+.ap-cta__rings .is-fill { fill: var(--sand); stroke: none; }
+.ap-cta__rings .is-spark { stroke: #f1dcaa; stroke-width: 1.2; }
