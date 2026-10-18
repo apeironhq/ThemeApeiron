@@ -128,3 +128,11 @@
 .ap-orb3__ico.is-hot .ap-orb3__ico-in { border-color: var(--navy); }
 /* Kerangka abu-abu di demo Aktivitas cukup tanpa bayangan. */
 .wd-skel i { border-color: var(--inner-border); box-shadow: none; }
+
+/* ---------- Kartu putih di section berlatar putih ----------
+   Di sini latar tidak memisahkan kartu, jadi garis tepi dibuat tipis tapi jelas terlihat. */
+:root { --line-on-white: #e3eaef; }
+.ap-audience .ap-audience__card:not(.is-dark),
+.ap-updates .ap-timeline__item,
+.ap-pricing .ap-plan:not(.is-featured),
+.ap-story .ap-side-card { border-color: var(--line-on-white); }
