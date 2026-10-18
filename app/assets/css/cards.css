@@ -1,0 +1,129 @@
+/* ==========================================================================
+   Kartu lembut: garis tepi nyaris transparan + bayangan transparan yang halus,
+   menggantikan garis 1px yang terasa keras. Dimuat paling akhir.
+   ========================================================================== */
+:root {
+	--soft-border: rgba(8, 60, 87, .06);
+	--soft-shadow: 0 1px 2px rgba(16, 24, 40, .04), 0 14px 34px -18px rgba(8, 60, 87, .2);
+	--soft-shadow-up: 0 2px 4px rgba(16, 24, 40, .05), 0 22px 44px -20px rgba(8, 60, 87, .28);
+	--inner-border: rgba(8, 60, 87, .07);
+	--inner-shadow: 0 1px 2px rgba(16, 24, 40, .05), 0 4px 10px -6px rgba(8, 60, 87, .12);
+}
+
+/* ---------- Kartu utama ---------- */
+.ap-ed,
+.ap-how__card,
+.ap-quote,
+.ap-timeline__item,
+.ap-plan:not(.is-featured),
+.ap-audience__card:not(.is-dark),
+.ap-side-card,
+.ap-flowmap__item:not(.is-mdundig),
+.ap-editor,
+.ap-dash3d__float,
+.ap-wlib__demo,
+.ap-deco__ico,
+.ap-orb3__label {
+	border-color: var(--soft-border);
+	box-shadow: var(--soft-shadow);
+}
+/* Kartu di section gading tadinya diberi garis hangat; samakan dengan gaya lembut. */
+.ap-journey .ap-editor,
+.ap-testi .ap-quote,
+.ap-feat .ap-feat__node,
+.ap-feat .ap-deco__ico,
+.ap-testi .ap-deco__ico { border-color: var(--soft-border); }
+
+/* Titik bernomor: tetap punya cincin penutup garis, ditambah bayangan lembut. */
+.ap-how__node,
+.ap-feat__node { border-color: var(--soft-border); box-shadow: 0 0 0 6px var(--sec-bg, #fff), var(--soft-shadow); }
+.ap-how__step.is-on .ap-how__node,
+.ap-feat__row.is-on .ap-feat__node { border-color: var(--navy); }
+
+/* Kartu langkah aktif: cincin navy tipis yang transparan + bayangan sedikit lebih tinggi. */
+.ap-how__step.is-on .ap-how__card { border-color: rgba(8, 60, 87, .22); box-shadow: 0 0 0 3px rgba(8, 60, 87, .06), var(--soft-shadow-up); }
+
+/* Hover kartu yang bisa disorot: sedikit lebih terangkat. */
+.ap-quote,
+.ap-timeline__item,
+.ap-plan:not(.is-featured),
+.ap-flowmap__item:not(.is-mdundig) { transition: box-shadow .4s ease, border-color .4s ease; }
+.ap-quote:hover,
+.ap-timeline__item:hover,
+.ap-plan:not(.is-featured):hover,
+.ap-flowmap__item:not(.is-mdundig):hover { box-shadow: var(--soft-shadow-up); }
+
+/* MDUNDIG (latar navy): kartu putih cukup dengan bayangan gelap yang lembut. */
+.ap-dash3d .ap-flowmap__item:not(.is-mdundig) { border-color: transparent; box-shadow: 0 18px 40px -22px rgba(0, 0, 0, .55); }
+
+/* FAQ: dari daftar bergaris menjadi kartu lembut. */
+.ap-faq__item {
+	margin-bottom: 12px;
+	padding: 0 22px;
+	border-bottom: 0;
+	border: 1px solid var(--soft-border);
+	border-radius: 18px;
+	background: #fff;
+	box-shadow: var(--soft-shadow);
+	transition: box-shadow .4s ease;
+}
+.ap-faq__item[open] { box-shadow: var(--soft-shadow-up); }
+.ap-faq__item summary { padding: 20px 0; }
+.ap-faq__body p { padding: 0 50px 22px 0; }
+.ap-faq__icon { border-color: var(--inner-border); }
+
+/* ---------- Elemen kecil di dalam mockup ---------- */
+.ap-dock__item,
+.ap-gift,
+.ap-screen__input,
+.ap-screen__stepper,
+.ap-dock__pills span,
+.ap-epanel__tile,
+.ap-epanel__search,
+.ap-ed__ghostbtn,
+.ap-orb3__ico-in,
+.ap-wish__msg,
+.ap-gtag__url,
+.ap-rsvp3__form,
+.ap-lic__shield,
+.ap-lic__ver,
+.hw-wp__row,
+.hw-wp__lic,
+.hw-wp__new,
+.hw-guest,
+.hw-ed__panel,
+.hw-ed__page,
+.hw-ed__tile,
+.hw-ed__sw,
+.hw-ed__placed b,
+.wd-input,
+.wd-pill,
+.wd-qty,
+.wd-cd > div,
+.wd-player,
+.wd-cmt,
+.wd-gift,
+.wd-guest,
+.wd-plan,
+.wd-stk,
+.wd-url,
+.wd-pop,
+.wd-wishform,
+.wd-tl__item > div,
+.wd-steps span {
+	border-color: var(--inner-border);
+	box-shadow: var(--inner-shadow);
+}
+/* Elemen yang aktif/terpilih tetap memakai warna navy agar statusnya jelas. */
+.ap-epanel__tile:hover,
+.ap-epanel__tile.is-active,
+.hw-ed__tile.is-grab,
+.wd-pill.is-on,
+.wd-plan.is-on,
+.wd-stk.is-on,
+.wd-steps span.is-on,
+.wd-input.is-typing,
+.wd-input--on { border-color: var(--navy); }
+.ap-orb3__ico.is-hot .ap-orb3__ico-in { border-color: var(--navy); }
+/* Kerangka abu-abu di demo Aktivitas cukup tanpa bayangan. */
+.wd-skel i { border-color: var(--inner-border); box-shadow: none; }
