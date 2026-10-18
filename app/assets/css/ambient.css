@@ -61,7 +61,7 @@ body.ap-landing { background: var(--tone-white); }
 .ap-dash3d .ap-title { color: #fff; }
 .ap-dash3d .ap-lead { color: rgba(255, 255, 255, .72); }
 .ap-dash3d .ap-flowmap__item { border-color: rgba(255, 255, 255, .1); }
-.ap-dash3d .ap-flowmap__item.is-mdundig { background: #0d5478; border-color: var(--sand); }
+.ap-dash3d .ap-flowmap__item.is-mdundig { background: #0d5478; border-color: var(--white); }
 .ap-dash3d .ap-dash3d__float { border-color: rgba(255, 255, 255, .14); }
 
 /* ---------- Ikon widget dekoratif di tepi section ---------- */
