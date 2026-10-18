@@ -1,9 +1,32 @@
 /* ==========================================================================
-   Latar bersih: semua section terang putih; section gelap (hero, CTA, footer) tetap navy.
-   Ikon dekoratif tipis (DecoIcons) memberi aksen tanpa mengganggu konten.
+   Ritme warna section, diturunkan dari palet brand (navy #083C57 + emas ornamen sampul):
+   - putih      : section teks
+   - gading     : warna kertas undangan, untuk section bercerita
+   - kabut      : navy sangat muda, untuk section yang menampilkan antarmuka
+   - navy gelap : jeda kuat di tengah halaman (MDUNDIG), selaras hero & CTA
    ========================================================================== */
-body.ap-landing { background: #fff; }
+:root {
+	--tone-white: #ffffff;
+	--tone-ivory: #faf6ef;
+	--tone-mist: #eef4f7;
+	--tone-navy: #062f46;
+	--ivory-line: #efe6d6;
+	--mist-line: #dde8ee;
+}
+body.ap-landing { background: var(--tone-white); }
 
+/* Warna latar tiap section (--sec-bg juga dipakai elemen yang perlu "menyatu" dengan latar). */
+.ap-story { --sec-bg: var(--tone-white); }
+.ap-journey { --sec-bg: var(--tone-ivory); }
+.ap-wlib { --sec-bg: var(--tone-mist); }
+.ap-dash3d { --sec-bg: var(--tone-navy); }
+.ap-feat { --sec-bg: var(--tone-ivory); }
+.ap-audience { --sec-bg: var(--tone-white); }
+.ap-steps { --sec-bg: var(--tone-mist); }
+.ap-updates { --sec-bg: var(--tone-white); }
+.ap-testi { --sec-bg: var(--tone-ivory); }
+.ap-pricing { --sec-bg: var(--tone-white); }
+.ap-faq { --sec-bg: var(--tone-mist); }
 .ap-story,
 .ap-journey,
 .ap-wlib,
@@ -14,18 +37,32 @@ body.ap-landing { background: #fff; }
 .ap-updates,
 .ap-testi,
 .ap-pricing,
-.ap-faq { background: #fff; }
+.ap-faq { background: var(--sec-bg); }
 
-/* Garis pemisah tipis antar section putih agar ritmenya tetap terasa. */
-.ap-wlib,
-.ap-dash3d,
-.ap-feat,
-.ap-steps,
-.ap-testi,
-.ap-faq { border-top: 1px solid #eef2f5; }
+/* Angka langkah punya cincin penutup garis: samakan dengan latar section. */
+.ap-step__num { box-shadow: 0 0 0 8px var(--sec-bg, #fff); }
 
-/* Kanvas editor & panel di atas putih: beri sedikit kontras. */
-.ap-wlib__canvas { background: radial-gradient(circle, rgba(8, 60, 87, .08) 1px, transparent 1.2px) 0 0 / 18px 18px, #f7f9fb; }
+/* Kanvas editor tetap sedikit lebih gelap dari bingkainya. */
+.ap-wlib__canvas { background: radial-gradient(circle, rgba(8, 60, 87, .08) 1px, transparent 1.2px) 0 0 / 18px 18px, #f6f9fb; }
+
+/* Garis tepi kartu di latar gading sedikit lebih hangat. */
+.ap-journey .ap-editor,
+.ap-testi .ap-quote { border-color: var(--ivory-line); }
+.ap-feat .ap-feat__rail { background: var(--ivory-line); }
+.ap-feat .ap-feat__node { border-color: var(--ivory-line); }
+
+/* ---------- MDUNDIG: section navy gelap ---------- */
+.ap-dash3d {
+	background:
+		radial-gradient(80% 60% at 50% 0%, #0b4566 0%, transparent 70%),
+		linear-gradient(180deg, #073650 0%, var(--tone-navy) 60%, #052a3f 100%);
+	color: #fff;
+}
+.ap-dash3d .ap-title { color: #fff; }
+.ap-dash3d .ap-lead { color: rgba(255, 255, 255, .72); }
+.ap-dash3d .ap-flowmap__item { border-color: rgba(255, 255, 255, .1); }
+.ap-dash3d .ap-flowmap__item.is-mdundig { background: #0d5478; border-color: var(--sand); }
+.ap-dash3d .ap-dash3d__float { border-color: rgba(255, 255, 255, .14); }
 
 /* ---------- Ikon widget dekoratif di tepi section ---------- */
 .ap-deco { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
@@ -39,11 +76,14 @@ body.ap-landing { background: #fff; }
 	height: var(--size);
 	margin: calc(var(--size) / -2) 0 0 calc(var(--size) / -2);
 	border-radius: calc(var(--size) * .3);
-	border: 1px solid #e6edf2;
+	border: 1px solid var(--mist-line);
 	background: #fff;
 	color: var(--navy);
 }
 .ap-deco__ico svg { width: 44%; height: 44%; opacity: .55; }
+.ap-feat .ap-deco__ico,
+.ap-testi .ap-deco__ico { border-color: var(--ivory-line); color: #9a7339; }
+.ap-dash3d .ap-deco__ico { background: rgba(255, 255, 255, .05); border-color: rgba(255, 255, 255, .12); color: #e9cf96; }
 @media (max-width: 1100px) {
 	.ap-deco { display: none; }
 }
