@@ -1,8 +1,9 @@
-# Apeiron — Landing Page
+# ApeironKit — Landing Page
 
-Landing page resmi ApeironKit (widget undangan digital untuk Elementor), dibuat dengan
-Nuxt 4, Tailwind CSS v4, dan GSAP. Versi ringan dari landing page di tema WordPress
-ApeironTheme, siap di-deploy ke Vercel.
+Landing page ApeironKit (plugin Elementor untuk undangan digital) versi Nuxt, siap
+di-deploy ke Vercel. Ini port langsung dari landing page tema WordPress **ApeironTheme**:
+markup, CSS (`app/assets/css/landing.css`), dan animasi GSAP (`app/assets/js/landing.js`)
+sama persis, hanya tanpa WordPress sehingga jauh lebih ringan.
 
 ## Menjalankan di lokal
 
@@ -17,27 +18,28 @@ Buka `http://localhost:3000`.
 
 ```bash
 npm run build
-node .output/server/index.mjs
+npm run preview
 ```
+
+Halaman `/` dirender jadi HTML statis saat build, lalu animasi GSAP dijalankan di browser.
 
 ## Deploy ke Vercel
 
 1. Di Vercel, pilih **Add New → Project** lalu impor repo ini.
-2. Framework terdeteksi otomatis sebagai **Nuxt**. Biarkan pengaturan bawaan
-   (build command `nuxt build`, output `.output`).
+2. Framework terdeteksi otomatis sebagai **Nuxt**. Biarkan pengaturan bawaan.
 3. Klik **Deploy**. Setiap push ke `main` akan ter-deploy ulang otomatis.
 
 ## Mengubah isi
 
-- Teks, menu, FAQ, dan langkah: `app/data/content.ts`
-- Nomor WhatsApp dan link: `app/data/site.ts`
-- Daftar widget: `app/data/widgets.ts`
-- Testimoni dan harga: `app/data/testimonials.ts`, `app/data/pricing.ts`.
-  Selama array-nya kosong, section tersebut tidak ditampilkan, jadi isi hanya dengan
-  data asli.
+Semua teks, link, nomor WhatsApp, changelog, testimoni, harga, dan FAQ ada di
+`app/data/content.ts`. Item bertanda `[GANTI]` masih contoh:
 
-## Pengujian
+- `links.buy` (link checkout), `links.live` (contoh undangan), `links.docs` (dokumentasi)
+- `testimonials` dan `pricing` masih placeholder, ganti dengan data asli sebelum dipublikasikan.
 
-```bash
-npm run test:e2e
-```
+## Struktur
+
+- `app/pages/index.vue`: susunan section dan pemanggilan animasi
+- `app/components/Landing*.vue`: satu file per section (hero, journey, dashboard, dst.)
+- `app/data/icons.ts`: ikon garis yang sama dengan tema WordPress
+- `public/img`: tekstur kertas dan stiker

@@ -1,4 +1,4 @@
-# Nuxt dev/build outputs
+# Nuxt
 .output
 .data
 .nuxt
@@ -6,27 +6,19 @@
 .cache
 dist
 
-# Node dependencies
+# Dependencies
 node_modules
 
 # Logs
-logs
 *.log
 
 # Misc
 .DS_Store
-.fleet
 .idea
+.vscode
+.claude
 
-# Local env files
+# Env
 .env
 .env.*
 !.env.example
-
-# Playwright
-/test-results
-/playwright-report
-/tests/screenshots
-
-# Pengaturan lokal Claude Code
-/.claude
