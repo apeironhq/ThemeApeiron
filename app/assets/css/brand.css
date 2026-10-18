@@ -125,3 +125,7 @@
 /* Label alur RSVP (kartu bento D) sedikit diturunkan agar tidak bertumpuk dengan "Isi RSVP". */
 .ap-flow__n3 { top: 57%; }
 
+
+/* Journey: panel "Edit Widget" dipusatkan vertikal terhadap HP (610px).
+   Memakai top/bottom + margin auto, bukan transform, karena GSAP menganimasikan transform panel ini. */
+.ap-journey__fit .ap-editor { top: 0; bottom: 10px; height: fit-content; margin: auto 0; }
