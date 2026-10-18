@@ -39,8 +39,9 @@ export function initScrollFx() {
 			gsap.fromTo(ico,
 				{ y: 150 * speed, rotation: -rot, scale: 0.85 },
 				{ y: -150 * speed, rotation: rot, scale: 1, ease: 'none', scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: 1 } });
-			// Ikon di dalamnya sedikit "bernapas" agar terasa hidup saat terlihat.
-			gsap.to(ico.querySelector('svg'), { scale: 1.12, duration: 2.2 + (i % 3) * 0.5, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+			// Ikon di dalamnya sedikit "bernapas", hanya saat section-nya terlihat.
+			const breathe = gsap.to(ico.querySelector('svg'), { scale: 1.12, duration: 2.2 + (i % 3) * 0.5, yoyo: true, repeat: -1, ease: 'sine.inOut', paused: true });
+			ScrollTrigger.create({ trigger: section, start: 'top bottom', end: 'bottom top', onToggle: (self) => (self.isActive ? breathe.resume() : breathe.pause()) });
 		});
 	});
 
@@ -61,6 +62,7 @@ export function initScrollFx() {
 			.from(q('[data-orn-spark]'), { scale: 0, rotation: -90, transformOrigin: '50% 50%', duration: 0.5, ease: 'back.out(3)' }, 1.3);
 		ScrollTrigger.create({ trigger: rings, start: 'top 85%', once: true, onEnter: () => tl.play() });
 		// Kilau berkedip pelan setelah ornamen tergambar.
-		gsap.to(q('[data-orn-spark]'), { scale: 0.55, opacity: 0.4, transformOrigin: '50% 50%', duration: 1.4, yoyo: true, repeat: -1, ease: 'sine.inOut', delay: 2.4 });
+		const twinkle = gsap.to(q('[data-orn-spark]'), { scale: 0.55, opacity: 0.4, transformOrigin: '50% 50%', duration: 1.4, yoyo: true, repeat: -1, ease: 'sine.inOut', delay: 2.4, paused: true });
+		ScrollTrigger.create({ trigger: rings, start: 'top bottom', end: 'bottom top', onToggle: (self) => (self.isActive ? twinkle.resume() : twinkle.pause()) });
 	}
 }

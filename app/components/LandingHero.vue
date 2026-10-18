@@ -26,7 +26,7 @@ const sealVars = {
     <div class="ap-container ap-hero__inner">
       <div class="ap-hero__copy">
         <h1 class="ap-hero__title" data-split-hero>{{ h.title }}</h1>
-        <p class="ap-hero__lead" data-hero-fade>{{ h.lead }}</p>
+        <p class="ap-hero__lead">{{ h.lead }}</p>
         <div class="ap-hero__actions" data-hero-fade>
           <a class="ap-btn ap-btn--light" :href="c.links.buy" data-magnetic>Beli Sekarang <ApIcon name="arrow" /></a>
           <a class="ap-btn ap-btn--outline-light" :href="c.links.demo" target="_blank" rel="noopener" data-cursor="Chat"><ApIcon name="chat" /> Minta Demo</a>
@@ -36,7 +36,7 @@ const sealVars = {
 
       <div class="ap-hero__stage" data-tilt-stage>
         <div class="ap-gate-wrap" data-tilt-target>
-          <div class="ap-gate" data-gate style="--paper: url('/img/bg.jpg')">
+          <div class="ap-gate" data-gate style="--paper: url('/img/bg.webp')">
             <!-- Isi undangan (terlihat setelah pintu terbuka) -->
             <div class="ap-gate__inside" data-gate-inside>
               <p class="ap-gate__kicker">The Wedding of</p>

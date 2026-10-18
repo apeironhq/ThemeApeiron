@@ -3,7 +3,10 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: false },
 
-  css: ['~/assets/css/landing.css', '~/assets/css/brand.css', '~/assets/css/features.css', '~/assets/css/demos.css', '~/assets/css/editor.css', '~/assets/css/ambient.css', '~/assets/css/howto.css', '~/assets/css/cards.css'],
+  // Font Ubuntu di-host sendiri (public/fonts, subset Latin), tidak menahan render seperti Google Fonts.
+  css: [
+    '~/assets/css/fonts.css',
+    '~/assets/css/landing.css', '~/assets/css/brand.css', '~/assets/css/features.css', '~/assets/css/demos.css', '~/assets/css/editor.css', '~/assets/css/ambient.css', '~/assets/css/howto.css', '~/assets/css/cards.css', '~/assets/css/perf.css'],
 
   // Pertahankan spasi antar-elemen seperti output PHP, agar tata letak teks identik.
   vue: { compilerOptions: { whitespace: 'preserve' } },
@@ -33,12 +36,8 @@ export default defineNuxtConfig({
         { property: 'og:type', content: 'website' }
       ],
       link: [
-        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
-        {
-          rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,400;1,500&display=swap'
-        }
+        { rel: 'preload', as: 'font', type: 'font/woff2', href: '/fonts/ubuntu-latin-400-normal.woff2', crossorigin: '' },
+        { rel: 'preload', as: 'font', type: 'font/woff2', href: '/fonts/ubuntu-latin-500-normal.woff2', crossorigin: '' }
       ],
       script: [
         {

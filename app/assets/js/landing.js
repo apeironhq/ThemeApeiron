@@ -256,10 +256,9 @@ export function initLanding() {
 				{ autoAlpha: 0, scale: 0.6, y: 20 },
 				{ autoAlpha: 1, scale: 1, y: 0, stagger: 0.12, ease: 'back.out(1.8)', duration: 0.8 }, 1.3);
 
-		// Chip melayang pelan.
-		$$('[data-chip]').forEach((chip, i) => {
-			gsap.to(chip, { y: i % 2 ? 10 : -10, duration: 2.6 + i * 0.4, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 2 });
-		});
+		// Chip melayang pelan (dijeda saat hero tidak terlihat agar tidak membebani).
+		const floats = $$('[data-chip]').map((chip, i) => gsap.to(chip, { y: i % 2 ? 10 : -10, duration: 2.6 + i * 0.4, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 2 }));
+		pauseOffscreen('.ap-hero', floats);
 
 		// Saat hero digulir keluar, kartu sampul mendekat ke arah pembaca lalu memudar.
 		gsap.to('.ap-hero__stage', {
@@ -344,18 +343,32 @@ export function initLanding() {
 		if (!track) return;
 		const loop = gsap.to(track, { xPercent: -50, duration: 38, ease: 'none', repeat: -1 });
 		boostWithScroll([loop]);
+		pauseOffscreen('.ap-hero', [loop]);
+	}
+
+	// Jeda tween berulang saat bagiannya keluar layar, lanjutkan saat terlihat lagi.
+	function pauseOffscreen(trigger, tweens) {
+		ScrollTrigger.create({
+			trigger,
+			start: 'top bottom',
+			end: 'bottom top',
+			onToggle: (self) => tweens.forEach((t) => (self.isActive ? t.resume() : t.pause())),
+		});
 	}
 
 	function boostWithScroll(tweens) {
+		// Satu proxy kecepatan dipakai bersama; arah tiap loop dipertahankan.
+		const dirs = tweens.map((t) => Math.sign(t.timeScale() || 1));
+		const speed = { v: 1 };
+		const apply = () => tweens.forEach((t, i) => t.timeScale(speed.v * dirs[i]));
+		const settle = () => gsap.to(speed, { v: 1, duration: 1.2, ease: 'power2.out', overwrite: true, onUpdate: apply });
 		ScrollTrigger.create({
 			start: 0,
 			end: 'max',
 			onUpdate(self) {
 				const boost = gsap.utils.clamp(1, 5, 1 + Math.abs(self.getVelocity()) / 400);
-				tweens.forEach((t) => {
-					gsap.to(t, { timeScale: boost * Math.sign(t.timeScale() || 1), duration: 0.2, overwrite: true });
-					gsap.to(t, { timeScale: Math.sign(t.timeScale() || 1), duration: 1.2, delay: 0.25, ease: 'power2.out' });
-				});
+				if (boost <= speed.v + 0.05) return;
+				gsap.to(speed, { v: boost, duration: 0.2, overwrite: true, onUpdate: apply, onComplete: settle });
 			},
 		});
 	}
@@ -881,7 +894,10 @@ export function initLanding() {
 			row.addEventListener('mouseenter', () => gsap.to(loop, { timeScale: 0.15, duration: 0.6, overwrite: true }));
 			row.addEventListener('mouseleave', () => gsap.to(loop, { timeScale: 1, duration: 0.8, overwrite: true }));
 		});
-		if (loops.length) boostWithScroll(loops);
+		if (loops.length) {
+			boostWithScroll(loops);
+			pauseOffscreen('.ap-testi', loops);
+		}
 	}
 
 

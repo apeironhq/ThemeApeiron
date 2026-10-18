@@ -55,6 +55,7 @@ const svgAttrs = { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', '
             </div>
 
             <div class="ap-wlib__infos">
+              <div class="ap-wlib__progress" aria-hidden="true"><i data-wlib-progress></i></div>
               <article v-for="(w, i) in widgets" :key="w.key" class="ap-wlib__info" :class="{ 'is-active': i === 0 }" data-wlib-info :data-key="w.key">
                 <span class="ap-wlib__chip" data-wlib-icon :data-key="w.key"><svg v-bind="svgAttrs" v-html="w.icon" /></span>
                 <div>
@@ -67,7 +68,6 @@ const svgAttrs = { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', '
           </div>
         </div>
 
-        <div class="ap-wlib__progress" aria-hidden="true"><i data-wlib-progress></i></div>
 
         <!-- Kursor tur & tile yang sedang diseret -->
         <span class="ap-wlib__ghost" data-wlib-ghost aria-hidden="true"></span>

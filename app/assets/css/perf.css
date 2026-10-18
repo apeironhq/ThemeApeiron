@@ -1,0 +1,55 @@
+/* ==========================================================================
+   Performa: animasi hanya memakai transform/opacity (dikerjakan GPU) dan
+   efek mahal (blur besar, backdrop-filter) dibatasi agar scroll tetap mulus.
+   Dimuat paling akhir.
+   ========================================================================== */
+
+/* Titik berjalan di peta alur data: transform, bukan "left" (tidak memicu layout tiap frame). */
+.ap-flowmap__wire i {
+	top: -3px;
+	left: 0;
+	width: 100%;
+	height: 8px;
+	border-radius: 0;
+	background: none;
+	animation: ap-flow-run 2.4s cubic-bezier(.5, 0, .3, 1) infinite;
+}
+.ap-flowmap__wire i::before { content: ""; position: absolute; left: 0; top: 0; width: 8px; height: 8px; border-radius: 50%; background: var(--navy); }
+.ap-flowmap__item.is-mdundig .ap-flowmap__wire i { background: none; }
+.ap-flowmap__item.is-mdundig .ap-flowmap__wire i::before { background: var(--sand); }
+@keyframes ap-flow-run {
+	0% { transform: translateX(0); opacity: 0; }
+	15%, 85% { opacity: 1; }
+	100% { transform: translateX(calc(100% - 8px)); opacity: 0; }
+}
+
+/* Denyut segel sampul: cincin yang membesar (transform + opacity), bukan box-shadow. */
+.ap-gate__seal-glow { box-shadow: none; border: 2px solid rgba(233, 207, 150, .6); animation: ap-seal-ring 2.6s cubic-bezier(.2, .7, .2, 1) infinite; }
+@keyframes ap-seal-ring {
+	0% { transform: scale(.92); opacity: .9; }
+	70%, 100% { transform: scale(1.35); opacity: 0; }
+}
+
+/* Blur besar diganti gradien lembut yang sudah transparan di tepinya. */
+.ap-orb { filter: none; opacity: .4; }
+.ap-gate__shadow { filter: none; background: radial-gradient(closest-side, rgba(0, 0, 0, .32), transparent); }
+
+/* Navbar: blur latar hanya di perangkat dengan mouse; di HP/tablet pakai latar hampir solid. */
+@media (hover: none), (max-width: 1024px) {
+	.ap-nav.is-solid .ap-nav__inner { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(255, 255, 255, .97); }
+}
+
+/* Paragraf pembuka hero = elemen terbesar di layar awal (LCP). Animasinya CSS murni agar
+   tampil sejak render pertama, tidak menunggu JS; hanya bergerak naik (tanpa pudar) agar langsung terhitung tampil. */
+.ap-hero__lead { animation: ap-lead-in .9s cubic-bezier(.2, .8, .2, 1) .35s both; }
+@keyframes ap-lead-in {
+	from { transform: translateY(22px); }
+	to { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.ap-hero__lead { animation: none; }
+	.ap-flowmap__wire i,
+	.ap-gate__seal-glow { animation: none; }
+	.ap-flowmap__wire i { transform: translateX(calc(100% - 8px)); }
+}

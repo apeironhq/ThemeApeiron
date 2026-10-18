@@ -3,7 +3,7 @@ import { content as c } from '~/data/content'
 
 const steps = c.journey
 const h = c.hero
-const paper = "--paper: url('/img/bg.jpg')"
+const paper = "--paper: url('/img/bg.webp')"
 const pad = (n: number) => String(n).padStart(2, '0')
 </script>
 

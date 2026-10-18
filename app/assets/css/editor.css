@@ -163,7 +163,7 @@
 .ap-wlib__canvas.is-drop .ap-wlib__drop { opacity: 1; }
 
 /* Keterangan widget aktif */
-.ap-wlib__infos { display: grid; padding: 16px 24px 22px; border-top: 1px solid var(--line); background: var(--white); }
+.ap-wlib__infos { display: grid; padding: 19px 24px 20px; border-top: 1px solid var(--line); background: var(--white); }
 .ap-wlib__info { grid-area: 1 / 1; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 14px; align-items: start; visibility: hidden; }
 .ap-wlib__info.is-active { visibility: visible; }
 .ap-wlib__chip { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: var(--navy-50); color: var(--navy); }
@@ -218,6 +218,17 @@
 	.ap-epanel__label { font-size: 11.5px; }
 	.ap-wlib__canvas { min-height: 0; padding: 40px 12px 22px; }
 	.ap-wlib__slot { height: 390px; }
-	.ap-wlib__infos { padding: 14px 16px 20px; }
+	.ap-wlib__infos { padding: 16px 16px 17px; }
 	.ap-wlib__info p { font-size: 14.5px; }
+}
+
+/* Bilah progres tur menempel di garis atas keterangan (tidak terpotong sudut kartu). */
+.ap-wlib__infos { position: relative; }
+.ap-wlib__progress { top: -1px; bottom: auto; height: 2px; background: transparent; }
+
+/* Layar kecil: keterangan hanya setinggi widget yang tampil, tanpa celah kosong. */
+@media (max-width: 980px) {
+	.ap-wlib__infos { display: block; }
+	.ap-wlib__info { display: none; }
+	.ap-wlib__info.is-active { display: grid; }
 }
