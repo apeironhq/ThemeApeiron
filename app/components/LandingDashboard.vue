@@ -21,6 +21,18 @@ const kpis = [
         <h2 class="ap-title" data-split>{{ d.title }}</h2>
         <p class="ap-lead" data-reveal>{{ d.lead }}</p>
       </header>
+
+      <!-- Ke mana data tiap widget pergi: hanya Daftar Hadiah & Form Order yang masuk MDUNDIG. -->
+      <div class="ap-flowmap" aria-label="Alur data widget">
+        <div v-for="f in d.flow" :key="f.widget" class="ap-flowmap__item" :class="{ 'is-mdundig': f.mdundig }" data-reveal>
+          <div class="ap-flowmap__from">
+            <span class="ap-ico-chip"><ApIcon :name="f.icon" /></span>
+            <span><b>{{ f.widget }}</b><small>{{ f.what }}</small></span>
+          </div>
+          <span class="ap-flowmap__wire" aria-hidden="true"><i></i></span>
+          <div class="ap-flowmap__to"><ApIcon :name="f.toIcon" />{{ f.to }}</div>
+        </div>
+      </div>
     </div>
 
     <div class="ap-dash3d__scene">
@@ -40,6 +52,7 @@ const kpis = [
           <p class="ap-md__label">Pengaturan</p>
           <nav>
             <span><ApIcon name="globe" />Website</span>
+            <span><ApIcon name="plug" />Koneksi</span>
             <span><ApIcon name="chat" />Pesan WhatsApp</span>
           </nav>
         </aside>

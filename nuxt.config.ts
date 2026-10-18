@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: false },
 
-  css: ['~/assets/css/landing.css'],
+  css: ['~/assets/css/landing.css', '~/assets/css/brand.css'],
 
   // Pertahankan spasi antar-elemen seperti output PHP, agar tata letak teks identik.
   vue: { compilerOptions: { whitespace: 'preserve' } },
@@ -14,6 +14,9 @@ export default defineNuxtConfig({
   },
 
   app: {
+    // Folder aset unik per build: ada chunk yang isinya berubah tanpa ganti nama,
+    // sehingga cache browser bisa menyajikan CSS lama setelah deploy baru.
+    buildAssetsDir: `/_nuxt/${Date.now().toString(36)}/`,
     head: {
       htmlAttrs: { lang: 'id' },
       bodyAttrs: { class: 'ap-landing' },
@@ -24,7 +27,7 @@ export default defineNuxtConfig({
         { name: 'theme-color', content: '#083C57' },
         {
           name: 'description',
-          content: 'ApeironKit memberi jasa undangan dan agency WordPress 13 widget Elementor siap pakai: sampul pembuka, RSVP, musik, buku tamu, dan daftar hadiah.'
+          content: 'ApeironKit memberi jasa undangan dan agency WordPress 13 widget Elementor siap pakai: sampul pembuka, RSVP ke WhatsApp, musik, ucapan tamu, dan daftar hadiah yang terhubung ke dashboard MDUNDIG.'
         },
         { property: 'og:title', content: 'ApeironKit · Plugin Elementor untuk Undangan Digital' },
         { property: 'og:type', content: 'website' }

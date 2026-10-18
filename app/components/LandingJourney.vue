@@ -17,6 +17,7 @@ const pad = (n: number) => String(n).padStart(2, '0')
               <span class="ap-journey__num">{{ pad(i + 1) }}<i class="ap-sep" aria-hidden="true"></i>{{ s.label }}</span>
               <h2>{{ s.title }}</h2>
               <p>{{ s.text }}</p>
+              <span v-if="s.dest" class="ap-journey__dest"><span class="ap-journey__dest-ico"><ApIcon :name="s.dest.icon" /></span>{{ s.dest.text }}</span>
             </article>
           </div>
           <ol class="ap-journey__dots" aria-hidden="true">
@@ -42,7 +43,7 @@ const pad = (n: number) => String(n).padStart(2, '0')
           <div class="ap-phone" aria-hidden="true">
             <div class="ap-phone__notch"></div>
             <div class="ap-phone__screen">
-              <!-- 1. Cover Classic -->
+              <!-- 1. Sampul (Cover Classic) -->
               <div class="ap-screen ap-screen--cover is-active" data-journey-screen :style="paper">
                 <span class="ap-mini-gate__fold"></span>
                 <span class="ap-mini-gate__ribbon"></span>
@@ -60,7 +61,7 @@ const pad = (n: number) => String(n).padStart(2, '0')
                 <p class="ap-screen__small">{{ h.date }}<br>Gedung Sasana, Bandung</p>
               </div>
 
-              <!-- 3. Soundscape -->
+              <!-- 3. Tombol Audio -->
               <div class="ap-screen ap-screen--music" data-journey-screen>
                 <div class="ap-screen__disc"><span></span></div>
                 <p class="ap-screen__song">Akad · Instrumental</p>
@@ -68,7 +69,7 @@ const pad = (n: number) => String(n).padStart(2, '0')
                 <div class="ap-screen__player"><span>1:24</span><b><ApIcon name="play" /></b><span>3:40</span></div>
               </div>
 
-              <!-- 4. Signal Form (RSVP via WhatsApp) -->
+              <!-- 4. Form WhatsApp (RSVP) -->
               <div class="ap-screen ap-screen--rsvp" data-journey-screen>
                 <p class="ap-screen__title">Konfirmasi Kehadiran</p>
                 <label class="ap-screen__label">Nama Tamu</label>
@@ -81,7 +82,7 @@ const pad = (n: number) => String(n).padStart(2, '0')
                 <span class="ap-screen__toast ap-screen__toast--wa"><ApIcon name="check" /> WhatsApp terbuka</span>
               </div>
 
-              <!-- 5. Comment Dock (ucapan + stiker) -->
+              <!-- 5. Ucapan Tamu (ucapan + stiker) -->
               <div class="ap-screen ap-screen--comment" data-journey-screen>
                 <div class="ap-dock__head"><b>Ucapan &amp; Doa</b><span>248 ucapan</span></div>
                 <div class="ap-dock__pills"><span class="is-hadir"><i></i>Hadir 182</span><span class="is-absen"><i></i>Berhalangan 41</span></div>
@@ -114,7 +115,7 @@ const pad = (n: number) => String(n).padStart(2, '0')
                   <span class="ap-gift__img ap-gift__img--c"><ApIcon name="sparkle" /></span>
                   <div><span class="ap-gift__badge"><ApIcon name="gift" /> Tersedia <b>1 dari 1</b></span><p>Blender</p><span class="ap-gift__btn">Pilih Hadiah</span></div>
                 </div>
-                <span class="ap-screen__toast"><ApIcon name="check" /> Hadiah dipesan · tercatat di dashboard</span>
+                <span class="ap-screen__toast"><ApIcon name="check" /> Hadiah dipesan · tercatat di MDUNDIG</span>
               </div>
             </div>
           </div>

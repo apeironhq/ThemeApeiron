@@ -29,7 +29,7 @@ export const content = {
 
   hero: {
     title: 'Undangan digital yang dikenang, dibuat dalam hitungan menit.',
-    lead: 'ApeironKit memberi jasa undangan dan agency WordPress 13 widget siap pakai, dari sampul pembuka, RSVP, musik, sampai buku tamu. Semua diatur langsung dari Elementor, tanpa satu baris kode.',
+    lead: 'ApeironKit memberi jasa undangan dan agency WordPress 13 widget siap pakai, dari sampul pembuka, RSVP ke WhatsApp, musik, sampai ucapan tamu dengan stiker. Semua diatur langsung dari Elementor, tanpa satu baris kode.',
     couple: 'Raka & Nadia',
     initials: 'R & N',
     date: 'Sabtu, 12 Desember 2026',
@@ -37,9 +37,10 @@ export const content = {
   },
 
   marquee: [
-    'Sampul Pembuka', 'Hitung Mundur', 'Cerita Cinta', 'RSVP', 'Buku Tamu',
-    'Musik Latar', 'Amplop Digital', 'Daftar Hadiah', 'Manajemen Tamu',
-    'Auto Scroll', 'Social Proof', 'Page Loader', 'Form Order',
+    // Nama sesuai judul widget di panel Elementor.
+    'Sampul', 'Hitung Mundur', 'Tombol Audio', 'Form WhatsApp', 'Ucapan Tamu',
+    'Daftar Hadiah', 'Manajemen Tamu', 'Tombol Salin', 'Cerita Cinta',
+    'Form Order', 'Aktivitas', 'Gulir Otomatis', 'Pemuat Halaman',
   ],
 
   story: [
@@ -54,7 +55,7 @@ export const content = {
       key: 'cover',
       label: 'Sampul',
       title: 'Kesan pertama yang membuat tamu berhenti menggulir.',
-      text: 'Cover Classic: kertas lipat, pita, segel medali, dan label nama tamu yang terbuka seperti undangan sungguhan.',
+      text: 'Widget Sampul: kertas lipat, pita, segel medali, dan label nama tamu yang terbuka seperti undangan sungguhan.',
       control: 'Gaya Sampul',
       value: 'Classic · Pita & Segel',
     },
@@ -62,47 +63,56 @@ export const content = {
       key: 'countdown',
       label: 'Hitung Mundur',
       title: 'Setiap detik menuju hari bahagia, terasa hidup.',
-      text: 'Countdown real-time dengan tipografi dan tata letak yang bisa diatur penuh.',
+      text: 'Widget Hitung Mundur menampilkan hari, jam, menit, dan detik secara real-time dengan tata letak yang bisa diatur penuh.',
       control: 'Tanggal Acara',
       value: '12 Des 2026 · 09.00',
     },
     {
       key: 'music',
-      label: 'Musik',
+      label: 'Tombol Audio',
       title: 'Suasana yang terdengar, bukan hanya terlihat.',
-      text: 'Soundscape Player memutar lagu pilihan dengan kontrol yang elegan dan ringan.',
+      text: 'Tombol Audio memutar lagu latar pilihan dengan kontrol putar dan jeda yang elegan dan ringan.',
       control: 'Lagu',
       value: 'Akad · Instrumental',
     },
     {
       key: 'rsvp',
-      label: 'RSVP',
-      title: 'Konfirmasi kehadiran langsung ke WhatsApp.',
-      text: 'Signal Form mengirim nama dan jumlah tamu ke WhatsApp mempelai dengan format pesan yang rapi.',
+      label: 'Form WhatsApp',
+      title: 'Konfirmasi kehadiran langsung ke WhatsApp mempelai.',
+      text: 'Form WhatsApp menyusun nama, jumlah tamu, dan ucapan menjadi pesan yang rapi, lalu membukanya di WhatsApp mempelai.',
       control: 'Nomor Tujuan WhatsApp',
       value: '0812 3456 7890',
+      dest: { icon: 'chat', text: 'Masuk ke WhatsApp mempelai' },
     },
     {
       key: 'comment',
-      label: 'Ucapan & Stiker',
+      label: 'Ucapan Tamu',
       title: 'Ucapan yang hidup, lengkap dengan stiker.',
-      text: 'Comment Dock menampilkan doa tamu dengan label kehadiran, stiker lucu, dan balasan mempelai.',
+      text: 'Ucapan Tamu menampilkan doa tamu dengan label kehadiran, stiker, dan balasan mempelai.',
       control: 'Pustaka Stiker',
       value: 'Panda · 18 stiker',
+      dest: { icon: 'layout', text: 'Tersimpan di WordPress Anda' },
     },
     {
       key: 'registry',
       label: 'Daftar Hadiah',
       title: 'Wedding registry tanpa hadiah kembar.',
-      text: 'Tamu memilih hadiah, stok berkurang otomatis, dan semuanya tercatat di dashboard.',
-      control: 'Daftar Hadiah',
-      value: 'Rumah Baru · 12 item',
+      text: 'Tamu memilih hadiah dan stok berkurang otomatis, jadi tidak ada hadiah kembar. Setiap reservasi tercatat di dashboard MDUNDIG.',
+      control: 'Koneksi MDUNDIG',
+      value: 'Terhubung · Token aktif',
+      dest: { icon: 'gift', text: 'Tercatat di dashboard MDUNDIG' },
     },
   ],
 
   dashboard: {
-    title: 'Wedding registry & order, tercatat rapi di satu dashboard.',
-    lead: 'Setiap reservasi Daftar Hadiah dan pesanan dari widget Form Order otomatis masuk ke MDUNDIG, lengkap dengan tren, status, dan akses pelanggan.',
+    title: 'MDUNDIG, dashboard untuk Daftar Hadiah & Form Order.',
+    lead: 'Dua widget ApeironKit terhubung ke MDUNDIG: setiap reservasi Daftar Hadiah dan pesanan Form Order tercatat otomatis, lengkap dengan status, laporan PDF atau CSV, dan akses untuk pelanggan.',
+    // Ke mana data tiap widget pergi. Hanya Daftar Hadiah & Form Order yang masuk MDUNDIG.
+    flow: [
+      { icon: 'chat', widget: 'Form WhatsApp', what: 'Konfirmasi kehadiran', to: 'WhatsApp mempelai', toIcon: 'send' },
+      { icon: 'heart', widget: 'Ucapan Tamu', what: 'Doa, stiker & kehadiran', to: 'WordPress Anda', toIcon: 'layout' },
+      { icon: 'gift', widget: 'Daftar Hadiah & Form Order', what: 'Reservasi hadiah & pesanan', to: 'Dashboard MDUNDIG', toIcon: 'book', mdundig: true },
+    ] as { icon: IconName; widget: string; what: string; to: string; toIcon: IconName; mdundig?: boolean }[],
   },
 
   bento: {
@@ -134,7 +144,7 @@ export const content = {
   steps: [
     { icon: 'plug', title: 'Pasang plugin', text: 'Unggah ApeironKit, aktifkan lisensi, dan widget langsung muncul di Elementor.' },
     { icon: 'palette', title: 'Rancang di Elementor', text: 'Seret widget, atur warna, font, dan konten. Semua terlihat langsung.' },
-    { icon: 'send', title: 'Bagikan ke tamu', text: 'Kirim link personal ke setiap tamu dan pantau RSVP yang masuk.' },
+    { icon: 'send', title: 'Bagikan ke tamu', text: 'Kirim link personal ke setiap tamu. Konfirmasi kehadiran masuk langsung ke WhatsApp mempelai.' },
   ],
 
   stats: [
@@ -147,9 +157,9 @@ export const content = {
   updates: [
     { version: '1.5.5', date: 'Okt 2026', items: [['wrench', 'Kontrol Typography Elementor kini benar-benar mengatur font yang tampil'], ['refresh', 'Nilai bawaan kontrol widget disetel ulang agar lebih rapi']] as IconItem[] },
     { version: '1.5.0', date: 'Sep 2026', items: [['gift', 'Widget Cerita Cinta dan Daftar Hadiah'], ['zap', 'Performa CSS lebih ringan']] as IconItem[] },
-    { version: '1.4.0', date: 'Agu 2026', items: [['users', 'Guest Invitation Manager untuk nama tamu personal'], ['mail', 'Form Order untuk jasa undangan']] as IconItem[] },
-    { version: '1.3.0', date: 'Jul 2026', items: [['music', 'Soundscape Player dengan kontrol yang lebih halus'], ['chat', 'Comment Dock kini mendukung stiker']] as IconItem[] },
-    { version: '1.2.0', date: 'Jun 2026', items: [['layers', 'Cover Classic: pita, segel, dan label tamu'], ['clock', 'Countdown dengan tata letak baru']] as IconItem[] },
+    { version: '1.4.0', date: 'Agu 2026', items: [['users', 'Manajemen Tamu untuk nama tamu personal'], ['mail', 'Form Order untuk jasa undangan']] as IconItem[] },
+    { version: '1.3.0', date: 'Jul 2026', items: [['music', 'Tombol Audio dengan kontrol yang lebih halus'], ['chat', 'Ucapan Tamu kini mendukung stiker']] as IconItem[] },
+    { version: '1.2.0', date: 'Jun 2026', items: [['layers', 'Sampul: pita, segel, dan label tamu'], ['clock', 'Hitung Mundur dengan tata letak baru']] as IconItem[] },
   ],
 
   // [GANTI] testimoni contoh — ganti dengan testimoni asli pelanggan.
@@ -157,7 +167,7 @@ export const content = {
     { quote: 'Dulu satu undangan butuh dua hari. Sekarang pagi pesan, sore sudah dikirim ke klien.', name: 'Nama Pelanggan', role: 'Jasa Undangan · Bandung' },
     { quote: 'Widget sampulnya paling sering bikin klien bilang "wah". Itu yang menjual.', name: 'Nama Pelanggan', role: 'Studio Undangan · Yogyakarta' },
     { quote: 'Tim kami langsung bisa pakai karena semuanya native Elementor.', name: 'Nama Pelanggan', role: 'Agency WordPress · Jakarta' },
-    { quote: 'RSVP dan ucapan masuk rapi, klien bisa pantau sendiri. Revisi jauh berkurang.', name: 'Nama Pelanggan', role: 'Wedding Organizer · Surabaya' },
+    { quote: 'Konfirmasi tamu langsung masuk WhatsApp, ucapan tampil rapi di undangan. Revisi jauh berkurang.', name: 'Nama Pelanggan', role: 'Wedding Organizer · Surabaya' },
     { quote: 'Ringan dibuka di HP tamu, padahal animasinya banyak.', name: 'Nama Pelanggan', role: 'Jasa Undangan · Medan' },
     { quote: 'Update-nya rutin dan dokumentasinya jelas. Jarang sekali plugin lokal seperti ini.', name: 'Nama Pelanggan', role: 'Freelancer WordPress · Bali' },
   ],
@@ -193,7 +203,8 @@ export const content = {
   faq: [
     { q: 'Apakah wajib memakai Elementor?', a: 'Ya. ApeironKit adalah ekstensi Elementor, jadi Elementor (versi gratis sudah cukup) harus terpasang.' },
     { q: 'Apakah perlu bisa coding?', a: 'Tidak. Semua widget diatur lewat panel Elementor: warna, font, teks, dan animasi.' },
-    { q: 'Bagaimana cara nama tamu tampil personal?', a: 'Guest Invitation Manager membuat link khusus per tamu, dan nama tamu otomatis tampil di sampul undangan.' },
+    { q: 'Bagaimana cara nama tamu tampil personal?', a: 'Widget Manajemen Tamu membuat link khusus per tamu, dan nama tamu otomatis tampil di sampul undangan.' },
+    { q: 'Data apa saja yang masuk ke MDUNDIG?', a: 'Hanya data widget Daftar Hadiah dan Form Order. Konfirmasi RSVP dikirim ke WhatsApp mempelai, sedangkan Ucapan Tamu tersimpan di WordPress Anda.' },
     { q: 'Apa yang terjadi jika lisensi habis?', a: 'Plugin tetap berjalan di situs Anda. Perpanjang lisensi untuk terus mendapat pembaruan dan dukungan.' },
     { q: 'Bisakah saya minta demo dulu?', a: 'Tentu. Klik tombol "Minta Demo" dan tim kami akan menghubungi Anda lewat WhatsApp.' },
   ],

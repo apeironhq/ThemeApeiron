@@ -2,7 +2,8 @@
 import { content as c } from '~/data/content'
 
 const b = c.bento
-const apkWidgets = [['layers', 'Sampul'], ['clock', 'Countdown'], ['users', 'RSVP'], ['music', 'Musik'], ['chat', 'Ucapan'], ['gift', 'Daftar Hadiah'], ['heart', 'Cerita Cinta'], ['copy', 'Amplop'], ['tag', 'Nama Tamu'], ['mail', 'Form Order'], ['refresh', 'Auto Scroll'], ['sparkle', 'Page Loader'], ['zap', 'Social Proof']]
+// 13 widget, nama sesuai judulnya di panel Elementor.
+const apkWidgets = [['layers', 'Sampul'], ['clock', 'Hitung Mundur'], ['music', 'Tombol Audio'], ['chat', 'Form WhatsApp'], ['heart', 'Ucapan Tamu'], ['gift', 'Daftar Hadiah'], ['tag', 'Manajemen Tamu'], ['copy', 'Tombol Salin'], ['book', 'Cerita Cinta'], ['mail', 'Form Order'], ['zap', 'Aktivitas'], ['refresh', 'Gulir Otomatis'], ['sparkle', 'Pemuat Halaman']]
 const guests = ['AP', 'SN', 'DM', 'RK', 'NL', 'BY']
 </script>
 
@@ -41,18 +42,18 @@ const guests = ['AP', 'SN', 'DM', 'RK', 'NL', 'BY']
           <p>13 widget yang saling melengkapi, tanpa perlu menumpuk banyak plugin berbeda.</p>
         </article>
 
-        <!-- B: dashboard -->
+        <!-- B: ringkasan Ucapan Tamu (data tersimpan di WordPress) -->
         <article class="ap-card ap-card--b" data-card>
           <div class="ap-card__art ap-art-dash">
             <div class="ap-dash">
               <div class="ap-dash__head">
                 <span class="ap-dash__logo"><ApIcon name="heart" /></span>
-                <div><b>Undangan Raka &amp; Nadia</b><small>raka-nadia.undangan.id</small></div>
-                <nav><span class="is-on">RSVP</span><span>Ucapan</span><span>Tamu</span></nav>
+                <div><b>Ucapan Tamu · Raka &amp; Nadia</b><small>raka-nadia.undangan.id</small></div>
+                <nav><span class="is-on">Semua</span><span>Hadir</span><span>Berhalangan</span></nav>
               </div>
               <div class="ap-dash__body">
                 <div class="ap-dash__chart">
-                  <small>Konfirmasi hadir</small>
+                  <small>Ucapan masuk</small>
                   <p class="ap-dash__num"><b data-count="248">0</b> <span class="ap-badge">+32%</span></p>
                   <svg viewBox="0 0 300 90" preserveAspectRatio="none" aria-hidden="true">
                     <defs><linearGradient id="apArea" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#083C57" stop-opacity=".18" /><stop offset="1" stop-color="#083C57" stop-opacity="0" /></linearGradient></defs>
@@ -70,8 +71,8 @@ const guests = ['AP', 'SN', 'DM', 'RK', 'NL', 'BY']
               </div>
             </div>
           </div>
-          <h3>Pantau semuanya di satu tempat</h3>
-          <p>RSVP, ucapan, dan daftar tamu terkumpul rapi. Klien bisa memantau tanpa bertanya terus.</p>
+          <h3>Ucapan & kehadiran, di situs Anda</h3>
+          <p>Ucapan Tamu merangkum doa, stiker, dan label kehadiran tamu. Datanya tersimpan di WordPress Anda sendiri.</p>
         </article>
 
         <!-- C: tamu personal -->
@@ -96,11 +97,11 @@ const guests = ['AP', 'SN', 'DM', 'RK', 'NL', 'BY']
             </svg>
             <span class="ap-pill ap-flow__n1"><ApIcon name="users" /> Tamu buka link</span>
             <span class="ap-pill ap-flow__n2"><ApIcon name="mail" /> Isi RSVP</span>
-            <span class="ap-pill ap-flow__n3"><ApIcon name="chat" /> Ucapan tampil</span>
-            <span class="ap-pill ap-flow__n4"><ApIcon name="layers" /> Rekap klien</span>
+            <span class="ap-pill ap-flow__n3"><ApIcon name="sparkle" /> Pesan tersusun</span>
+            <span class="ap-pill ap-flow__n4"><ApIcon name="chat" /> WhatsApp mempelai</span>
           </div>
-          <h3>Alur RSVP otomatis</h3>
-          <p>Dari tamu membuka link sampai rekap kehadiran, semuanya berjalan sendiri.</p>
+          <h3>RSVP langsung ke WhatsApp</h3>
+          <p>Tamu mengisi Form WhatsApp, pesan tersusun rapi, lalu terkirim ke WhatsApp mempelai tanpa langkah tambahan.</p>
         </article>
 
         <!-- E: lisensi -->

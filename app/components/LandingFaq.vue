@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { content as c } from '~/data/content'
 
-const icons = ['layout', 'code', 'tag', 'refresh', 'chat'] // ikon per pertanyaan, urut sesuai daftar FAQ
+const icons = ['layout', 'code', 'tag', 'book', 'refresh', 'chat'] // ikon per pertanyaan, urut sesuai daftar FAQ
 </script>
 
 <template>

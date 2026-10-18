@@ -77,7 +77,7 @@ const sealVars = {
           </div>
           <span class="ap-gate__shadow" aria-hidden="true"></span>
           <!-- Chip menempel di tepi kartu, ikut miring bersama kartu -->
-          <div class="ap-chip ap-chip--a" data-chip data-depth="40"><ApIcon name="users" /> RSVP masuk <b>+12</b></div>
+          <div class="ap-chip ap-chip--a" data-chip data-depth="40"><ApIcon name="chat" /> RSVP ke WhatsApp <b>+12</b></div>
           <div class="ap-chip ap-chip--b" data-chip data-depth="70"><ApIcon name="music" /> Musik diputar</div>
           <div class="ap-chip ap-chip--c" data-chip data-depth="55"><ApIcon name="gift" /> Hadiah dipilih</div>
           <div class="ap-chip ap-chip--d" data-chip data-depth="30"><ApIcon name="heart" /> 248 ucapan</div>
