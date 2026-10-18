@@ -1,120 +1,135 @@
 <script setup lang="ts">
+/**
+ * Fitur unggulan sebagai satu jalur animasi: garis vertikal terisi mengikuti gulir,
+ * tiap fitur punya ilustrasi bebas (tanpa kartu kotak). Animasi di assets/js/features.js.
+ */
 import { content as c } from '~/data/content'
+import { widgets } from '~/data/widgets'
 
 const b = c.bento
-// 13 widget, nama sesuai judulnya di panel Elementor.
-const apkWidgets = [['layers', 'Sampul'], ['clock', 'Hitung Mundur'], ['music', 'Tombol Audio'], ['chat', 'Form WhatsApp'], ['heart', 'Ucapan Tamu'], ['gift', 'Daftar Hadiah'], ['tag', 'Manajemen Tamu'], ['copy', 'Tombol Salin'], ['book', 'Cerita Cinta'], ['mail', 'Form Order'], ['zap', 'Aktivitas'], ['refresh', 'Gulir Otomatis'], ['sparkle', 'Pemuat Halaman']]
-const guests = ['AP', 'SN', 'DM', 'RK', 'NL', 'BY']
+const pad = (n: number) => String(n).padStart(2, '0')
+const svgAttrs = { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '1.5', 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true' }
+
+// 13 ikon widget di dua cincin orbit (5 dalam, 8 luar) mengelilingi inti ApeironKit.
+const orbit = widgets.map((w, i) => {
+  const inner = i < 5
+  const n = inner ? 5 : 8
+  const k = inner ? i : i - 5
+  const r = inner ? 88 : 148
+  const a = (k / n) * Math.PI * 2 - Math.PI / 2 + (inner ? 0 : Math.PI / 8)
+  return { ...w, style: { left: `${200 + r * Math.cos(a) - 22}px`, top: `${160 + r * Math.sin(a) - 22}px` } }
+})
+
+const wishes = [
+  { ava: 'S', name: 'Sinta', tag: 'Hadir', text: 'Selamat menempuh hidup baru!', sticker: '61' },
+  { ava: 'D', name: 'Dimas', tag: 'Berhalangan', text: 'Doa terbaik dari jauh.', sticker: '' },
+  { ava: 'R', name: 'Rina', tag: 'Hadir', text: 'Serasi banget, bahagia selalu.', sticker: '97' },
+  { ava: 'A', name: 'Andi', tag: 'Hadir', text: 'Sakinah, mawaddah, warahmah.', sticker: '' },
+]
 </script>
 
 <template>
-  <section class="ap-section ap-bento" data-bento>
+  <section class="ap-section ap-feat" data-feat>
     <div class="ap-container">
       <header class="ap-head ap-head--center">
         <h2 class="ap-title" data-split>{{ b.title }}</h2>
         <p class="ap-lead" data-reveal>{{ b.lead }}</p>
       </header>
 
-      <div class="ap-bento__grid">
-        <!-- A: semua widget menyatu -->
-        <article class="ap-card ap-card--a" data-card>
-          <div class="ap-card__art ap-art-connect" data-art-connect>
-            <div class="ap-art-connect__rail">
-              <div class="ap-art-connect__track" data-connect-track>
-                <template v-for="k in 2" :key="k">
-                  <span v-for="w in apkWidgets" :key="w[1]" class="ap-pill" :aria-hidden="k > 1 ? 'true' : undefined"><ApIcon :name="w[0]" /> {{ w[1] }}</span>
-                </template>
-              </div>
-            </div>
-            <svg class="ap-art-connect__lines" viewBox="0 0 400 90" preserveAspectRatio="none" aria-hidden="true">
-              <path data-draw d="M50 0 C50 40, 200 30, 200 90" />
-              <path data-draw d="M150 0 C150 40, 200 40, 200 90" />
-              <path data-draw d="M250 0 C250 40, 200 40, 200 90" />
-              <path data-draw d="M350 0 C350 40, 200 30, 200 90" />
-            </svg>
-            <span class="ap-node"><ApIcon name="sparkle" /> ApeironKit</span>
-            <div class="ap-art-connect__status">
-              <ApIcon name="sparkle" />
-              <span data-typing="Menyusun undangan Raka &amp; Nadia… selesai dalam 10 menit.">&nbsp;</span>
-            </div>
-          </div>
-          <h3>Satu plugin, semua kebutuhan</h3>
-          <p>13 widget yang saling melengkapi, tanpa perlu menumpuk banyak plugin berbeda.</p>
-        </article>
+      <div class="ap-feat__track" data-feat-track>
+        <span class="ap-feat__rail" aria-hidden="true"><i data-feat-rail></i></span>
 
-        <!-- B: ringkasan Ucapan Tamu (data tersimpan di WordPress) -->
-        <article class="ap-card ap-card--b" data-card>
-          <div class="ap-card__art ap-art-dash">
-            <div class="ap-dash">
-              <div class="ap-dash__head">
-                <span class="ap-dash__logo"><ApIcon name="heart" /></span>
-                <div><b>Ucapan Tamu · Raka &amp; Nadia</b><small>raka-nadia.undangan.id</small></div>
-                <nav><span class="is-on">Semua</span><span>Hadir</span><span>Berhalangan</span></nav>
-              </div>
-              <div class="ap-dash__body">
-                <div class="ap-dash__chart">
-                  <small>Ucapan masuk</small>
-                  <p class="ap-dash__num"><b data-count="248">0</b> <span class="ap-badge">+32%</span></p>
-                  <svg viewBox="0 0 300 90" preserveAspectRatio="none" aria-hidden="true">
-                    <defs><linearGradient id="apArea" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#083C57" stop-opacity=".18" /><stop offset="1" stop-color="#083C57" stop-opacity="0" /></linearGradient></defs>
-                    <path class="ap-dash__area" d="M0 80 C40 75, 60 62, 100 58 S160 40, 200 36 S260 14, 300 10 V90 H0Z" fill="url(#apArea)" />
-                    <path class="ap-dash__line" data-draw d="M0 80 C40 75, 60 62, 100 58 S160 40, 200 36 S260 14, 300 10" />
-                    <path class="ap-dash__line ap-dash__line--soft" data-draw d="M0 86 C50 84, 80 76, 120 72 S190 62, 230 56 S280 44, 300 40" />
-                  </svg>
+        <article v-for="(f, i) in b.features" :key="f.art" class="ap-feat__row" :class="{ 'is-flip': i % 2 === 1 }" data-feat-row>
+          <span class="ap-feat__node" data-feat-node aria-hidden="true">{{ pad(i + 1) }}</span>
+
+          <div class="ap-feat__art" data-feat-fit>
+            <div class="ap-feat__stage" :data-feat-art="f.art" aria-hidden="true">
+              <!-- 1. Semua widget mengorbit inti ApeironKit -->
+              <template v-if="f.art === 'all'">
+                <span class="ap-orb3__ring is-in"></span>
+                <span class="ap-orb3__ring is-out"></span>
+                <div class="ap-orb3__spin" data-orb-spin>
+                  <span v-for="w in orbit" :key="w.key" class="ap-orb3__ico" :style="w.style" data-orb-ico :data-title="w.title">
+                    <span class="ap-orb3__ico-in" data-orb-upright><svg v-bind="svgAttrs" v-html="w.icon" /></span>
+                  </span>
                 </div>
-                <div class="ap-dash__side">
-                  <small>Kehadiran</small>
-                  <p class="ap-dash__num"><b data-count="82">0</b>%</p>
-                  <div class="ap-dash__bars"><i data-bar style="--w:82%"></i><i data-bar style="--w:18%"></i></div>
-                  <div class="ap-dash__legend"><span>Hadir</span><span>Berhalangan</span></div>
+                <div class="ap-orb3__core" data-orb-core>
+                  <svg viewBox="0 0 32 32"><path d="M16 3 4 29h5l7-16 7 16h5z" fill="currentColor" /><circle cx="16" cy="22" r="2.4" fill="currentColor" /></svg>
+                  <b>ApeironKit</b>
                 </div>
-              </div>
+                <span class="ap-orb3__label" data-orb-label>13 widget</span>
+              </template>
+
+              <!-- 2. Ucapan mengalir + cincin kehadiran -->
+              <template v-else-if="f.art === 'wish'">
+                <div class="ap-wish__feed" data-wish-feed>
+                  <div class="ap-wish__list" data-wish-list>
+                    <div v-for="m in wishes" :key="m.name" class="ap-wish__msg">
+                      <span class="ap-wish__ava">{{ m.ava }}</span>
+                      <div>
+                        <p><b>{{ m.name }}</b><em :class="{ 'is-absen': m.tag !== 'Hadir' }">{{ m.tag }}</em></p>
+                        <p>{{ m.text }}</p>
+                      </div>
+                      <img v-if="m.sticker" :src="`/img/stickers/${m.sticker}.webp`" alt="" loading="lazy">
+                    </div>
+                  </div>
+                </div>
+                <div class="ap-wish__gauge">
+                  <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="50" /><circle cx="60" cy="60" r="50" data-wish-ring /></svg>
+                  <p><span class="ap-wish__num"><b data-wish-pct>0</b>%</span><small>Hadir</small></p>
+                </div>
+              </template>
+
+              <!-- 3. Link tamu diketik, label nama ikut berganti -->
+              <template v-else-if="f.art === 'guest'">
+                <div class="ap-gtag__url"><ApIcon name="globe" /><span>raka-nadia.id/?to=</span><b data-gtag-param></b><i class="ap-gtag__caret"></i></div>
+                <span class="ap-gtag__string"></span>
+                <div class="ap-gtag__card" data-gtag-card>
+                  <small>Kepada Yth.</small>
+                  <b data-gtag-name>Bapak Andi Pratama</b>
+                  <span>di tempat</span>
+                </div>
+              </template>
+
+              <!-- 4. Pesawat kertas terbang dari form ke WhatsApp -->
+              <template v-else-if="f.art === 'rsvp'">
+                <svg class="ap-rsvp3__svg" viewBox="0 0 400 320"><path class="ap-rsvp3__path" data-rsvp-path d="M92 236 C 150 120, 240 300, 306 118" /></svg>
+                <div class="ap-rsvp3__form" data-rsvp-form>
+                  <span class="ap-rsvp3__ico"><ApIcon name="mail" /></span>
+                  <p><b>Andi Pratama</b><span>2 orang · <em>Hadir</em></span></p>
+                </div>
+                <span class="ap-rsvp3__plane" data-rsvp-plane><svg viewBox="0 0 24 24"><path d="M21 3 10 14M21 3l-7 18-4-7-7-4z" /></svg></span>
+                <div class="ap-rsvp3__wa" data-rsvp-wa>
+                  <p class="ap-rsvp3__wa-head"><ApIcon name="chat" />WhatsApp mempelai</p>
+                  <div class="ap-rsvp3__bubble">
+                    <p>Halo, saya Andi. Konfirmasi: Hadir (2 orang).</p>
+                    <small>09.41 <i data-rsvp-ticks>✓✓</i></small>
+                  </div>
+                </div>
+              </template>
+
+              <!-- 5. Perisai lisensi + versi yang terus naik -->
+              <template v-else>
+                <svg class="ap-lic__ring" viewBox="0 0 220 220" data-lic-ring><circle cx="110" cy="110" r="100" /><circle cx="110" cy="110" r="78" /></svg>
+                <div class="ap-lic__shield" data-lic-shield>
+                  <ApIcon name="shield" />
+                  <span class="ap-lic__ok" data-lic-ok><ApIcon name="check" /></span>
+                </div>
+                <div class="ap-lic__ver" data-lic-ver>
+                  <div class="ap-lic__ver-track" data-lic-track>
+                    <span>v1.3.0</span><span>v1.4.0</span><span>v1.5.0</span><span>v1.5.5</span>
+                  </div>
+                  <em data-lic-badge>Terbaru</em>
+                </div>
+                <span class="ap-lic__chip" data-lic-chip><ApIcon name="refresh" />Pembaruan otomatis</span>
+              </template>
             </div>
           </div>
-          <h3>Ucapan & kehadiran, di situs Anda</h3>
-          <p>Ucapan Tamu merangkum doa, stiker, dan label kehadiran tamu. Datanya tersimpan di WordPress Anda sendiri.</p>
-        </article>
 
-        <!-- C: tamu personal -->
-        <article class="ap-card ap-card--c" data-card>
-          <div class="ap-card__art ap-art-orbit">
-            <div class="ap-orbit" data-orbit>
-              <span class="ap-orbit__ring"></span><span class="ap-orbit__ring"></span><span class="ap-orbit__ring"></span>
-              <span v-for="(initial, i) in guests" :key="initial" class="ap-orbit__guest" :style="{ '--a': i * 60 + 'deg' }"><b>{{ initial }}</b></span>
-              <span class="ap-orbit__core"><ApIcon name="users" /></span>
-            </div>
+          <div class="ap-feat__text" data-feat-text>
+            <h3>{{ f.title }}</h3>
+            <p>{{ f.text }}</p>
           </div>
-          <h3>Nama tamu personal</h3>
-          <p>Setiap tamu mendapat link sendiri dengan namanya tampil di sampul.</p>
-        </article>
-
-        <!-- D: alur otomatis -->
-        <article class="ap-card ap-card--d" data-card>
-          <div class="ap-card__art ap-art-flow">
-            <svg viewBox="0 0 300 200" aria-hidden="true">
-              <path id="apFlowPath" data-draw d="M40 40 H150 V100 H260 V160 H90" />
-              <circle class="ap-flow__dot" r="4" data-flow-dot />
-            </svg>
-            <span class="ap-pill ap-flow__n1"><ApIcon name="users" /> Tamu buka link</span>
-            <span class="ap-pill ap-flow__n2"><ApIcon name="mail" /> Isi RSVP</span>
-            <span class="ap-pill ap-flow__n3"><ApIcon name="sparkle" /> Pesan tersusun</span>
-            <span class="ap-pill ap-flow__n4"><ApIcon name="chat" /> WhatsApp mempelai</span>
-          </div>
-          <h3>RSVP langsung ke WhatsApp</h3>
-          <p>Tamu mengisi Form WhatsApp, pesan tersusun rapi, lalu terkirim ke WhatsApp mempelai tanpa langkah tambahan.</p>
-        </article>
-
-        <!-- E: lisensi -->
-        <article class="ap-card ap-card--e" data-card>
-          <div class="ap-card__art ap-art-shield">
-            <svg class="ap-art-shield__circuit" viewBox="0 0 300 200" aria-hidden="true">
-              <path data-draw d="M0 60 H70 L90 80 H120" /><path data-draw d="M300 60 H230 L210 80 H180" />
-              <path data-draw d="M0 150 H80 L100 130 H120" /><path data-draw d="M300 150 H220 L200 130 H180" />
-            </svg>
-            <div class="ap-art-shield__icon" data-shield><ApIcon name="shield" /></div>
-          </div>
-          <h3>Lisensi &amp; pembaruan aman</h3>
-          <p>Aktivasi lisensi resmi dengan pembaruan rutin langsung dari dashboard WordPress.</p>
         </article>
       </div>
 

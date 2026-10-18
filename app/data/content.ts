@@ -118,6 +118,14 @@ export const content = {
   bento: {
     title: 'Semua yang dibutuhkan undangan modern, dalam satu plugin.',
     lead: 'Dirancang untuk alur kerja jasa undangan: cepat dibuat, mudah direvisi, dan memukau saat dibuka.',
+    // Urutan fitur di jalur animasi. "art" menentukan ilustrasi yang tampil.
+    features: [
+      { art: 'all', title: 'Satu plugin, 13 widget', text: 'Semua widget undangan dalam satu plugin yang saling melengkapi, tanpa menumpuk banyak plugin berbeda.' },
+      { art: 'wish', title: 'Ucapan & kehadiran, di situs Anda', text: 'Ucapan Tamu merangkum doa, stiker, dan label kehadiran tamu. Datanya tersimpan di WordPress Anda sendiri.' },
+      { art: 'guest', title: 'Nama tamu personal', text: 'Manajemen Tamu membuat link khusus untuk setiap tamu, dan namanya tampil otomatis di sampul.' },
+      { art: 'rsvp', title: 'RSVP langsung ke WhatsApp', text: 'Tamu mengisi Form WhatsApp, pesan tersusun rapi, lalu terkirim ke WhatsApp mempelai tanpa langkah tambahan.' },
+      { art: 'license', title: 'Lisensi & pembaruan aman', text: 'Aktivasi lisensi resmi, lalu pembaruan rutin datang langsung dari dashboard WordPress.' },
+    ],
   },
 
   audience: [

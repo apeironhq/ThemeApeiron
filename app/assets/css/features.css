@@ -1,0 +1,309 @@
+/* ==========================================================================
+   Fitur unggulan: jalur zig-zag dengan garis yang terisi mengikuti gulir.
+   Ilustrasi berdiri bebas (tanpa kartu kotak), panggung 400×320 diskalakan JS.
+   ========================================================================== */
+.ap-feat { background: var(--navy-50); overflow: hidden; }
+.ap-feat .ap-head { margin-bottom: clamp(40px, 6vw, 72px); }
+
+.ap-feat__track { position: relative; display: grid; gap: clamp(56px, 8vw, 110px); }
+.ap-feat__rail {
+	position: absolute;
+	left: 50%;
+	top: 0;
+	bottom: 0;
+	width: 2px;
+	margin-left: -1px;
+	border-radius: 2px;
+	background: var(--navy-100);
+}
+.ap-feat__rail i { display: block; height: 100%; border-radius: inherit; background: var(--navy); transform-origin: top; transform: scaleY(0); }
+
+.ap-feat__row {
+	position: relative;
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 64px minmax(0, 1fr);
+	align-items: center;
+	gap: clamp(20px, 3vw, 40px);
+}
+.ap-feat__art { grid-column: 1; }
+.ap-feat__node { grid-column: 2; }
+.ap-feat__text { grid-column: 3; }
+.ap-feat__row.is-flip .ap-feat__art { grid-column: 3; grid-row: 1; }
+.ap-feat__row.is-flip .ap-feat__text { grid-column: 1; grid-row: 1; text-align: right; justify-self: end; }
+
+.ap-feat__node {
+	position: relative;
+	z-index: 1;
+	justify-self: center;
+	display: grid;
+	place-items: center;
+	width: 52px;
+	height: 52px;
+	border-radius: 50%;
+	border: 1px solid var(--navy-100);
+	background: var(--white);
+	font-size: 14px;
+	font-weight: 500;
+	color: var(--navy-300);
+	transition: background-color .5s, color .5s, border-color .5s;
+}
+.ap-feat__row.is-on .ap-feat__node { background: var(--navy); border-color: var(--navy); color: var(--white); }
+
+.ap-feat__text { max-width: 420px; }
+.ap-feat__text h3 { font-size: clamp(24px, 2.6vw, 34px); font-weight: 500; line-height: 1.15; letter-spacing: -.01em; color: var(--ink); }
+.ap-feat__text p { margin-top: 14px; font-size: 17px; line-height: 1.65; color: var(--muted); }
+
+/* Panggung ilustrasi: ukuran tetap, diskalakan agar muat (lihat features.js). */
+.ap-feat__art { --s: 1; position: relative; height: calc(320px * var(--s)); }
+.ap-feat__stage {
+	position: absolute;
+	left: 50%;
+	top: 0;
+	width: 400px;
+	height: 320px;
+	margin-left: -200px;
+	transform: scale(var(--s));
+	transform-origin: 50% 0;
+}
+
+/* ---------- 1. Orbit widget ---------- */
+.ap-orb3__ring { position: absolute; left: 50%; top: 50%; border-radius: 50%; border: 1px dashed var(--navy-100); pointer-events: none; }
+.ap-orb3__ring.is-in { width: 176px; height: 176px; margin: -88px 0 0 -88px; }
+.ap-orb3__ring.is-out { width: 296px; height: 296px; margin: -148px 0 0 -148px; border-style: solid; border-color: rgba(8, 60, 87, .08); }
+.ap-orb3__spin { position: absolute; inset: 0; }
+.ap-orb3__ico { position: absolute; width: 44px; height: 44px; }
+.ap-orb3__ico-in {
+	display: grid;
+	place-items: center;
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	border: 1px solid var(--line);
+	background: var(--white);
+	color: var(--navy);
+	transition: background-color .4s, color .4s, border-color .4s;
+}
+.ap-orb3__ico-in svg { width: 21px; height: 21px; }
+.ap-orb3__ico.is-hot .ap-orb3__ico-in { background: var(--navy); border-color: var(--navy); color: var(--white); }
+.ap-orb3__core {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	display: grid;
+	justify-items: center;
+	align-content: center;
+	gap: 4px;
+	width: 108px;
+	height: 108px;
+	margin: -54px 0 0 -54px;
+	border-radius: 50%;
+	background: var(--navy);
+	color: var(--white);
+}
+.ap-orb3__core svg { width: 30px; height: 30px; }
+.ap-orb3__core b { font-size: 12.5px; font-weight: 500; letter-spacing: .02em; }
+.ap-orb3__label {
+	position: absolute;
+	left: 50%;
+	bottom: -8px;
+	transform: translateX(-50%);
+	padding: 6px 14px;
+	border-radius: 999px;
+	border: 1px solid var(--navy-100);
+	background: var(--white);
+	font-size: 13px;
+	font-weight: 500;
+	color: var(--navy);
+	white-space: nowrap;
+}
+
+/* ---------- 2. Ucapan & kehadiran ---------- */
+.ap-wish__feed {
+	position: absolute;
+	left: 8px;
+	top: 18px;
+	width: 248px;
+	height: 284px;
+	overflow: hidden;
+	-webkit-mask-image: linear-gradient(transparent, #000 14%, #000 82%, transparent);
+	mask-image: linear-gradient(transparent, #000 14%, #000 82%, transparent);
+}
+.ap-wish__list { display: grid; gap: 10px; padding: 20px 0; }
+.ap-wish__msg {
+	display: grid;
+	grid-template-columns: 32px minmax(0, 1fr) auto;
+	align-items: center;
+	gap: 10px;
+	padding: 10px 12px;
+	border-radius: 16px 16px 16px 4px;
+	border: 1px solid var(--line);
+	background: var(--white);
+}
+.ap-wish__ava { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--navy); color: var(--white); font-size: 12px; font-weight: 500; }
+.ap-wish__msg > div { min-width: 0; font-size: 12px; line-height: 1.4; color: var(--muted); }
+.ap-wish__msg > div p:first-child { display: flex; align-items: center; gap: 6px; color: var(--ink); }
+.ap-wish__msg b { font-weight: 500; }
+.ap-wish__msg em { font-style: normal; font-size: 10px; font-weight: 500; padding: 1px 7px; border-radius: 999px; background: #e3f5ec; color: #1a7f53; }
+.ap-wish__msg em.is-absen { background: #fbeedd; color: #a65f14; }
+.ap-wish__msg img { width: 38px; height: 38px; object-fit: contain; }
+.ap-wish__gauge { position: absolute; right: 6px; top: 90px; width: 132px; height: 132px; }
+.ap-wish__gauge svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.ap-wish__gauge circle { fill: none; stroke-width: 8; stroke: var(--white); }
+.ap-wish__gauge circle + circle { stroke: var(--navy); stroke-linecap: round; stroke-dasharray: 314.16; stroke-dashoffset: 314.16; }
+.ap-wish__gauge p { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; line-height: 1; color: var(--navy); }
+.ap-wish__num { display: flex; align-items: baseline; gap: 1px; font-size: 15px; font-weight: 500; }
+.ap-wish__gauge b { font-size: 34px; font-weight: 500; }
+.ap-wish__gauge small { margin-top: 6px; font-size: 12px; color: var(--muted); }
+
+/* ---------- 3. Nama tamu personal ---------- */
+.ap-gtag__url {
+	position: absolute;
+	left: 50%;
+	top: 22px;
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	width: 320px;
+	margin-left: -160px;
+	padding: 10px 16px;
+	border-radius: 999px;
+	border: 1px solid var(--line);
+	background: var(--white);
+	font-size: 13px;
+	color: var(--muted);
+	white-space: nowrap;
+	overflow: hidden;
+}
+.ap-gtag__url .ap-icon { width: 15px; height: 15px; color: var(--navy); }
+.ap-gtag__url b { font-weight: 500; color: var(--navy); }
+.ap-gtag__caret { width: 1.5px; height: 15px; background: var(--navy); animation: ap-caret 1s steps(2) infinite; }
+@keyframes ap-caret { 50% { opacity: 0; } }
+.ap-gtag__string { position: absolute; left: 50%; top: 66px; width: 2px; height: 56px; margin-left: -1px; background: linear-gradient(#e9cf96, #a97a2f); }
+.ap-gtag__card {
+	position: absolute;
+	left: 50%;
+	top: 118px;
+	display: grid;
+	gap: 6px;
+	width: 236px;
+	margin-left: -118px;
+	padding: 26px 18px;
+	border-radius: 12px;
+	text-align: center;
+	background: linear-gradient(#fffefa, #eee9dc);
+	box-shadow: inset 0 0 0 1.5px #c7953f, inset 0 0 0 5px #fffefa, inset 0 0 0 6px rgba(199, 149, 63, .5);
+	color: var(--navy-900);
+	transform-origin: 50% -52px;
+}
+.ap-gtag__card small,
+.ap-gtag__card span { font-size: 12px; color: var(--muted); }
+.ap-gtag__card b { font-size: 21px; font-weight: 500; line-height: 1.2; }
+
+/* ---------- 4. RSVP ke WhatsApp ---------- */
+.ap-rsvp3__svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ap-rsvp3__path { fill: none; stroke: var(--navy-100); stroke-width: 2; stroke-dasharray: 5 7; }
+.ap-rsvp3__form {
+	position: absolute;
+	left: 8px;
+	top: 228px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 10px 16px 10px 10px;
+	border-radius: 16px;
+	border: 1px solid var(--line);
+	background: var(--white);
+}
+.ap-rsvp3__ico { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: var(--navy-50); color: var(--navy); }
+.ap-rsvp3__ico .ap-icon { width: 17px; height: 17px; }
+.ap-rsvp3__form p { display: grid; line-height: 1.3; font-size: 12px; color: var(--muted); }
+.ap-rsvp3__form b { font-size: 13.5px; font-weight: 500; color: var(--ink); }
+.ap-rsvp3__form em { font-style: normal; color: #1a7f53; font-weight: 500; }
+.ap-rsvp3__plane {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 30px;
+	height: 30px;
+	margin: -15px 0 0 -15px;
+	border-radius: 50%;
+	display: grid;
+	place-items: center;
+	background: var(--navy);
+	color: var(--white);
+}
+.ap-rsvp3__plane svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.ap-rsvp3__wa { position: absolute; right: 4px; top: 22px; width: 214px; }
+.ap-rsvp3__wa-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 12.5px; font-weight: 500; color: #0f5c4f; }
+.ap-rsvp3__wa-head .ap-icon { width: 16px; height: 16px; }
+.ap-rsvp3__bubble { padding: 10px 12px 7px; border-radius: 14px 14px 4px 14px; background: #d9fdd3; color: #111b21; font-size: 13px; line-height: 1.45; }
+.ap-rsvp3__bubble small { display: block; text-align: right; font-size: 10.5px; color: #667781; }
+.ap-rsvp3__bubble i { font-style: normal; letter-spacing: -.25em; margin-left: 2px; transition: color .4s; }
+.ap-rsvp3__bubble i.is-read { color: #34b7f1; }
+
+/* ---------- 5. Lisensi & pembaruan ---------- */
+.ap-lic__ring { position: absolute; left: 50%; top: 50%; width: 220px; height: 220px; margin: -110px 0 0 -110px; }
+.ap-lic__ring circle { fill: none; stroke: var(--navy-100); stroke-width: 1.5; stroke-dasharray: 3 9; stroke-linecap: round; }
+.ap-lic__ring circle + circle { stroke: rgba(8, 60, 87, .2); stroke-dasharray: 60 430; stroke-width: 2.5; }
+.ap-lic__shield {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	display: grid;
+	place-items: center;
+	width: 112px;
+	height: 112px;
+	margin: -56px 0 0 -56px;
+	border-radius: 50%;
+	background: var(--white);
+	border: 1px solid var(--navy-100);
+	color: var(--navy);
+}
+.ap-lic__shield > .ap-icon { width: 54px; height: 54px; stroke-width: 1.3; }
+.ap-lic__ok { position: absolute; right: 6px; bottom: 8px; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: #1f9d55; color: var(--white); border: 3px solid var(--navy-50); }
+.ap-lic__ok .ap-icon { width: 15px; height: 15px; stroke-width: 2.2; }
+.ap-lic__ver {
+	position: absolute;
+	left: 6px;
+	top: 40px;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 8px 12px;
+	border-radius: 999px;
+	border: 1px solid var(--line);
+	background: var(--white);
+}
+/* Pil versi = jendela setinggi satu baris; angka di dalamnya yang bergeser naik. */
+.ap-lic__ver-track { height: 20px; overflow: hidden; }
+.ap-lic__ver-track span { display: block; height: 20px; line-height: 20px; font-size: 14px; font-weight: 500; color: var(--ink); font-variant-numeric: tabular-nums; }
+.ap-lic__ver em { font-style: normal; font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 999px; background: #e3f5ec; color: #1a7f53; }
+.ap-lic__chip {
+	position: absolute;
+	right: 6px;
+	bottom: 34px;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 8px 14px;
+	border-radius: 999px;
+	background: var(--navy);
+	font-size: 13px;
+	font-weight: 500;
+	color: var(--white);
+}
+.ap-lic__chip .ap-icon { width: 15px; height: 15px; }
+
+/* ---------- Responsif: rel di kiri, ilustrasi di atas teks ---------- */
+@media (max-width: 900px) {
+	.ap-feat__rail { left: 25px; }
+	.ap-feat__row,
+	.ap-feat__row.is-flip { grid-template-columns: 52px minmax(0, 1fr); gap: 18px 16px; align-items: start; }
+	.ap-feat__node { grid-column: 1; grid-row: 1; }
+	.ap-feat__row .ap-feat__art,
+	.ap-feat__row.is-flip .ap-feat__art { grid-column: 2; grid-row: 1; }
+	.ap-feat__row .ap-feat__text,
+	.ap-feat__row.is-flip .ap-feat__text { grid-column: 2; grid-row: 2; text-align: left; justify-self: start; }
+	.ap-feat__text h3 { font-size: 24px; }
+	.ap-feat__text p { font-size: 16px; margin-top: 10px; }
+}
