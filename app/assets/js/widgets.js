@@ -175,7 +175,7 @@ export function initWidgetPanel() {
 				.add(tap(btn), '+=0.5')
 				.call(() => btn.classList.add('is-done'))
 				.to($('.wd-copy__a', r), { yPercent: -130, duration: 0.4, ease: 'expo.out' })
-				.fromTo($('.wd-copy__b', r), { yPercent: 130 }, { yPercent: 0, duration: 0.4, ease: 'expo.out' }, '<')
+				.fromTo($('.wd-copy__b', r), { y: 0, yPercent: 130 }, { y: 0, yPercent: 0, duration: 0.4, ease: 'expo.out' }, '<')
 				.fromTo($('[data-num]', r), { letterSpacing: '.3em', opacity: 0.4 }, { letterSpacing: '.08em', opacity: 1, duration: 0.6, ease: 'expo.out' }, '<')
 				.add(toastIn($('[data-toast]', r)), '-=0.2')
 				.add(hold(1.4));

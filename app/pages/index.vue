@@ -13,15 +13,17 @@ onMounted(async () => {
     import('gsap/DrawSVGPlugin'),
     import('~/assets/js/landing.js'),
   ])
-  const [{ initWidgetPanel }, { initFeatures }, { initScrollFx }] = await Promise.all([
+  const [{ initWidgetPanel }, { initFeatures }, { initScrollFx }, { initHowTo }] = await Promise.all([
     import('~/assets/js/widgets.js'),
     import('~/assets/js/features.js'),
     import('~/assets/js/scrollfx.js'),
+    import('~/assets/js/howto.js'),
   ])
   Object.assign(window, { gsap, ScrollTrigger, ScrollSmoother, SplitText, DrawSVGPlugin })
   initLanding()
   initWidgetPanel()
   initFeatures()
+  initHowTo()
   initScrollFx()
 })
 </script>

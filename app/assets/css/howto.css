@@ -1,0 +1,134 @@
+/* ==========================================================================
+   Cara kerja: garis progres bernomor + tiga kartu ilustrasi yang memperagakan langkahnya.
+   ========================================================================== */
+.ap-how .ap-head { margin-bottom: clamp(36px, 5vw, 60px); }
+.ap-how__track { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(18px, 2.4vw, 32px); }
+
+/* Garis progres yang menghubungkan titik bernomor */
+.ap-how__line { position: absolute; left: 16.66%; right: 16.66%; top: 25px; height: 2px; border-radius: 2px; background: var(--mist-line, #dde8ee); }
+.ap-how__line i { display: block; height: 100%; border-radius: inherit; background: var(--navy); transform-origin: left; transform: scaleX(0); }
+
+.ap-how__step { position: relative; display: grid; justify-items: center; gap: 22px; }
+.ap-how__node {
+	position: relative;
+	z-index: 1;
+	display: grid;
+	place-items: center;
+	width: 52px;
+	height: 52px;
+	border-radius: 50%;
+	border: 1px solid var(--mist-line, #dde8ee);
+	background: #fff;
+	box-shadow: 0 0 0 6px var(--sec-bg, #fff);
+	color: var(--navy-300);
+	font-size: 17px;
+	font-weight: 500;
+	transition: background-color .4s, border-color .4s, color .4s;
+}
+.ap-how__node > * { grid-area: 1 / 1; transition: opacity .3s, transform .3s; }
+.ap-how__node .ap-icon { width: 20px; height: 20px; opacity: 0; transform: scale(.5); }
+.ap-how__step.is-on .ap-how__node { background: var(--navy); border-color: var(--navy); color: #fff; }
+.ap-how__step.is-done .ap-how__node { background: #fff; border-color: var(--navy); color: var(--navy); }
+.ap-how__step.is-done .ap-how__node b { opacity: 0; transform: scale(.5); }
+.ap-how__step.is-done .ap-how__node .ap-icon { opacity: 1; transform: none; }
+
+.ap-how__card {
+	width: 100%;
+	height: 100%;
+	display: grid;
+	grid-template-rows: auto 1fr;
+	padding: 12px;
+	border-radius: 22px;
+	border: 1px solid var(--mist-line, #dde8ee);
+	background: #fff;
+	transition: border-color .4s, transform .5s cubic-bezier(.2, .8, .2, 1);
+}
+.ap-how__step.is-on .ap-how__card { border-color: var(--navy); transform: translateY(-8px); }
+.ap-how__art { position: relative; height: 230px; border-radius: 15px; background: #f5f8fa; overflow: hidden; }
+.ap-how__body { padding: 18px 10px 8px; }
+.ap-how__meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+.ap-how__meta span { font-size: 12px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--navy-300); }
+.ap-how__meta em { font-style: normal; padding: 3px 10px; border-radius: 999px; background: var(--navy-50); font-size: 12px; font-weight: 500; color: var(--navy); }
+.ap-how__body h3 { font-size: 21px; font-weight: 500; color: var(--ink); }
+.ap-how__body p { margin-top: 8px; font-size: 15px; line-height: 1.6; color: var(--muted); }
+
+/* Elemen bersama */
+.hw-btn,
+.hw-send { position: relative; display: inline-grid; height: 30px; padding: 0 12px; border-radius: 8px; background: var(--navy); color: #fff; font-size: 12px; font-weight: 500; overflow: hidden; transition: background-color .3s; }
+.hw-btn > span,
+.hw-send > span { grid-area: 1 / 1; display: inline-flex; align-items: center; justify-content: center; gap: 5px; white-space: nowrap; }
+.hw-btn .ap-icon,
+.hw-send .ap-icon { width: 13px; height: 13px; }
+.hw-btn__b,
+.hw-send__b { transform: translateY(130%); }
+.hw-btn.is-done { background: #1f9d55; }
+.hw-send.is-done { background: #1f9d55; }
+.hw-ava { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--navy); color: #fff; font-size: 12px; font-weight: 500; }
+.hw-cursor { position: absolute; left: 0; top: 0; z-index: 4; width: 20px; height: 20px; opacity: 0; pointer-events: none; transform-origin: 20% 15%; }
+.hw-cursor svg { width: 100%; height: 100%; fill: var(--navy); stroke: #fff; stroke-width: 1.5; stroke-linejoin: round; }
+
+/* 1. Layar Plugin WordPress */
+.hw-wp { position: absolute; inset: 14px; display: grid; align-content: start; gap: 10px; }
+.hw-wp__bar { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink); }
+.hw-wp__bar b { font-weight: 500; }
+.hw-wp__logo { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: #1d2327; color: #fff; font-size: 11px; font-weight: 500; }
+.hw-wp__new { margin-left: auto; padding: 3px 9px; border-radius: 6px; border: 1px solid var(--navy-100); font-size: 11px; color: var(--navy); }
+.hw-wp__row { display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: 12px; border: 1px solid var(--line); background: #fff; }
+.hw-wp__ico { flex: none; width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center; background: var(--navy); color: #fff; }
+.hw-wp__ico svg { width: 18px; height: 18px; }
+.hw-wp__row p { flex: 1; display: grid; min-width: 0; line-height: 1.3; }
+.hw-wp__row b { font-size: 13px; font-weight: 500; color: var(--ink); }
+.hw-wp__row small { font-size: 10.5px; color: var(--muted); }
+.hw-wp__lic { display: flex; align-items: center; gap: 8px; padding: 9px 10px; border-radius: 12px; border: 1px solid var(--line); background: #fff; color: var(--navy); }
+.hw-wp__lic > .ap-icon { width: 16px; height: 16px; flex: none; }
+.hw-wp__key { flex: 1; min-height: 16px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; letter-spacing: .04em; color: var(--ink); }
+.hw-ok { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; background: #e3f5ec; color: #1a7f53; }
+.hw-ok .ap-icon { width: 12px; height: 12px; stroke-width: 2.2; }
+.hw-ready { justify-self: start; display: inline-flex; align-items: center; gap: 7px; padding: 7px 12px; border-radius: 999px; background: var(--navy); color: #fff; font-size: 12px; font-weight: 500; }
+.hw-ready .ap-icon { width: 14px; height: 14px; }
+
+/* 2. Editor mini */
+.hw-ed { position: absolute; inset: 14px; display: grid; grid-template-columns: 54px minmax(0, 1fr); gap: 10px; }
+.hw-ed__panel { display: grid; align-content: start; gap: 6px; padding: 6px; border-radius: 12px; border: 1px solid var(--line); background: #fff; }
+.hw-ed__tile { display: grid; place-items: center; height: 26px; border-radius: 6px; border: 1px solid var(--line); color: #556068; }
+.hw-ed__tile svg { width: 14px; height: 14px; }
+.hw-ed__tile.is-grab { border-color: var(--navy); color: var(--navy); background: var(--navy-50); }
+.hw-ed__page { position: relative; display: grid; align-content: start; gap: 10px; padding: 14px 12px; border-radius: 12px; border: 1px solid var(--line); background: url('/img/bg.jpg') center / cover, #fbf7f0; text-align: center; }
+.hw-ed__head { font-size: 19px; font-weight: 500; color: var(--navy); transition: color .4s; }
+.hw-ed__slot { position: relative; height: 54px; border-radius: 10px; border: 1.5px dashed transparent; transition: border-color .3s, background-color .3s; }
+.hw-ed__slot.is-drop { border-color: var(--navy); background: rgba(238, 245, 248, .8); }
+.hw-ed__placed { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; padding: 6px; }
+.hw-ed__placed b { display: grid; place-items: center; border-radius: 8px; background: #fff; border: 1px solid rgba(201, 164, 107, .35); font-size: 15px; font-weight: 500; color: var(--navy); transition: color .4s; }
+.hw-ed__sw { justify-self: center; display: inline-flex; gap: 6px; padding: 5px 8px; border-radius: 999px; background: #fff; border: 1px solid var(--line); }
+.hw-ed__sw i { width: 16px; height: 16px; border-radius: 50%; transition: box-shadow .3s; }
+.hw-ed__sw .is-a { background: #083c57; }
+.hw-ed__sw .is-b { background: #9a7339; }
+.hw-ed__sw .is-c { background: #b24a63; }
+.hw-ed__sw i.is-on { box-shadow: 0 0 0 2px #fff, 0 0 0 3.5px var(--navy); }
+.hw-ed__ghost { position: absolute; left: 0; top: 0; z-index: 3; width: 34px; height: 26px; border-radius: 6px; border: 1px solid var(--navy); background: #fff; color: var(--navy); display: grid; place-items: center; opacity: 0; pointer-events: none; }
+.hw-ed__ghost svg { width: 14px; height: 14px; }
+
+/* 3. Kirim ke tamu */
+.hw-share { position: absolute; inset: 14px; display: grid; align-content: start; gap: 8px; }
+.hw-guest { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 12px; border: 1px solid var(--line); background: #fff; }
+.hw-guest p { flex: 1; display: grid; min-width: 0; line-height: 1.3; }
+.hw-guest b { font-size: 12.5px; font-weight: 500; color: var(--ink); }
+.hw-guest small { font-size: 10.5px; color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.hw-rsvp { justify-self: start; display: inline-flex; align-items: center; gap: 7px; margin-top: 2px; padding: 7px 12px; border-radius: 999px; background: #e3f5ec; color: #1a7f53; font-size: 12px; font-weight: 500; }
+.hw-rsvp .ap-icon { width: 14px; height: 14px; }
+.hw-rsvp b { display: inline-block; min-width: 10px; font-weight: 500; }
+.hw-plane { position: absolute; z-index: 3; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: #1f9d55; color: #fff; pointer-events: none; }
+.hw-plane .ap-icon { width: 12px; height: 12px; }
+
+/* ---------- Layar kecil: rel vertikal di kiri ---------- */
+@media (max-width: 900px) {
+	.ap-how__track { grid-template-columns: minmax(0, 1fr); gap: 26px; max-width: 520px; margin: 0 auto; }
+	.ap-how__line { left: 25px; right: auto; top: 26px; bottom: 26px; width: 2px; height: auto; }
+	.ap-how__line i { transform-origin: top; transform: scaleY(0); }
+	.ap-how__step { grid-template-columns: 52px minmax(0, 1fr); justify-items: stretch; align-items: start; gap: 14px; }
+	.ap-how__step.is-on .ap-how__card { transform: translateX(4px); }
+}
+@media (max-width: 640px) {
+	.ap-how__art { height: 220px; }
+	.ap-how__body h3 { font-size: 19px; }
+}

@@ -1,60 +1,83 @@
 <script setup lang="ts">
+/**
+ * Cara kerja: tiga langkah sebagai alur proses. Garis progres terisi dari langkah 1 ke 3,
+ * kartu aktif terangkat dan memperagakan langkahnya. Animasi di assets/js/howto.js.
+ */
 import { content as c } from '~/data/content'
+import { widgets } from '~/data/widgets'
+
+const chips = ['± 2 menit', 'Tanpa kode', 'Link personal']
+const svgAttrs = { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '1.5', 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true' }
+const panelTiles = ['cover', 'countdown', 'audio', 'comment', 'registry', 'form'].map((k) => widgets.find((w) => w.key === k)!)
+const guests = [['A', 'Bapak Andi', 'Andi'], ['S', 'Ibu Sari', 'Sari'], ['D', 'Sdr. Dimas', 'Dimas']]
 </script>
 
 <template>
-  <section class="ap-section ap-steps" id="cara-kerja" data-steps>
+  <section class="ap-section ap-steps ap-how" id="cara-kerja" data-howto>
     <DecoIcons set="steps" />
     <div class="ap-container">
       <header class="ap-head ap-head--center">
         <h2 class="ap-title" data-split>Tiga langkah, undangan siap dikirim.</h2>
+        <p class="ap-lead" data-reveal>Dari plugin terpasang sampai link sampai di tangan tamu, semuanya bisa selesai di hari yang sama.</p>
       </header>
-      <div class="ap-steps__track" data-approach>
-        <svg class="ap-steps__line" viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true">
-          <path data-steps-line d="M0 20 C 160 0, 340 40, 500 20 S 840 0, 1000 20" />
-        </svg>
-        <article v-for="(s, i) in c.steps" :key="s.title" class="ap-step" data-step>
-          <div class="ap-step__art" :class="`ap-step__art--${i}`" :data-step-art="i" aria-hidden="true">
-            <template v-if="i === 0">
-              <!-- Pasang plugin: steker masuk soket, tombol aktif menyala -->
-              <svg class="ap-plug" viewBox="0 0 120 90">
-                <rect class="ap-plug__socket" x="40" y="8" width="40" height="22" rx="6" />
-                <path class="ap-plug__hole" d="M54 16v6M66 16v6" />
-                <g class="ap-plug__body" data-plug>
-                  <path class="ap-plug__pins" d="M54 30v8M66 30v8" />
-                  <rect class="ap-plug__head" x="46" y="38" width="28" height="18" rx="6" />
-                  <path class="ap-plug__cord" d="M60 56v10c0 8 -14 6 -14 14" />
-                </g>
-                <path class="ap-plug__spark" data-spark d="M34 18h-8M86 18h8M38 6l-5 -4M82 6l5 -4" />
-              </svg>
-              <span class="ap-toggle" data-toggle><i></i></span>
-              <span class="ap-step__status" data-status>Aktif</span>
-            </template>
-            <template v-else-if="i === 1">
-              <!-- Rancang: kursor menyeret blok, warna berubah -->
-              <div class="ap-canvas">
-                <span class="ap-canvas__bar"></span>
-                <span class="ap-canvas__slot"></span>
-                <span class="ap-canvas__block" data-block></span>
-                <span class="ap-canvas__sw"><i class="is-a" data-swatch></i><i class="is-b"></i><i class="is-c"></i></span>
-                <span class="ap-canvas__cursor" data-cursor-art><ApIcon name="cursor" /></span>
+
+      <div class="ap-how__track" data-approach>
+        <span class="ap-how__line" aria-hidden="true"><i data-how-line></i></span>
+
+        <article v-for="(s, i) in c.steps" :key="s.title" class="ap-how__step" :class="{ 'is-on': i === 0 }" data-how-step>
+          <span class="ap-how__node" data-how-node><b>{{ i + 1 }}</b><ApIcon name="check" /></span>
+
+          <div class="ap-how__card">
+            <div class="ap-how__art" aria-hidden="true">
+              <!-- 1. Pasang plugin: layar Plugin WordPress -->
+              <div v-if="i === 0" class="hw-wp" data-how-art="install">
+                <div class="hw-wp__bar"><span class="hw-wp__logo">W</span><b>Plugin</b><span class="hw-wp__new">Tambah Baru</span></div>
+                <div class="hw-wp__row">
+                  <span class="hw-wp__ico"><svg viewBox="0 0 32 32"><path d="M16 3 4 29h5l7-16 7 16h5z" fill="currentColor" /><circle cx="16" cy="22" r="2.4" fill="currentColor" /></svg></span>
+                  <p><b>ApeironKit</b><small>Versi 1.5.5 · Apeiron.ID</small></p>
+                  <span class="hw-btn" data-activate><span class="hw-btn__a">Aktifkan</span><span class="hw-btn__b"><ApIcon name="check" /> Aktif</span></span>
+                </div>
+                <div class="hw-wp__lic" data-lic>
+                  <ApIcon name="shield" />
+                  <span class="hw-wp__key"><span data-key data-text="APK-7F2C-91XD"></span></span>
+                  <i class="hw-ok" data-ok><ApIcon name="check" /></i>
+                </div>
+                <span class="hw-ready" data-ready><ApIcon name="layout" /> 13 widget siap di Elementor</span>
               </div>
-            </template>
-            <template v-else>
-              <!-- Bagikan: pesawat kertas terbang ke tamu -->
-              <svg class="ap-send" viewBox="0 0 120 90">
-                <path class="ap-send__trail" data-trail d="M14 70 C 40 70, 50 30, 96 24" />
-                <g class="ap-send__plane" data-plane><path d="M0 -8 L18 0 L0 8 L4 0 Z" /></g>
-              </svg>
-              <span class="ap-send__guests"><i>A</i><i>S</i><i>D</i></span>
-              <span class="ap-step__status ap-step__status--count" data-sent>+3 tamu</span>
-            </template>
+
+              <!-- 2. Rancang di Elementor: seret widget, ganti warna -->
+              <div v-else-if="i === 1" class="hw-ed" data-how-art="design">
+                <div class="hw-ed__panel">
+                  <span v-for="t in panelTiles" :key="t.key" class="hw-ed__tile" :data-tile="t.key"><svg v-bind="svgAttrs" v-html="t.icon" /></span>
+                </div>
+                <div class="hw-ed__page" data-page>
+                  <p class="hw-ed__head" data-head>Raka &amp; Nadia</p>
+                  <div class="hw-ed__slot" data-slot>
+                    <div class="hw-ed__placed" data-placed><b>55</b><b>08</b><b>24</b><b>16</b></div>
+                  </div>
+                  <span class="hw-ed__sw"><i class="is-a" data-sw="#083c57"></i><i class="is-b" data-sw="#9a7339"></i><i class="is-c" data-sw="#b24a63"></i></span>
+                </div>
+                <span class="hw-ed__ghost" data-ghost></span>
+                <span class="hw-cursor" data-cursor><svg viewBox="0 0 24 24"><path d="M5 3l14 7-6 2-2 6z" /></svg></span>
+              </div>
+
+              <!-- 3. Bagikan ke tamu: kirim link personal via WhatsApp -->
+              <div v-else class="hw-share" data-how-art="share">
+                <div v-for="g in guests" :key="g[0]" class="hw-guest" data-guest>
+                  <span class="hw-ava">{{ g[0] }}</span>
+                  <p><b>{{ g[1] }}</b><small>…/?to={{ g[2] }}</small></p>
+                  <span class="hw-send" data-send><span class="hw-send__a"><ApIcon name="send" /> Kirim</span><span class="hw-send__b">Terkirim ✓✓</span></span>
+                </div>
+                <span class="hw-rsvp"><ApIcon name="chat" /> RSVP masuk <b data-rsvp>0</b></span>
+              </div>
+            </div>
+
+            <div class="ap-how__body">
+              <div class="ap-how__meta"><span>Langkah {{ i + 1 }}</span><em>{{ chips[i] }}</em></div>
+              <h3>{{ s.title }}</h3>
+              <p>{{ s.text }}</p>
+            </div>
           </div>
-          <span class="ap-step__num">{{ i + 1 }}</span>
-          <h3>{{ s.title }}</h3>
-          <p>{{ s.text }}</p>
-          <!-- Penghubung vertikal ke langkah berikutnya (tampil di HP) -->
-          <svg v-if="i < c.steps.length - 1" class="ap-step__link" viewBox="0 0 24 64" aria-hidden="true"><path data-step-link d="M12 2 C 3 20, 21 42, 12 60" /><circle class="ap-step__link-dot" data-step-link-dot cx="12" cy="60" r="3.5" /></svg>
         </article>
       </div>
     </div>
