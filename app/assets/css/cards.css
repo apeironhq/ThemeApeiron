@@ -3,11 +3,12 @@
    menggantikan garis 1px yang terasa keras. Dimuat paling akhir.
    ========================================================================== */
 :root {
-	--soft-border: rgba(8, 60, 87, .06);
-	--soft-shadow: 0 1px 2px rgba(16, 24, 40, .04), 0 14px 34px -18px rgba(8, 60, 87, .2);
-	--soft-shadow-up: 0 2px 4px rgba(16, 24, 40, .05), 0 22px 44px -20px rgba(8, 60, 87, .28);
-	--inner-border: rgba(8, 60, 87, .07);
-	--inner-shadow: 0 1px 2px rgba(16, 24, 40, .05), 0 4px 10px -6px rgba(8, 60, 87, .12);
+	/* Sangat tipis: hampir tak terlihat, cukup agar kartu tidak menyatu dengan latar. */
+	--soft-border: rgba(8, 60, 87, .05);
+	--soft-shadow: 0 1px 2px rgba(16, 24, 40, .03), 0 2px 8px -4px rgba(8, 60, 87, .06);
+	--soft-shadow-up: 0 1px 3px rgba(16, 24, 40, .04), 0 4px 12px -6px rgba(8, 60, 87, .09);
+	--inner-border: rgba(8, 60, 87, .06);
+	--inner-shadow: 0 1px 1px rgba(16, 24, 40, .03);
 }
 
 /* ---------- Kartu utama ---------- */
@@ -41,7 +42,7 @@
 .ap-feat__row.is-on .ap-feat__node { border-color: var(--navy); }
 
 /* Kartu langkah aktif: cincin navy tipis yang transparan + bayangan sedikit lebih tinggi. */
-.ap-how__step.is-on .ap-how__card { border-color: rgba(8, 60, 87, .22); box-shadow: 0 0 0 3px rgba(8, 60, 87, .06), var(--soft-shadow-up); }
+.ap-how__step.is-on .ap-how__card { border-color: rgba(8, 60, 87, .18); box-shadow: var(--soft-shadow-up); }
 
 /* Hover kartu yang bisa disorot: sedikit lebih terangkat. */
 .ap-quote,
@@ -54,7 +55,7 @@
 .ap-flowmap__item:not(.is-mdundig):hover { box-shadow: var(--soft-shadow-up); }
 
 /* MDUNDIG (latar navy): kartu putih cukup dengan bayangan gelap yang lembut. */
-.ap-dash3d .ap-flowmap__item:not(.is-mdundig) { border-color: transparent; box-shadow: 0 18px 40px -22px rgba(0, 0, 0, .55); }
+.ap-dash3d .ap-flowmap__item:not(.is-mdundig) { border-color: transparent; box-shadow: 0 2px 8px -4px rgba(0, 0, 0, .25); }
 
 /* FAQ: dari daftar bergaris menjadi kartu lembut. */
 .ap-faq__item {
