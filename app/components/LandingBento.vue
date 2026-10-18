@@ -30,6 +30,7 @@ const wishes = [
 
 <template>
   <section class="ap-section ap-feat" data-feat>
+    <DecoIcons set="features" />
     <div class="ap-container">
       <header class="ap-head ap-head--center">
         <h2 class="ap-title" data-split>{{ b.title }}</h2>
@@ -133,7 +134,7 @@ const wishes = [
         </article>
       </div>
 
-      <div class="ap-stats">
+      <div class="ap-stats" data-approach>
         <div v-for="s in c.stats" :key="s.label" class="ap-stat" data-reveal>
           <p class="ap-stat__num"><b :data-count="s.value">0</b>{{ s.suffix }}</p>
           <p class="ap-stat__label">{{ s.label }}</p>

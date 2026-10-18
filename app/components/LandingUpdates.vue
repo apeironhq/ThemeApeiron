@@ -12,7 +12,7 @@ import { content as c } from '~/data/content'
       </header>
 
       <!-- Daftar rilis berjalan otomatis (loop). Isinya diduplikasi agar sambungannya mulus. -->
-      <div class="ap-timeline-viewport" data-timeline-loop>
+      <div class="ap-timeline-viewport" data-timeline-loop data-approach>
         <div class="ap-timeline-track" data-timeline-track>
           <ol v-for="copy in 2" :key="copy" class="ap-timeline" :aria-hidden="copy > 1 ? 'true' : undefined">
             <li v-for="(u, i) in c.updates" :key="u.version" class="ap-timeline__item" :class="{ 'is-latest': i === 0 }">

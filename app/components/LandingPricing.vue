@@ -4,12 +4,13 @@ import { content as c } from '~/data/content'
 
 <template>
   <section class="ap-section ap-pricing" id="harga">
+    <DecoIcons set="pricing" />
     <div class="ap-container">
       <header class="ap-head ap-head--center">
         <h2 class="ap-title" data-split>Satu lisensi, semua widget.</h2>
         <p class="ap-lead" data-reveal>Semua paket mendapat akses penuh ke seluruh widget. Bedanya hanya jumlah situs dan prioritas dukungan.</p>
       </header>
-      <div class="ap-pricing__grid">
+      <div class="ap-pricing__grid" data-approach>
         <article v-for="p in c.pricing" :key="p.name" class="ap-plan" :class="{ 'is-featured': p.featured }" data-spotlight data-reveal>
           <span v-if="p.featured" class="ap-plan__flag">Paling populer</span>
           <h3>{{ p.name }}</h3>

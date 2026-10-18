@@ -6,13 +6,14 @@ const icons = ['layout', 'code', 'tag', 'book', 'refresh', 'chat'] // ikon per p
 
 <template>
   <section class="ap-section ap-faq" id="faq">
+    <DecoIcons set="faq" />
     <div class="ap-container ap-faq__inner">
       <header class="ap-head ap-head--center">
         <h2 class="ap-title" data-split>Pertanyaan yang sering diajukan.</h2>
         <p class="ap-lead" data-reveal>Jawaban singkat untuk hal yang paling sering ditanyakan jasa undangan dan agency.</p>
       </header>
 
-      <div class="ap-faq__list">
+      <div class="ap-faq__list" data-approach>
         <details v-for="(f, i) in c.faq" :key="f.q" class="ap-faq__item" data-reveal>
           <summary>
             <span class="ap-ico-chip"><ApIcon :name="icons[i % icons.length]!" /></span>

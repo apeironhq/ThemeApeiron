@@ -8,12 +8,13 @@ const rows = [all.slice(0, half), all.slice(half)]
 
 <template>
   <section class="ap-section ap-testi">
+    <DecoIcons set="testimonials" />
     <div class="ap-container">
       <header class="ap-head ap-head--center">
         <h2 class="ap-title" data-split>Dipercaya para pembuat undangan.</h2>
       </header>
     </div>
-    <div class="ap-testi__rows">
+    <div class="ap-testi__rows" data-approach>
       <div v-for="(row, r) in rows" :key="r" class="ap-testi__row" data-testi-row :data-direction="r ? '1' : '-1'">
         <div class="ap-testi__track">
           <template v-for="copy in 3" :key="copy">

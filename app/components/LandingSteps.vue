@@ -4,11 +4,12 @@ import { content as c } from '~/data/content'
 
 <template>
   <section class="ap-section ap-steps" id="cara-kerja" data-steps>
+    <DecoIcons set="steps" />
     <div class="ap-container">
       <header class="ap-head ap-head--center">
         <h2 class="ap-title" data-split>Tiga langkah, undangan siap dikirim.</h2>
       </header>
-      <div class="ap-steps__track">
+      <div class="ap-steps__track" data-approach>
         <svg class="ap-steps__line" viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true">
           <path data-steps-line d="M0 20 C 160 0, 340 40, 500 20 S 840 0, 1000 20" />
         </svg>

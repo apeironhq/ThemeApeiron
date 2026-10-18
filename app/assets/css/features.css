@@ -148,7 +148,7 @@
 .ap-wish__msg img { width: 38px; height: 38px; object-fit: contain; }
 .ap-wish__gauge { position: absolute; right: 6px; top: 90px; width: 132px; height: 132px; }
 .ap-wish__gauge svg { width: 100%; height: 100%; transform: rotate(-90deg); }
-.ap-wish__gauge circle { fill: none; stroke-width: 8; stroke: var(--white); }
+.ap-wish__gauge circle { fill: none; stroke-width: 8; stroke: var(--navy-50); }
 .ap-wish__gauge circle + circle { stroke: var(--navy); stroke-linecap: round; stroke-dasharray: 314.16; stroke-dashoffset: 314.16; }
 .ap-wish__gauge p { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; line-height: 1; color: var(--navy); }
 .ap-wish__num { display: flex; align-items: baseline; gap: 1px; font-size: 15px; font-weight: 500; }

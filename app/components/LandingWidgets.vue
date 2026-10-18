@@ -12,13 +12,14 @@ const svgAttrs = { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', '
 
 <template>
   <section class="ap-section ap-wlib" id="widget" data-wlib>
+    <DecoIcons set="widgets" />
     <div class="ap-container">
       <header class="ap-head ap-head--center">
         <h2 class="ap-title" data-split>13 widget, langsung muncul di panel Elementor.</h2>
         <p class="ap-lead" data-reveal>Seret widget dari panel ke halaman, lalu lihat langsung cara kerjanya. Semua diatur dari Elementor, tanpa kode.</p>
       </header>
 
-      <div class="ap-ed" data-wlib-inner data-reveal>
+      <div class="ap-ed" data-wlib-inner data-approach data-approach-end="top 58%">
         <!-- Top bar editor -->
         <div class="ap-ed__bar">
           <span class="ap-ed__brand"><span class="ap-epanel__burger" aria-hidden="true"><i></i><i></i><i></i></span><b>Elementor</b></span>

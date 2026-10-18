@@ -261,11 +261,11 @@ export function initLanding() {
 			gsap.to(chip, { y: i % 2 ? 10 : -10, duration: 2.6 + i * 0.4, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 2 });
 		});
 
-		// Saat hero digulir keluar, kartu mundur sedikit.
+		// Saat hero digulir keluar, kartu sampul mendekat ke arah pembaca lalu memudar.
 		gsap.to('.ap-hero__stage', {
-			yPercent: 12,
-			scale: 0.92,
-			autoAlpha: 0.4,
+			yPercent: 8,
+			scale: 1.16,
+			autoAlpha: 0.15,
 			ease: 'none',
 			scrollTrigger: { trigger: '.ap-hero', start: 'top top', end: 'bottom top', scrub: true },
 		});

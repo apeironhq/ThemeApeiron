@@ -16,6 +16,7 @@ const kpis = [
 
 <template>
   <section class="ap-section ap-dash3d" data-dash3d>
+    <DecoIcons set="dashboard" />
     <div class="ap-container">
       <header class="ap-head ap-head--center">
         <h2 class="ap-title" data-split>{{ d.title }}</h2>
@@ -23,7 +24,7 @@ const kpis = [
       </header>
 
       <!-- Ke mana data tiap widget pergi: hanya Daftar Hadiah & Form Order yang masuk MDUNDIG. -->
-      <div class="ap-flowmap" aria-label="Alur data widget">
+      <div class="ap-flowmap" aria-label="Alur data widget" data-approach>
         <div v-for="f in d.flow" :key="f.widget" class="ap-flowmap__item" :class="{ 'is-mdundig': f.mdundig }" data-reveal>
           <div class="ap-flowmap__from">
             <span class="ap-ico-chip"><ApIcon :name="f.icon" /></span>
