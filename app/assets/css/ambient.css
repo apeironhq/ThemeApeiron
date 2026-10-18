@@ -1,0 +1,16 @@
+/* ==========================================================================
+   Latar partikel: kanvas tetap di belakang halaman; section terang dibuat
+   tembus pandang agar partikel terlihat. Section gelap (hero, CTA, footer) tetap solid.
+   ========================================================================== */
+body.ap-landing { background: #f8fbfc; }
+.ap-particles { position: fixed; inset: 0; z-index: 0; width: 100%; height: 100%; pointer-events: none; }
+
+.ap-story,
+.ap-wlib,
+.ap-steps,
+.ap-faq,
+.ap-updates { background: transparent; }
+.ap-journey { background: linear-gradient(180deg, transparent, rgba(238, 245, 248, .55)); }
+.ap-dash3d { background: linear-gradient(180deg, rgba(238, 245, 248, .55), transparent); }
+.ap-feat,
+.ap-testi { background: rgba(238, 245, 248, .5); }

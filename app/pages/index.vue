@@ -13,11 +13,16 @@ onMounted(async () => {
     import('gsap/DrawSVGPlugin'),
     import('~/assets/js/landing.js'),
   ])
-  const [{ initWidgetPanel }, { initFeatures }] = await Promise.all([import('~/assets/js/widgets.js'), import('~/assets/js/features.js')])
+  const [{ initWidgetPanel }, { initFeatures }, { initParticles }] = await Promise.all([
+    import('~/assets/js/widgets.js'),
+    import('~/assets/js/features.js'),
+    import('~/assets/js/particles.js'),
+  ])
   Object.assign(window, { gsap, ScrollTrigger, ScrollSmoother, SplitText, DrawSVGPlugin })
   initLanding()
   initWidgetPanel()
   initFeatures()
+  initParticles(document.querySelector('[data-particles]'))
 })
 </script>
 
@@ -27,6 +32,8 @@ onMounted(async () => {
       <div class="ap-cursor__dot"></div>
       <div class="ap-cursor__ring"><span class="ap-cursor__circle"></span><span class="ap-cursor__label"></span></div>
     </div>
+
+    <canvas class="ap-particles" data-particles aria-hidden="true"></canvas>
 
     <LandingNav />
 

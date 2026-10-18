@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /**
- * Peragaan mini satu widget di kanvas section "13 widget".
+ * Peragaan mini satu widget di halaman editor section "13 widget".
  * Markup statis; gerakannya dimainkan oleh assets/js/widgets.js (demos[key]).
  */
 import { content as c } from '~/data/content'
@@ -36,26 +36,48 @@ const h = c.hero
     <p class="wd-small">Lagu mulai saat tamu membuka sampul</p>
   </div>
 
-  <!-- Form WhatsApp -->
+  <!-- Form WhatsApp: isi form, kirim, lalu pesan tampil di WhatsApp mempelai -->
   <div v-else-if="k === 'form'" class="wd wd--white">
     <p class="wd-title">Konfirmasi Kehadiran</p>
     <label class="wd-label">Nama tamu</label>
-    <div class="wd-input"><span data-typed data-text="Andi Pratama"></span><i class="wd-caret"></i></div>
+    <div class="wd-input"><span data-type-name data-text="Andi Pratama"></span></div>
     <div class="wd-row">
       <span class="wd-pill is-on">Hadir</span><span class="wd-pill">Berhalangan</span>
-      <span class="wd-qty">− <b data-qty>1</b> +</span>
+      <span class="wd-qty" data-qtybtn>− <b data-qty>1</b> +</span>
     </div>
+    <label class="wd-label">Ucapan</label>
+    <div class="wd-input wd-input--area"><span data-type-msg data-text="Selamat menempuh hidup baru!"></span></div>
     <span class="wd-btn wd-btn--wa" data-send><ApIcon name="chat" /> Kirim via WhatsApp</span>
-    <div class="wd-toast wd-toast--wa" data-toast><ApIcon name="check" /> Terkirim ke WhatsApp mempelai</div>
+    <div class="wd-chat" data-chat>
+      <div class="wd-chat__bar"><span class="wd-chat__back">‹</span><span class="wd-ava">R</span><p><b>{{ h.couple }}</b><small>online</small></p></div>
+      <div class="wd-chat__body">
+        <div class="wd-chat__day">Hari ini</div>
+        <div class="wd-chat__bubble" data-bubble>
+          <p>Halo, saya <b>Andi Pratama</b>.<br>Konfirmasi: Hadir (2 orang).<br>Ucapan: Selamat menempuh hidup baru!</p>
+          <small>09.41 <i data-ticks>✓✓</i></small>
+        </div>
+      </div>
+      <div class="wd-chat__input"><span>Ketik pesan</span><span class="wd-chat__send"><ApIcon name="send" /></span></div>
+    </div>
   </div>
 
-  <!-- Form Order -->
+  <!-- Form Order: isi tiap langkah, pilih paket, kirim -->
   <div v-else-if="k === 'order'" class="wd wd--white">
+    <p class="wd-title">Pesan Undangan</p>
     <div class="wd-steps"><span data-st class="is-on">1</span><i><b data-bar></b></i><span data-st>2</span><i><b data-bar></b></i><span data-st>3</span></div>
     <div class="wd-panes">
-      <div class="wd-pane is-on" data-pane><label class="wd-label">Mempelai</label><div class="wd-input">Raka &amp; Nadia</div></div>
-      <div class="wd-pane" data-pane><label class="wd-label">Tanggal acara</label><div class="wd-input">12 Desember 2026</div></div>
-      <div class="wd-pane" data-pane><label class="wd-label">Paket</label><div class="wd-input wd-input--on">Premium · semua widget</div></div>
+      <div class="wd-pane is-on" data-pane>
+        <label class="wd-label">Mempelai pria</label><div class="wd-input"><span data-type-a data-text="Raka Pratama"></span></div>
+        <label class="wd-label">Mempelai wanita</label><div class="wd-input"><span data-type-b data-text="Nadia Putri"></span></div>
+      </div>
+      <div class="wd-pane" data-pane>
+        <label class="wd-label">Tanggal acara</label><div class="wd-input"><span data-type-c data-text="12 Desember 2026"></span></div>
+        <label class="wd-label">Lokasi</label><div class="wd-input"><span data-type-d data-text="Gedung Sasana, Bandung"></span></div>
+      </div>
+      <div class="wd-pane" data-pane>
+        <label class="wd-label">Pilih paket</label>
+        <div class="wd-plans"><span class="wd-plan">Basic<small>Tema standar</small></span><span class="wd-plan" data-plan>Premium<small>Semua widget</small></span></div>
+      </div>
     </div>
     <span class="wd-btn" data-next>Lanjut</span>
     <div class="wd-toast" data-toast><ApIcon name="check" /> Pesanan masuk dashboard MDUNDIG</div>
@@ -63,6 +85,7 @@ const h = c.hero
 
   <!-- Tombol Salin -->
   <div v-else-if="k === 'copy'" class="wd wd--paper">
+    <p class="wd-k">Amplop digital</p>
     <div class="wd-bank">
       <span class="wd-bank__chip"></span>
       <small>Nomor rekening</small>
@@ -70,11 +93,21 @@ const h = c.hero
       <small>a.n. Raka Pratama</small>
     </div>
     <span class="wd-copy" data-copy><span class="wd-copy__a"><ApIcon name="copy" /> Salin nomor</span><span class="wd-copy__b"><ApIcon name="check" /> Tersalin!</span></span>
+    <div class="wd-toast" data-toast><ApIcon name="check" /> Nomor rekening disalin</div>
   </div>
 
-  <!-- Ucapan Tamu: ucapan masuk lalu dibalas mempelai -->
+  <!-- Ucapan Tamu: tamu mengisi form & stiker, ucapan masuk, mempelai membalas -->
   <div v-else-if="k === 'comment'" class="wd wd--white wd--top">
     <div class="wd-dock__head"><b>Ucapan &amp; Doa</b><span><b data-count>247</b> ucapan</span></div>
+    <div class="wd-wishform" data-wishform>
+      <div class="wd-input"><span data-type-n data-text="Sinta"></span></div>
+      <div class="wd-input wd-input--area"><span data-type-m data-text="Selamat menempuh hidup baru, kalian serasi banget!"></span></div>
+      <div class="wd-row">
+        <span class="wd-stk" data-stk><img src="/img/stickers/61.webp" alt=""></span>
+        <span class="wd-stk"><img src="/img/stickers/97.webp" alt=""></span>
+        <span class="wd-btn wd-btn--sm wd-push" data-post><ApIcon name="send" /> Kirim</span>
+      </div>
+    </div>
     <div class="wd-cmt" data-c1>
       <span class="wd-ava">S</span>
       <div>
@@ -88,14 +121,18 @@ const h = c.hero
       <span class="wd-ava is-couple">R&amp;N</span>
       <div>
         <p><b>{{ h.couple }}</b><em class="is-couple">Mempelai</em></p>
-        <p><span data-typed data-text="Terima kasih doanya, Sinta! 🤍"></span><i class="wd-caret"></i></p>
+        <p><span data-type-r data-text="Terima kasih doanya, Sinta! 🤍"></span><i class="wd-caret"></i></p>
       </div>
     </div>
   </div>
 
   <!-- Manajemen Tamu -->
   <div v-else-if="k === 'manager'" class="wd wd--paper wd--top">
-    <div class="wd-url"><ApIcon name="globe" /><span>/raka-nadia/?to=</span><b data-typed data-text="Bapak+Andi"></b><i class="wd-caret"></i></div>
+    <div class="wd-guests" data-guests>
+      <div class="wd-guest" data-guest><span class="wd-ava">A</span><b>Bapak Andi Pratama</b><span class="wd-btn wd-btn--sm" data-mklink>Buat link</span></div>
+      <div class="wd-guest"><span class="wd-ava is-b">S</span><b>Ibu Sari Wulandari</b><span class="wd-chip-ok"><ApIcon name="check" /></span></div>
+    </div>
+    <div class="wd-url"><ApIcon name="globe" /><span>/raka-nadia/?to=</span><b data-type-u data-text="Bapak+Andi"></b><i class="wd-caret"></i></div>
     <span class="wd-string"></span>
     <div class="wd-tag" data-tag><small>Kepada Yth.</small><b data-name>Nama Tamu</b><span>di tempat</span></div>
   </div>
@@ -143,6 +180,7 @@ const h = c.hero
 
   <!-- Cerita Cinta -->
   <div v-else-if="k === 'story'" class="wd wd--paper wd--top">
+    <p class="wd-k">Cerita kami</p>
     <div class="wd-tl">
       <i class="wd-tl__line"><b data-line></b></i>
       <div v-for="m in [['2019', 'Pertama bertemu', 'heart'], ['2023', 'Mulai serius', 'sparkle'], ['2026', 'Lamaran', 'gift']]" :key="m[0]" class="wd-tl__item" data-item>
@@ -152,7 +190,7 @@ const h = c.hero
     </div>
   </div>
 
-  <!-- Daftar Hadiah -->
+  <!-- Daftar Hadiah: pilih hadiah, isi data di popup, konfirmasi, tercatat di MDUNDIG -->
   <div v-else-if="k === 'registry'" class="wd wd--white wd--top">
     <p class="wd-title">Hadiah Pernikahan</p>
     <div class="wd-gift" data-gift>
@@ -163,6 +201,21 @@ const h = c.hero
       <span class="wd-gift__img is-b"><ApIcon name="layers" /></span>
       <div><b>Set Piring</b><span class="wd-badge">Tersedia <b>2 dari 2</b></span><span class="wd-btn wd-btn--sm">Pilih Hadiah</span></div>
     </div>
-    <div class="wd-toast" data-toast><ApIcon name="check" /> Hadiah dipesan · tercatat di MDUNDIG</div>
+    <div class="wd-gift">
+      <span class="wd-gift__img is-c"><ApIcon name="sparkle" /></span>
+      <div><b>Blender</b><span class="wd-badge">Tersedia <b>1 dari 1</b></span><span class="wd-btn wd-btn--sm">Pilih Hadiah</span></div>
+    </div>
+    <div class="wd-modal" data-modal>
+      <div class="wd-modal__sheet" data-sheet>
+        <p class="wd-modal__title"><span class="wd-gift__img"><ApIcon name="gift" /></span><span><b>Rice Cooker</b><small>Isi data untuk memesan hadiah</small></span></p>
+        <label class="wd-label">Nama pemberi</label>
+        <div class="wd-input"><span data-type-g1 data-text="Andi Pratama"></span></div>
+        <label class="wd-label">Nomor WhatsApp</label>
+        <div class="wd-input"><span data-type-g2 data-text="0812 3456 7890"></span></div>
+        <span class="wd-btn" data-confirm>Konfirmasi hadiah</span>
+        <div class="wd-modal__done" data-done><span class="wd-check"><ApIcon name="check" /></span><b>Hadiah berhasil dipesan</b><small>Terima kasih, Andi!</small></div>
+      </div>
+    </div>
+    <div class="wd-toast" data-toast><ApIcon name="check" /> Reservasi tercatat di MDUNDIG</div>
   </div>
 </template>

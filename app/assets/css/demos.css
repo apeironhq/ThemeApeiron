@@ -257,3 +257,78 @@
 .wd-badge { padding: 2px 9px; border-radius: 999px; background: var(--navy-50); font-size: 11px; font-weight: 500; color: var(--navy); }
 .wd-badge b { font-weight: 500; }
 .wd-gift.is-taken .wd-btn { background: #1f9d55; }
+
+/* ==========================================================================
+   Peragaan yang lebih lengkap: popup form, layar chat, form ucapan, paket.
+   ========================================================================== */
+.wd > * { width: min(100%, 320px); }
+.wd-input--area { align-items: flex-start; min-height: 52px; padding-top: 9px; padding-bottom: 9px; line-height: 1.4; }
+/* Kursor ketik muncul di kolom yang sedang diisi. */
+.wd-input.is-typing { border-color: var(--navy); }
+.wd-input.is-typing::after { content: ""; display: inline-block; width: 1.5px; height: 15px; margin-left: 1px; background: var(--navy); animation: ap-caret 1s steps(2) infinite; }
+.wd-push { margin-left: auto; }
+
+/* Form WhatsApp -> layar chat WhatsApp mempelai */
+.wd-chat { position: absolute; inset: 0; z-index: 3; width: auto !important; display: grid; grid-template-rows: auto 1fr auto; background: #efe7dc; text-align: left; visibility: hidden; }
+.wd-chat__bar { display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: #0f5c4f; color: var(--white); }
+.wd-chat__back { font-size: 22px; line-height: 1; opacity: .8; }
+.wd-chat__bar .wd-ava { background: rgba(255, 255, 255, .2); }
+.wd-chat__bar p { display: grid; line-height: 1.25; font-size: 13.5px; }
+.wd-chat__bar b { font-weight: 500; }
+.wd-chat__bar small { font-size: 11px; opacity: .75; }
+.wd-chat__body { display: grid; align-content: end; gap: 10px; padding: 14px; }
+.wd-chat__day { justify-self: center; padding: 3px 10px; border-radius: 8px; background: rgba(255, 255, 255, .7); font-size: 10.5px; color: #54656f; }
+.wd-chat__bubble { justify-self: end; max-width: 88%; padding: 9px 11px 6px; border-radius: 12px 12px 3px 12px; background: #d9fdd3; color: #111b21; font-size: 12.5px; line-height: 1.5; }
+.wd-chat__bubble b { font-weight: 500; }
+.wd-chat__bubble small { display: block; text-align: right; font-size: 10px; color: #667781; }
+.wd-chat__bubble i { font-style: normal; letter-spacing: -.25em; margin-left: 2px; transition: color .4s; }
+.wd-chat__bubble i.is-read { color: #34b7f1; }
+.wd-chat__input { display: flex; align-items: center; gap: 8px; padding: 10px 12px; }
+.wd-chat__input > span:first-child { flex: 1; padding: 9px 14px; border-radius: 999px; background: var(--white); font-size: 12px; color: #8696a0; }
+.wd-chat__send { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: #0f5c4f; color: var(--white); }
+.wd-chat__send .ap-icon { width: 16px; height: 16px; }
+
+/* Form order: pilihan paket */
+.wd-plans { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.wd-plan { display: grid; gap: 2px; padding: 12px; border-radius: 12px; border: 1px solid var(--line); background: var(--white); font-size: 13.5px; font-weight: 500; color: var(--ink); text-align: left; transition: border-color .3s, background-color .3s; }
+.wd-plan small { font-size: 11px; font-weight: 400; color: var(--muted); }
+.wd-plan.is-on { border-color: var(--navy); background: var(--navy-50); color: var(--navy); }
+.wd-pane .wd-input { margin-bottom: 4px; }
+.wd-btn.is-loading { pointer-events: none; }
+.wd-dots { display: inline-flex; gap: 4px; }
+.wd-dots i { width: 5px; height: 5px; border-radius: 50%; background: currentColor; animation: wd-dot 1s ease-in-out infinite; }
+.wd-dots i:nth-child(2) { animation-delay: .15s; }
+.wd-dots i:nth-child(3) { animation-delay: .3s; }
+@keyframes wd-dot { 0%, 100% { opacity: .3; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-3px); } }
+
+/* Ucapan tamu: form singkat + stiker */
+.wd-wishform { display: grid; gap: 8px; padding: 10px; border-radius: 14px; border: 1px solid var(--line); background: var(--white); overflow: hidden; }
+.wd-wishform .wd-input { min-height: 34px; font-size: 12.5px; background: var(--bg); }
+.wd-wishform .wd-input--area { min-height: 46px; }
+.wd-stk { display: grid; place-items: center; width: 38px; height: 38px; padding: 3px; border-radius: 10px; border: 1px solid var(--line); background: var(--white); transition: border-color .3s, background-color .3s; }
+.wd-stk img { width: 100%; height: 100%; object-fit: contain; }
+.wd-stk.is-on { border-color: var(--navy); background: var(--navy-50); }
+
+/* Manajemen tamu: daftar tamu */
+.wd-guests { display: grid; gap: 6px; }
+.wd-guest { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 12px; border: 1px solid var(--line); background: var(--white); font-size: 12.5px; text-align: left; }
+.wd-guest b { flex: 1; font-weight: 500; color: var(--ink); }
+.wd-ava.is-b { background: #9a7339; }
+.wd-chip-ok { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: #e3f5ec; color: #1a7f53; }
+.wd-chip-ok .ap-icon { width: 14px; height: 14px; }
+
+/* Daftar hadiah: popup isi data */
+.wd-gift__img.is-c { background: linear-gradient(135deg, #eef3ee, #dbe7dc); color: #4f7a55; }
+.wd-modal { position: absolute; inset: 0; z-index: 3; width: auto !important; display: grid; align-items: end; background: rgba(4, 38, 58, .38); visibility: hidden; }
+.wd-modal__sheet { position: relative; display: grid; gap: 7px; padding: 18px 18px 20px; border-radius: 20px 20px 0 0; background: var(--white); text-align: left; overflow: hidden; }
+.wd-modal__title { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+.wd-modal__title .wd-gift__img { width: 42px; height: 42px; }
+.wd-modal__title > span:last-child { display: grid; line-height: 1.3; }
+.wd-modal__title b { font-size: 14.5px; font-weight: 500; color: var(--ink); }
+.wd-modal__title small { font-size: 11.5px; color: var(--muted); }
+.wd-modal__sheet .wd-btn { margin-top: 6px; }
+.wd-modal__done { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 6px; background: var(--white); text-align: center; visibility: hidden; }
+.wd-modal__done b { font-size: 15px; font-weight: 500; color: var(--ink); }
+.wd-modal__done small { font-size: 12px; color: var(--muted); }
+.wd-check { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: #e3f5ec; color: #1a7f53; }
+.wd-check .ap-icon { width: 24px; height: 24px; stroke-width: 2; }
