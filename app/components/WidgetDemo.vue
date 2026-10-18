@@ -54,7 +54,7 @@ const h = c.hero
         <div class="wd-chat__day">Hari ini</div>
         <div class="wd-chat__bubble" data-bubble>
           <p>Halo, saya <b>Andi Pratama</b>.<br>Konfirmasi: Hadir (2 orang).<br>Ucapan: Selamat menempuh hidup baru!</p>
-          <small>09.41 <i data-ticks>✓✓</i></small>
+          <small>09.41 · <i class="tk" data-ticks><span class="tk__a">Terkirim</span><span class="tk__b">Dibaca</span></i></small>
         </div>
       </div>
       <div class="wd-chat__input"><span>Ketik pesan</span><span class="wd-chat__send"><ApIcon name="send" /></span></div>
@@ -80,7 +80,7 @@ const h = c.hero
       </div>
     </div>
     <span class="wd-btn" data-next>Lanjut</span>
-    <div class="wd-toast" data-toast><ApIcon name="check" /> Pesanan masuk dashboard MDUNDIG</div>
+    <div class="wd-toast" data-toast><ApIcon name="layout" /> Pesanan masuk dashboard MDUNDIG</div>
   </div>
 
   <!-- Tombol Salin -->
@@ -92,8 +92,8 @@ const h = c.hero
       <b data-num>1234 5678 90</b>
       <small>a.n. Raka Pratama</small>
     </div>
-    <span class="wd-copy" data-copy><span class="wd-copy__a"><ApIcon name="copy" /> Salin nomor</span><span class="wd-copy__b"><ApIcon name="check" /> Tersalin!</span></span>
-    <div class="wd-toast" data-toast><ApIcon name="check" /> Nomor rekening disalin</div>
+    <span class="wd-copy" data-copy><span class="wd-copy__a"><ApIcon name="copy" /> Salin nomor</span><span class="wd-copy__b"><ApIcon name="copy" /> Tersalin!</span></span>
+    <div class="wd-toast" data-toast><ApIcon name="copy" /> Nomor rekening disalin</div>
   </div>
 
   <!-- Ucapan Tamu: tamu mengisi form & stiker, ucapan masuk, mempelai membalas -->
@@ -130,7 +130,7 @@ const h = c.hero
   <div v-else-if="k === 'manager'" class="wd wd--paper wd--top">
     <div class="wd-guests" data-guests>
       <div class="wd-guest" data-guest><span class="wd-ava">A</span><b>Bapak Andi Pratama</b><span class="wd-btn wd-btn--sm" data-mklink>Buat link</span></div>
-      <div class="wd-guest"><span class="wd-ava is-b">S</span><b>Ibu Sari Wulandari</b><span class="wd-chip-ok"><ApIcon name="check" /></span></div>
+      <div class="wd-guest"><span class="wd-ava is-b">S</span><b>Ibu Sari Wulandari</b><span class="wd-chip-ok"><ApIcon name="globe" /></span></div>
     </div>
     <div class="wd-url"><ApIcon name="globe" /><span>/raka-nadia/?to=</span><b data-type-u data-text="Bapak+Andi"></b><i class="wd-caret"></i></div>
     <span class="wd-string"></span>
@@ -213,9 +213,9 @@ const h = c.hero
         <label class="wd-label">Nomor WhatsApp</label>
         <div class="wd-input"><span data-type-g2 data-text="0812 3456 7890"></span></div>
         <span class="wd-btn" data-confirm>Konfirmasi hadiah</span>
-        <div class="wd-modal__done" data-done><span class="wd-check"><ApIcon name="check" /></span><b>Hadiah berhasil dipesan</b><small>Terima kasih, Andi!</small></div>
+        <div class="wd-modal__done" data-done><span class="wd-check"><ApIcon name="gift" /></span><b>Hadiah berhasil dipesan</b><small>Terima kasih, Andi!</small></div>
       </div>
     </div>
-    <div class="wd-toast" data-toast><ApIcon name="check" /> Reservasi tercatat di MDUNDIG</div>
+    <div class="wd-toast" data-toast><ApIcon name="gift" /> Reservasi tercatat di MDUNDIG</div>
   </div>
 </template>

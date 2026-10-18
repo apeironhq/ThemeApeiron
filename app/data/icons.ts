@@ -33,6 +33,10 @@ export const icons = {
   'thumb-up': '<path d="M7 11v9H4v-9zM7 11l4-8a2 2 0 0 1 2 2v4h5.5a2 2 0 0 1 2 2.3l-1.2 7A2 2 0 0 1 17.3 20H7"/>',
   'thumb-down': '<path d="M7 13V4H4v9zM7 13l4 8a2 2 0 0 0 2-2v-4h5.5a2 2 0 0 0 2-2.3l-1.2-7A2 2 0 0 0 17.3 4H7"/>',
   'calendar': '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+  // Ikon status pengganti tanda centang (ikon bermakna, bukan ✓).
+  'power': '<path d="M12 3v8"/><path d="M6.4 6.9a8 8 0 1 0 11.2 0"/>',
+  'key': '<circle cx="8" cy="15" r="4"/><path d="m10.9 12.1 9.1-9.1M16.5 6.5l2.5 2.5M14.5 8.5l2 2"/>',
+  'badge': '<path d="M12 2.8l2.1 1.5 2.6-.1.8 2.5 2.1 1.5-.8 2.5.8 2.5-2.1 1.5-.8 2.5-2.6-.1L12 21.2l-2.1-1.5-2.6.1-.8-2.5-2.1-1.5.8-2.5-.8-2.5 2.1-1.5.8-2.5 2.6.1z"/><path d="M12 8.6l1 2.1 2.3.3-1.7 1.6.4 2.3-2-1.1-2 1.1.4-2.3-1.7-1.6 2.3-.3z"/>',
 } as const
 
 export type IconName = keyof typeof icons

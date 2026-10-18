@@ -104,7 +104,7 @@ const wishes = [
                   <p class="ap-rsvp3__wa-head"><ApIcon name="chat" />WhatsApp mempelai</p>
                   <div class="ap-rsvp3__bubble">
                     <p>Halo, saya Andi. Konfirmasi: Hadir (2 orang).</p>
-                    <small>09.41 <i data-rsvp-ticks>✓✓</i></small>
+                    <small>09.41 · <i class="tk" data-rsvp-ticks><span class="tk__a">Terkirim</span><span class="tk__b">Dibaca</span></i></small>
                   </div>
                 </div>
               </template>
@@ -114,7 +114,7 @@ const wishes = [
                 <svg class="ap-lic__ring" viewBox="0 0 220 220" data-lic-ring><circle cx="110" cy="110" r="100" /><circle cx="110" cy="110" r="78" /></svg>
                 <div class="ap-lic__shield" data-lic-shield>
                   <ApIcon name="shield" />
-                  <span class="ap-lic__ok" data-lic-ok><ApIcon name="check" /></span>
+                  <span class="ap-lic__ok" data-lic-ok><ApIcon name="badge" /></span>
                 </div>
                 <div class="ap-lic__ver" data-lic-ver>
                   <div class="ap-lic__ver-track" data-lic-track>

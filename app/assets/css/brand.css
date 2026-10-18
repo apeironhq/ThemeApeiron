@@ -129,3 +129,35 @@
 /* Journey: panel "Edit Widget" dipusatkan vertikal terhadap HP (610px).
    Memakai top/bottom + margin auto, bukan transform, karena GSAP menganimasikan transform panel ini. */
 .ap-journey__fit .ap-editor { top: 0; bottom: 10px; height: fit-content; margin: auto 0; }
+
+/* ==========================================================================
+   Ikon status (pengganti tanda centang): lencana navy dengan ikon emas.
+   ========================================================================== */
+:root { --badge-bg: linear-gradient(140deg, #0f5d84 0%, #083c57 55%, #052a3f 100%); --badge-ink: #ecd29a; }
+
+/* Status pesan di gelembung WhatsApp: "Terkirim" lalu "Dibaca". */
+.tk { display: inline-grid; font-style: normal; letter-spacing: normal !important; font-weight: 500; }
+.tk > span { grid-area: 1 / 1; transition: opacity .3s; }
+.tk__b { opacity: 0; }
+.tk.is-read .tk__a { opacity: 0; }
+.tk.is-read .tk__b { opacity: 1; color: #9a7339; }
+
+/* Lencana: lisensi terverifikasi, perisai lisensi, hadiah berhasil dipesan. */
+.hw-ok,
+.ap-lic__ok,
+.wd-check { background: var(--badge-bg) !important; color: var(--badge-ink) !important; }
+.hw-ok { width: 26px; height: 26px; box-shadow: 0 0 0 3px #f3ead8; }
+.hw-ok .ap-icon { width: 14px; height: 14px; stroke-width: 1.8; }
+.ap-lic__ok { width: 34px; height: 34px; }
+.ap-lic__ok .ap-icon { width: 18px; height: 18px; stroke-width: 1.6; }
+.wd-check { width: 60px; height: 60px; box-shadow: 0 0 0 6px #f3ead8; }
+.wd-check .ap-icon { width: 26px; height: 26px; stroke-width: 1.6; }
+
+/* Titik langkah yang selesai: krem emas dengan ikon langkahnya. */
+.ap-how__step.is-done .ap-how__node { background: #f3ead8; border-color: #e6d3ad; color: #7a5a26; }
+.ap-how__node .ap-icon { width: 21px; height: 21px; }
+
+/* Chip link tamu & ikon toast. */
+.wd-chip-ok { background: var(--navy-50); color: var(--navy); }
+.wd-toast .ap-icon,
+.ap-screen__toast .ap-icon { color: var(--badge-ink); }

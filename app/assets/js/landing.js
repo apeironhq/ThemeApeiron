@@ -466,7 +466,7 @@ export function initLanding() {
 					.fromTo($$('.ap-gift', screen), { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, stagger: 0.1, duration: 0.6 })
 					.fromTo(toast, { autoAlpha: 0 }, { autoAlpha: 0, duration: 0.01 }, 0)
 					.to(btn, { scale: 0.93, duration: 0.15 }, '+=0.35')
-					.add(() => { gift.classList.add('is-taken'); stock.textContent = '0 dari 1'; btn.textContent = '✓ Dipilih'; })
+					.add(() => { gift.classList.add('is-taken'); stock.textContent = '0 dari 1'; btn.textContent = 'Dipilih'; })
 					.to(btn, { scale: 1, duration: 0.6, ease: 'elastic.out(1, 0.5)' })
 					.fromTo(toast, { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, ease: 'back.out(2)' }, '-=0.35');
 			}

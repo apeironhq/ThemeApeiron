@@ -79,7 +79,7 @@ const pad = (n: number) => String(n).padStart(2, '0')
                 <label class="ap-screen__label">Ucapan</label>
                 <div class="ap-screen__input ap-screen__input--area">Semoga sakinah, mawaddah, warahmah 🤍</div>
                 <span class="ap-screen__btn ap-screen__btn--wa"><ApIcon name="chat" /> Kirim via WhatsApp</span>
-                <span class="ap-screen__toast ap-screen__toast--wa"><ApIcon name="check" /> WhatsApp terbuka</span>
+                <span class="ap-screen__toast ap-screen__toast--wa"><ApIcon name="chat" /> WhatsApp terbuka</span>
               </div>
 
               <!-- 5. Ucapan Tamu (ucapan + stiker) -->
@@ -115,7 +115,7 @@ const pad = (n: number) => String(n).padStart(2, '0')
                   <span class="ap-gift__img ap-gift__img--c"><ApIcon name="sparkle" /></span>
                   <div><span class="ap-gift__badge"><ApIcon name="gift" /> Tersedia <b>1 dari 1</b></span><p>Blender</p><span class="ap-gift__btn">Pilih Hadiah</span></div>
                 </div>
-                <span class="ap-screen__toast"><ApIcon name="check" /> Hadiah dipesan · tercatat di MDUNDIG</span>
+                <span class="ap-screen__toast"><ApIcon name="gift" /> Hadiah dipesan · tercatat di MDUNDIG</span>
               </div>
             </div>
           </div>

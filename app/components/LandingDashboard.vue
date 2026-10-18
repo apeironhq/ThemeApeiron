@@ -9,7 +9,7 @@ const d = c.dashboard
 const kpis = [
   ['blue', 'book', 'Total undangan', 24, '+3 baru', 'L40 26 L58 25 L70 12 L90 8'],
   ['orange', 'gift', 'Hadiah aktif', 128, '+12 baru', 'L45 26 L62 26 L76 10 L90 14'],
-  ['purple', 'check', 'Reservasi terkonfirmasi', 86, '+5 baru', 'L48 26 L62 26 L74 8 L90 22'],
+  ['purple', 'badge', 'Reservasi terkonfirmasi', 86, '+5 baru', 'L48 26 L62 26 L74 8 L90 22'],
   ['pink', 'globe', 'Website terhubung', 6, '3 token aktif', 'L50 26 L66 26 L76 10 L90 10'],
 ] as const
 </script>
@@ -129,7 +129,7 @@ const kpis = [
 
       <!-- Notifikasi melayang -->
       <div class="ap-dash3d__float ap-dash3d__float--a" data-dash-float data-depth="1.6">
-        <span class="ap-md__chip is-purple"><ApIcon name="check" /></span>
+        <span class="ap-md__chip is-purple"><ApIcon name="badge" /></span>
         <span><b>Reservasi terkonfirmasi</b>Rice Cooker · Andi P.</span>
       </div>
       <div class="ap-dash3d__float ap-dash3d__float--b" data-dash-float data-depth="1.2">
