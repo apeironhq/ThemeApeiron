@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: false },
 
-  css: ['~/assets/css/landing.css', '~/assets/css/brand.css', '~/assets/css/features.css'],
+  css: ['~/assets/css/landing.css', '~/assets/css/brand.css', '~/assets/css/features.css', '~/assets/css/demos.css'],
 
   // Pertahankan spasi antar-elemen seperti output PHP, agar tata letak teks identik.
   vue: { compilerOptions: { whitespace: 'preserve' } },

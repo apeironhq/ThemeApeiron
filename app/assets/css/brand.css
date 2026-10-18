@@ -136,49 +136,100 @@
 }
 .ap-wlib .ap-head { margin-bottom: 28px; }
 
+.ap-wlib__inner { position: relative; }
 .ap-wlib__stage {
 	position: relative;
 	display: grid;
-	padding: 28px 28px 32px;
+	gap: 18px;
+	padding: 14px 14px 24px;
 	border-radius: var(--radius);
 	border: 1px solid var(--line);
 	background: var(--white);
 	overflow: hidden;
 }
-/* Semua kartu bertumpuk di sel yang sama: tinggi mengikuti isi terpanjang. */
-.ap-wlib__info { grid-area: 1 / 1; display: grid; align-content: start; gap: 12px; visibility: hidden; }
-.ap-wlib__info.is-active { visibility: visible; }
-.ap-wlib__info-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
-.ap-wlib__big {
-	display: grid;
-	place-items: center;
-	width: 72px;
-	height: 72px;
-	border-radius: 20px;
-	background: var(--navy-50);
-	color: var(--navy);
+/* Kanvas tempat widget dilepas & diperagakan. */
+.ap-wlib__canvas {
+	position: relative;
+	height: 340px;
+	border-radius: calc(var(--radius) - 8px);
+	border: 1px solid var(--line);
+	background: var(--bg);
+	overflow: hidden;
+	isolation: isolate;
+	transition: border-color .3s, background-color .3s;
 }
-.ap-wlib__big svg { width: 38px; height: 38px; overflow: visible; }
-.ap-wlib__count { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.ap-wlib__canvas.is-drop { border-color: var(--navy); background: var(--navy-50); }
+.ap-wlib__demo { position: absolute; inset: 0; visibility: hidden; }
+.ap-wlib__demo.is-active { visibility: visible; }
+.ap-wlib__drop {
+	position: absolute;
+	inset: 12px;
+	z-index: 3;
+	display: grid;
+	place-content: center;
+	justify-items: center;
+	gap: 8px;
+	border-radius: 14px;
+	border: 1.5px dashed var(--navy);
+	background: rgba(238, 245, 248, .92);
+	font-size: 14px;
+	font-weight: 500;
+	color: var(--navy);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity .25s;
+}
+.ap-wlib__drop .ap-icon { width: 22px; height: 22px; }
+.ap-wlib__canvas.is-drop .ap-wlib__drop { opacity: 1; }
+
+/* Teks penjelasan: semua bertumpuk di sel yang sama, tinggi mengikuti isi terpanjang. */
+.ap-wlib__infos { display: grid; padding: 0 10px; }
+.ap-wlib__info { grid-area: 1 / 1; display: grid; align-content: start; gap: 10px; visibility: hidden; }
+.ap-wlib__info.is-active { visibility: visible; }
+.ap-wlib__info-top { display: flex; align-items: center; gap: 12px; }
+.ap-wlib__chip { flex: none; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; background: var(--navy-50); color: var(--navy); }
+.ap-wlib__chip svg { width: 22px; height: 22px; overflow: visible; }
+.ap-wlib__count { margin-left: auto; font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .ap-wlib__count b { font-weight: 500; color: var(--navy); }
-.ap-wlib__info h3 { font-size: clamp(22px, 2.2vw, 28px); font-weight: 500; line-height: 1.2; color: var(--ink); }
-.ap-wlib__info p { font-size: 17px; line-height: 1.6; color: var(--muted); max-width: 46ch; }
+.ap-wlib__info h3 { font-size: clamp(20px, 2vw, 24px); font-weight: 500; line-height: 1.2; color: var(--ink); }
+.ap-wlib__info p { font-size: 16px; line-height: 1.6; color: var(--muted); }
 .ap-wlib__dest {
 	justify-self: start;
 	display: inline-flex;
 	align-items: center;
 	gap: 8px;
-	margin-top: 4px;
-	padding: 7px 14px;
+	padding: 6px 13px;
 	border-radius: 999px;
 	background: var(--navy-50);
-	font-size: 14px;
+	font-size: 13.5px;
 	font-weight: 500;
 	color: var(--navy);
 }
 .ap-wlib__dest .ap-icon { width: 15px; height: 15px; }
 .ap-wlib__progress { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: var(--navy-50); }
 .ap-wlib__progress i { display: block; height: 100%; background: var(--navy); transform-origin: left; transform: scaleX(0); }
+
+/* Tile yang sedang diseret dari panel ke kanvas. */
+.ap-wlib__ghost {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 5;
+	display: grid;
+	justify-items: center;
+	align-content: center;
+	gap: 10px;
+	border-radius: 6px;
+	border: 1px solid var(--navy);
+	background: var(--white);
+	color: var(--navy);
+	opacity: 0;
+	pointer-events: none;
+}
+.ap-wlib__ghost svg { width: 28px; height: 28px; }
+.ap-wlib__ghost .ap-epanel__label { font-size: 12.5px; }
+.ap-epanel__tile.is-grab { opacity: .45; }
+.ap-wlib .ap-epanel__cursor { z-index: 6; }
 
 /* Panel widget Elementor (meniru kategori "Apeiron Kit" di editor). */
 .ap-epanel {
@@ -268,10 +319,9 @@
 	.ap-wlib__stage { order: 3; }
 }
 @media (max-width: 640px) {
-	.ap-wlib__stage { padding: 22px 20px 26px; }
-	.ap-wlib__big { width: 60px; height: 60px; border-radius: 16px; }
-	.ap-wlib__big svg { width: 32px; height: 32px; }
-	.ap-wlib__info p { font-size: 16px; }
+	.ap-wlib__stage { padding: 10px 10px 22px; }
+	.ap-wlib__canvas { height: 320px; }
+	.ap-wlib__info p { font-size: 15.5px; }
 	.ap-epanel__grid { gap: 8px; }
 	.ap-epanel__tile { min-height: 88px; padding: 12px 4px 10px; }
 	.ap-epanel__label { font-size: 11.5px; }
