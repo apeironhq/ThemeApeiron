@@ -13,8 +13,10 @@ onMounted(async () => {
     import('gsap/DrawSVGPlugin'),
     import('~/assets/js/landing.js'),
   ])
+  const { initWidgetPanel } = await import('~/assets/js/widgets.js')
   Object.assign(window, { gsap, ScrollTrigger, ScrollSmoother, SplitText, DrawSVGPlugin })
   initLanding()
+  initWidgetPanel()
 })
 </script>
 
@@ -33,6 +35,7 @@ onMounted(async () => {
           <LandingHero />
           <LandingStory />
           <LandingJourney />
+          <LandingWidgets />
           <LandingDashboard />
           <LandingBento />
           <LandingAudience />
