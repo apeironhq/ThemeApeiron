@@ -4,11 +4,11 @@
    ========================================================================== */
 :root {
 	/* Sangat tipis: hampir tak terlihat, cukup agar kartu tidak menyatu dengan latar. */
-	--soft-border: rgba(8, 60, 87, .05);
-	--soft-shadow: 0 1px 2px rgba(16, 24, 40, .03), 0 2px 8px -4px rgba(8, 60, 87, .06);
-	--soft-shadow-up: 0 1px 3px rgba(16, 24, 40, .04), 0 4px 12px -6px rgba(8, 60, 87, .09);
-	--inner-border: rgba(8, 60, 87, .06);
-	--inner-shadow: 0 1px 1px rgba(16, 24, 40, .03);
+	--soft-border: rgba(8, 60, 87, .04);
+	--soft-shadow: 0 1px 2px rgba(8, 60, 87, .025);
+	--soft-shadow-up: 0 1px 4px rgba(8, 60, 87, .045);
+	--inner-border: rgba(8, 60, 87, .05);
+	--inner-shadow: 0 1px 1px rgba(8, 60, 87, .02);
 }
 
 /* ---------- Kartu utama ---------- */
@@ -55,7 +55,7 @@
 .ap-flowmap__item:not(.is-mdundig):hover { box-shadow: var(--soft-shadow-up); }
 
 /* MDUNDIG (latar navy): kartu putih cukup dengan bayangan gelap yang lembut. */
-.ap-dash3d .ap-flowmap__item:not(.is-mdundig) { border-color: transparent; box-shadow: 0 2px 8px -4px rgba(0, 0, 0, .25); }
+.ap-dash3d .ap-flowmap__item:not(.is-mdundig) { border-color: transparent; box-shadow: 0 1px 3px rgba(0, 0, 0, .14); }
 
 /* FAQ: dari daftar bergaris menjadi kartu lembut. */
 .ap-faq__item {
