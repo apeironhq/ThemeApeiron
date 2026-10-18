@@ -93,7 +93,7 @@
 .hw-ed__tile { display: grid; place-items: center; height: 26px; border-radius: 6px; border: 1px solid var(--line); color: #556068; }
 .hw-ed__tile svg { width: 14px; height: 14px; }
 .hw-ed__tile.is-grab { border-color: var(--navy); color: var(--navy); background: var(--navy-50); }
-.hw-ed__page { position: relative; display: grid; align-content: start; gap: 10px; padding: 14px 12px; border-radius: 12px; border: 1px solid var(--line); background: url('/img/bg.jpg') center / cover, #fbf7f0; text-align: center; }
+.hw-ed__page { position: relative; display: grid; align-content: center; gap: 12px; padding: 14px 12px; border-radius: 12px; border: 1px solid var(--line); background: url('/img/bg.jpg') center / cover, #fbf7f0; text-align: center; }
 .hw-ed__head { font-size: 19px; font-weight: 500; color: var(--navy); transition: color .4s; }
 .hw-ed__slot { position: relative; height: 54px; border-radius: 10px; border: 1.5px dashed transparent; transition: border-color .3s, background-color .3s; }
 .hw-ed__slot.is-drop { border-color: var(--navy); background: rgba(238, 245, 248, .8); }
