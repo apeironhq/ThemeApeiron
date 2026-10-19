@@ -247,7 +247,7 @@ export const content = {
     { q: 'Apakah perlu bisa coding?', a: 'Tidak. Semua widget diatur lewat panel Elementor: warna, font, teks, dan animasi.' },
     { q: 'Bagaimana cara nama tamu tampil personal?', a: 'Widget Manajemen Tamu membuat link khusus per tamu, dan nama tamu otomatis tampil di sampul undangan.' },
     { q: 'Data apa saja yang masuk ke MDUNDIG?', a: 'Hanya data widget Daftar Hadiah dan Form Order. Konfirmasi RSVP dikirim ke WhatsApp mempelai, sedangkan Ucapan Tamu tersimpan di WordPress Anda.' },
-    { q: 'Apa yang terjadi jika lisensi habis?', a: 'Plugin tetap berjalan di situs Anda. Perpanjang lisensi untuk terus mendapat pembaruan dan dukungan.' },
+    { q: 'Apa yang terjadi jika lisensi habis?', a: 'Untuk paket Bulanan dan Tahunan, widget ApeironKit berhenti berfungsi saat lisensi habis. Perpanjang lisensi agar undangan tetap tampil normal dan terus mendapat pembaruan serta dukungan. Paket Lifetime tetap bisa digunakan selamanya tanpa perpanjangan.' },
     { q: 'Bisakah saya minta demo dulu?', a: 'Tentu. Klik tombol "Tanya via WhatsApp" di bawah, tim kami akan membalas dan menyiapkan demo untuk Anda.' },
   ],
 
