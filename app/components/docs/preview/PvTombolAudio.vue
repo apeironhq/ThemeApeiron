@@ -59,7 +59,7 @@ function toggle() { props.s.playing = !props.s.playing }
 .pv-au__eq i:nth-child(4) { animation-delay: -.15s !important; }
 @keyframes pv-eq { to { height: 100%; } }
 
-.pv-au__btn { position: absolute; right: 18px; bottom: 18px; display: grid; place-items: center; width: 48px; height: 48px; border: 0; border-radius: 50%; background: #fff; color: var(--dx-navy); cursor: pointer; box-shadow: 0 1px 3px rgba(8, 60, 87, .12); }
+.pv-au__btn { position: absolute; right: 18px; bottom: 18px; display: grid; place-items: center; width: 48px; height: 48px; border: 0; border-radius: 50%; background: #fff; color: var(--dx-navy); cursor: pointer; border: 1px solid var(--dx-line); }
 .is-left .pv-au__btn { right: auto; left: 18px; }
 .pv-au__btn svg { position: relative; width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
 .pv-au__ring { position: absolute; inset: -4px; border-radius: 50%; border: 2px solid rgba(8, 60, 87, .14); }

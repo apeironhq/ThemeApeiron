@@ -122,8 +122,8 @@ onBeforeUnmount(() => ctx?.revert())
       </div>
     </section>
 
-    <section id="widget" class="dx-card">
-      <div class="dx-card__head">
+    <section id="widget" class="dx-page">
+      <div class="dx-sectionhead">
         <div>
           <h2>Semua widget</h2>
           <p class="dx-caption">Pilih widget untuk melihat fitur dan cara memakainya.</p>

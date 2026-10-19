@@ -137,7 +137,7 @@ onMounted(async () => {
 
   const { gsap, ScrollTrigger } = await loadDocsGsap()
   const bar = document.querySelector<HTMLElement>('[data-dx-progress]')
-  const topOffset = () => 60 + (secbar.value?.offsetHeight ?? 46) + 12
+  const topOffset = () => (document.querySelector<HTMLElement>('.dx-top')?.offsetHeight ?? 60) + (secbar.value?.offsetHeight ?? 46) + 12
 
   ctx = gsap.context(() => {
     // "Cara pakai" dipin: gulir sepanjang ±0,6 layar per langkah, tanpa ruang kosong.
@@ -326,7 +326,7 @@ const typeLabel = (t: string) => controlTypes[t] ?? t
             <button type="button" class="dx-howto__step" :class="{ 'is-on': step === i, 'is-past': i < step }" :aria-current="step === i ? 'step' : undefined" @click="goStep(i)">
               <span class="dx-howto__num">{{ i + 1 }}</span>
               <span class="dx-howto__txt"><b>{{ s.title }}</b><span class="dx-caption">{{ s.text }}</span></span>
-              <i class="dx-howto__bar" aria-hidden="true"><i :style="{ transform: `scaleX(${i < step ? 1 : i === step ? stepP : 0})` }"></i></i>
+              <i class="dx-howto__bar" aria-hidden="true"><i :style="{ transform: `scaleY(${i < step ? 1 : i === step ? stepP : 0})` }"></i></i>
             </button>
           </li>
         </ol>

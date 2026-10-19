@@ -61,7 +61,7 @@ const pos = computed(() => ({ 'Atas Kanan': 'tr', 'Atas Kiri': 'tl', 'Bawah Kana
 .pv-sp__grid { justify-self: stretch; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .pv-sp__grid i { height: 92px; border-radius: 12px; background: linear-gradient(140deg, #eef5f8, #f7efe1); }
 
-.pv-sp__pop { position: absolute; z-index: 2; display: flex; align-items: center; gap: 8px; width: calc(100% - 28px); max-width: 250px; padding: 9px 10px; border-radius: 14px; background: #fff; border: 1px solid var(--dx-line); box-shadow: 0 2px 8px rgba(8, 60, 87, .08); }
+.pv-sp__pop { position: absolute; z-index: 2; display: flex; align-items: center; gap: 8px; width: calc(100% - 28px); max-width: 250px; padding: 9px 10px; border-radius: 14px; background: #fff; border: 1px solid var(--dx-line); }
 .at-bl { left: 14px; bottom: 16px; }
 .at-br { right: 14px; bottom: 16px; }
 .at-tl { left: 14px; top: 16px; }
