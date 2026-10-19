@@ -232,7 +232,7 @@ onBeforeUnmount(() => {
           </p>
           <div class="dx-clstack__deck" role="button" tabindex="0" aria-label="Perubahan berikutnya" @click="stepStack(1)" @keydown.enter.prevent="stepStack(1)">
             <div v-for="(c, i) in stack" :key="i" class="dx-clstack__card" :class="{ 'is-top': i === stackIdx }" :title="c.text" :aria-hidden="i !== stackIdx">
-              <span class="dx-tint" :class="`dx-tint--${c.meta.tone}`"><ApIcon :name="c.meta.icon" /></span>
+              <span class="dx-tint dx-tint--0"><ApIcon :name="c.meta.icon" /></span>
               <span class="dx-clstack__txt">
                 <small>{{ c.meta.label }}<template v-if="c.w"> · {{ c.w.title }}</template></small>
                 <span>{{ c.text }}</span>
@@ -248,7 +248,7 @@ onBeforeUnmount(() => {
       </div>
 
       <div class="dx-clhero__side">
-        <div v-for="x in latestCounts" :key="x.type" class="dx-clstat" :class="`dx-clstat--${x.meta.tone}`" data-cl-stat @mouseenter="waveStat">
+        <div v-for="x in latestCounts" :key="x.type" class="dx-clstat" data-cl-stat @mouseenter="waveStat">
           <span class="dx-clstat__ico">
             <svg class="dx-clstat__ring" viewBox="0 0 48 48" aria-hidden="true">
               <circle class="is-track" cx="24" cy="24" r="22" pathLength="100" />
@@ -307,7 +307,7 @@ onBeforeUnmount(() => {
           </header>
           <p class="dx-cl__summary">{{ r.summary }}</p>
           <div v-for="g in groupsOf(r)" :key="g.type" class="dx-cl__group">
-            <p class="dx-cl__glabel"><span class="dx-tint" :class="`dx-tint--${g.meta.tone}`"><ApIcon :name="g.meta.icon" /></span>{{ g.meta.label }}<span class="dx-cl__gcount">{{ g.items.length }}</span></p>
+            <p class="dx-cl__glabel"><span class="dx-tint dx-tint--0"><ApIcon :name="g.meta.icon" /></span>{{ g.meta.label }}<span class="dx-cl__gcount">{{ g.items.length }}</span></p>
             <ul>
               <li v-for="c in g.items" :key="c.text" class="dx-cl__change">
                 <span class="dx-cl__text">{{ c.text }}</span>

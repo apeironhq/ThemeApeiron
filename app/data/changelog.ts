@@ -9,11 +9,11 @@ import type { IconName } from './icons'
 
 export type ChangeType = 'baru' | 'peningkatan' | 'perbaikan' | 'performa'
 
-export const changeTypes: Record<ChangeType, { label: string; icon: IconName; tone: number }> = {
-  baru: { label: 'Widget & fitur baru', icon: 'plus', tone: 0 },
-  peningkatan: { label: 'Peningkatan', icon: 'zap', tone: 1 },
-  perbaikan: { label: 'Perbaikan', icon: 'wrench', tone: 2 },
-  performa: { label: 'Performa', icon: 'refresh', tone: 3 },
+export const changeTypes: Record<ChangeType, { label: string; icon: IconName }> = {
+  baru: { label: 'Widget & fitur baru', icon: 'plus' },
+  peningkatan: { label: 'Peningkatan', icon: 'zap' },
+  perbaikan: { label: 'Perbaikan', icon: 'wrench' },
+  performa: { label: 'Performa', icon: 'refresh' },
 }
 
 export interface Change { type: ChangeType; text: string; widget?: string } // widget = slug di /docs
