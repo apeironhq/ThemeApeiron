@@ -224,7 +224,7 @@ html.dx-lock { overflow: hidden; }
 .dx-flight__plane .is-wing { fill: #fff; stroke: var(--brand); stroke-width: 1.6; stroke-linejoin: round; }
 .dx-flight__plane .is-under { fill: var(--brand); }
 .dx-flight__plane .is-fold { fill: none; stroke: var(--brand); stroke-width: 1.2; stroke-linecap: round; }
-.dx-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--gap); }
+.dx-grid { position: relative; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--gap); }
 .dx-wcard { display: flex; flex-direction: column; gap: 6px; padding: var(--pad); border: 1px solid var(--line); border-radius: var(--r); background: #fff; }
 .dx-wcard:hover { border-color: var(--line-hover); }
 .dx-wcard__top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }

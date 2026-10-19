@@ -15,6 +15,8 @@ useSeoMeta({
 
 const searchOpen = useState('dx-search', () => false)
 const filter = ref<DocCategory | 'semua'>('semua')
+// Tab aktif berubah seketika saat diklik; filter kartu menyusul setelah animasi keluar.
+const tabOn = ref<DocCategory | 'semua'>('semua')
 const counts = computed(() => Object.fromEntries(categories.map((c) => [c.key, c.key === 'semua' ? docs.length : docs.filter((d) => d.cat === c.key).length])))
 const catLabel = (k: string) => categories.find((c) => c.key === k)?.label ?? ''
 const visible = (cat: DocCategory) => filter.value === 'semua' || filter.value === cat
@@ -35,22 +37,51 @@ const quick = [
 
 const root = ref<HTMLElement | null>(null)
 const seg = ref<HTMLElement | null>(null)
-useDocsInk(seg, () => filter.value)
+useDocsInk(seg, () => tabOn.value)
 let ctx: { revert: () => void } | null = null
 let api: Awaited<ReturnType<typeof loadDocsGsap>> | null = null
+let flipTl: { progress: (v: number) => unknown } | null = null
+let seq = 0
 
 async function setFilter(k: DocCategory | 'semua') {
-  if (k === filter.value) return
+  if (k === tabOn.value) return
+  tabOn.value = k
   const cards = root.value?.querySelectorAll('[data-dx-card]')
   if (!api || !cards || prefersReducedMotion()) { filter.value = k; return }
   const { gsap, Flip } = api
-  const state = Flip.getState(cards)
+  // Klik beruntun: selesaikan animasi sebelumnya dulu agar posisi kartu bersih.
+  flipTl?.progress(1)
+  const grid = root.value!.querySelector<HTMLElement>('.dx-grid')!
+  gsap.killTweensOf(grid)
+  gsap.set(grid, { clearProps: 'height' })
+  const h0 = grid.offsetHeight
+  const list = Array.from(cards) as HTMLElement[]
+  const willShow = (el: HTMLElement) => k === 'semua' || docs.find((d) => d.slug === el.dataset.flipId)?.cat === k
+  const my = ++seq
+  // Kartu yang tetap tampil dipulihkan (bisa sedang memudar karena klik sebelumnya).
+  gsap.killTweensOf(list)
+  gsap.set(list.filter(willShow), { clearProps: 'opacity,scale,transform' })
+
+  // 1) Kartu yang akan hilang memudar dulu, di tempatnya.
+  const leaving = list.filter((el) => el.style.display !== 'none' && !willShow(el))
+  if (leaving.length) await gsap.to(leaving, { opacity: 0, scale: 0.94, duration: 0.2, ease: 'power2.in' })
+  if (my !== seq) return // ada klik yang lebih baru
+
+  // 2) Sisanya berpindah dengan Flip. Selama Flip kartu dibuat absolute, jadi tinggi
+  //    grid dikunci agar footer tidak ikut naik dan menabrak kartu.
+  const state = Flip.getState(list)
   filter.value = k
   await nextTick()
-  Flip.from(state, {
+  const h1 = grid.offsetHeight
+  gsap.set(grid, { height: Math.max(h0, h1) })
+  flipTl = Flip.from(state, {
     duration: 0.5, ease: 'power3.inOut', absolute: true, scale: true,
-    onEnter: (els) => gsap.fromTo(els, { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 0.4, delay: 0.08 }),
-    onLeave: (els) => gsap.to(els, { opacity: 0, scale: 0.94, duration: 0.25 }),
+    onEnter: (els) => gsap.fromTo(els, { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 0.4, delay: 0.1 }),
+    // 3) Setelah kartu diam, tinggi grid menyesuaikan dengan halus.
+    onComplete: () => {
+      gsap.set(leaving, { clearProps: 'opacity,scale,transform' })
+      gsap.to(grid, { height: h1, duration: 0.35, ease: 'power2.inOut', onComplete: () => gsap.set(grid, { clearProps: 'height' }) })
+    },
   })
 }
 
@@ -121,8 +152,8 @@ onBeforeUnmount(() => ctx?.revert())
         <div ref="seg" class="dx-seg has-ink" role="tablist" aria-label="Filter kategori">
           <i class="dx-ink" aria-hidden="true"></i>
           <button
-            v-for="c in categories" :key="c.key" type="button" role="tab" :class="{ 'is-on': filter === c.key }"
-            :aria-selected="filter === c.key" @click="setFilter(c.key)"
+            v-for="c in categories" :key="c.key" type="button" role="tab" :class="{ 'is-on': tabOn === c.key }"
+            :aria-selected="tabOn === c.key" @click="setFilter(c.key)"
           >
             {{ c.label }} <span>{{ counts[c.key] }}</span>
           </button>
