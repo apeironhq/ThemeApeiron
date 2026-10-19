@@ -5,8 +5,9 @@
  */
 import { docs, categories, type DocCategory } from '~/data/docs'
 import { loadDocsGsap, prefersReducedMotion } from '~/composables/useDocsGsap'
+import { useDocsInk } from '~/composables/useDocsInk'
 
-definePageMeta({ layout: 'docs' })
+definePageMeta({ layout: 'docs', pageTransition: { name: 'dx-page', mode: 'out-in' } })
 useSeoMeta({
   title: 'Dokumentasi Widget · ApeironKit',
   description: 'Panduan 13 widget ApeironKit untuk Elementor: fitur, kelebihan, batasan, cara pakai, dan penjelasan setiap pengaturan.',
@@ -33,6 +34,8 @@ const quick = [
 ]
 
 const root = ref<HTMLElement | null>(null)
+const seg = ref<HTMLElement | null>(null)
+useDocsInk(seg, () => filter.value)
 let ctx: { revert: () => void } | null = null
 let api: Awaited<ReturnType<typeof loadDocsGsap>> | null = null
 
@@ -125,7 +128,8 @@ onBeforeUnmount(() => ctx?.revert())
           <h2>Semua widget</h2>
           <p class="dx-caption">Pilih widget untuk melihat fitur dan cara memakainya.</p>
         </div>
-        <div class="dx-seg" role="tablist" aria-label="Filter kategori">
+        <div ref="seg" class="dx-seg has-ink" role="tablist" aria-label="Filter kategori">
+          <i class="dx-ink" aria-hidden="true"></i>
           <button
             v-for="c in categories" :key="c.key" type="button" role="tab" :class="{ 'is-on': filter === c.key }"
             :aria-selected="filter === c.key" @click="setFilter(c.key)"

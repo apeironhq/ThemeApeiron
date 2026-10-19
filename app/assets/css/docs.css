@@ -241,23 +241,6 @@ html.dx-lock { overflow: hidden; }
 .dx-list__ico.is-pro { color: var(--brand); background: var(--brand-soft); }
 .dx-list__ico.is-con { color: #b54708; background: #fffaeb; }
 
-/* Cara pakai: dua panel */
-.dx-scrolly { display: grid; grid-template-columns: minmax(0, 1fr) 320px; grid-template-areas: "steps stage"; gap: 32px; padding: 20px; }
-.dx-steps { grid-area: steps; position: relative; list-style: none; margin: 0; padding: 0; }
-.dx-steps__rail { position: absolute; left: 13px; top: 16px; bottom: 30%; width: 2px; border-radius: 2px; background: var(--n-200); }
-.dx-steps__rail i { position: absolute; inset: 0; border-radius: inherit; background: var(--brand); transform: scaleY(0); transform-origin: top; }
-.dx-step { position: relative; display: flex; align-items: flex-start; gap: 14px; min-height: 52vh; padding-bottom: 16px; }
-.dx-step:last-child { min-height: 40vh; }
-.dx-step__num { position: relative; z-index: 1; display: grid; place-items: center; flex: none; width: 28px; height: 28px; border-radius: 999px; background: #fff; border: 1px solid var(--n-300); color: var(--n-500); font-size: var(--fs-label); font-weight: 500; transition: background .35s, color .35s, border-color .35s, box-shadow .35s; }
-.dx-step.is-on .dx-step__num, .dx-step.is-past .dx-step__num { background: var(--brand); border-color: var(--brand); color: #fff; }
-.dx-step.is-on .dx-step__num { box-shadow: 0 0 0 4px var(--brand-soft); }
-.dx-step__body { flex: 1; padding: 12px 16px; border: 1px solid var(--border); border-radius: var(--r); background: #fff; opacity: .5; transition: opacity .4s, border-color .4s, transform .45s var(--ease); }
-.dx-step.is-on .dx-step__body { opacity: 1; border-color: var(--brand-border); transform: translateX(3px); }
-.dx-step__body h3 { margin-bottom: 4px; font-size: var(--fs-body); }
-.dx-step__body p { font-size: var(--fs-label); color: var(--n-600); }
-.dx-scrolly__stage { grid-area: stage; }
-.dx-scrolly__pin { position: sticky; top: calc(var(--topbar-h) + var(--secbar-h) + 16px); }
-
 /* Pengaturan */
 .dx-groups { display: grid; gap: 8px; padding: 16px 20px 20px; }
 .dx-group { border: 1px solid var(--border); border-radius: var(--r); background: #fff; overflow: hidden; transition: border-color var(--dur) var(--ease); }
@@ -375,15 +358,6 @@ html.dx-lock { overflow: hidden; }
 
 @media (max-width: 900px) {
 	.dx-pros { grid-template-columns: minmax(0, 1fr); }
-	/* Cara pakai di layar sempit: panggung menempel di atas, langkah lewat di bawahnya. */
-	.dx-scrolly { display: flex; flex-direction: column; gap: 0; padding: 0 16px 16px; }
-	.dx-scrolly__stage { position: sticky; top: calc(var(--topbar-h) + var(--secbar-h)); z-index: 5; margin: 0 -16px; padding: 10px 16px; background: #fff; border-bottom: 1px solid var(--border); }
-	.dx-scrolly__pin { position: static; }
-	.dx-scrolly__pin .dx-stage { gap: 6px; padding: 8px; }
-	.dx-scrolly__pin .dx-phone { transform: scale(.48); transform-origin: top center; margin-bottom: -291px; }
-	.dx-steps { padding-top: 16px; }
-	.dx-step { min-height: 44vh; }
-	.dx-step:last-child { min-height: 30vh; }
 }
 
 @media (max-width: 640px) {
@@ -423,4 +397,120 @@ html.dx-lock { overflow: hidden; }
 
 @media (prefers-reduced-motion: reduce) {
 	.dx-body *, .dx-body *::before, .dx-body *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+/* ==========================================================================
+   Interaksi & animasi
+   ========================================================================== */
+
+/* Riak di titik klik + efek tekan. */
+:is(.dx-btn, .dx-seg button, .dx-secbar__item, .dx-nav-item, .dx-group__head, .dx-check__item, .dx-wcard, .dx-howto__step, .dx-disclosure summary, .dx-pager__link, .dx-search-btn, .dx-burger, .dx-search__item) { position: relative; overflow: hidden; isolation: isolate; }
+.dx-ripple { position: absolute; z-index: -1; border-radius: 50%; background: currentColor; opacity: .14; transform: scale(0); pointer-events: none; animation: dx-ripple .6s cubic-bezier(.2, .7, .2, 1) forwards; }
+@keyframes dx-ripple { to { transform: scale(1); opacity: 0; } }
+:is(.dx-btn, .dx-seg button, .dx-secbar__item, .dx-howto__step, .dx-wcard, .dx-pager__link, .dx-check__item, .dx-burger) { transition-property: background, border-color, color, box-shadow, transform; transition-duration: var(--dur), var(--dur), var(--dur), var(--dur), .18s; }
+:is(.dx-btn, .dx-seg button, .dx-secbar__item, .dx-howto__step, .dx-wcard, .dx-pager__link, .dx-burger):active { transform: scale(.975); }
+
+/* Penanda aktif yang meluncur (sidebar, bilah section, tab). */
+.dx-ink { position: absolute; left: 0; top: 0; z-index: 0; opacity: 0; pointer-events: none; will-change: transform; }
+.dx-side__nav { position: relative; }
+.dx-side__nav > .dx-ink { background: var(--n-100); border-radius: var(--r); }
+.dx-side__nav > .dx-ink::before { content: ""; position: absolute; left: 0; top: 9px; bottom: 9px; width: 3px; border-radius: 0 3px 3px 0; background: var(--brand); }
+.dx-nav-item { z-index: 1; }
+.dx-nav-item.is-active { background: transparent; }
+.dx-nav-item:hover:not(.is-active) { background: var(--n-50); }
+.dx-nav-item :is(.ap-icon, .dx-wico) { transition: transform .3s var(--ease), color var(--dur); }
+.dx-nav-item:hover :is(.ap-icon, .dx-wico) { transform: translateX(2px); }
+.dx-secbar > .dx-ink { background: #fff; border: 1px solid var(--border-strong); border-radius: var(--r-sm); box-shadow: var(--sh-card); }
+.dx-secbar__item { z-index: 1; }
+.dx-secbar__item.is-on { background: transparent; border-color: transparent; box-shadow: none; }
+.dx-seg { position: relative; }
+.dx-seg > .dx-ink { background: #fff; border-radius: 7px; box-shadow: 0 1px 2px rgba(16, 24, 40, .08); }
+.dx-seg button { z-index: 1; }
+.dx-seg.has-ink button.is-on { background: transparent; box-shadow: none; }
+
+/* Kartu: sedikit terangkat saat disorot. */
+.dx-fact { transition: border-color var(--dur) var(--ease), transform .35s var(--ease); }
+.dx-fact:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+.dx-feat { margin: 0 -10px; padding: 10px; border-radius: var(--r); transition: background var(--dur) var(--ease); }
+.dx-feat:hover { background: var(--n-50); }
+.dx-wcard:hover { transform: translateY(-2px); }
+.dx-wcard:hover:active { transform: scale(.98); }
+.dx-wcard__ico { transition: transform .4s var(--ease); }
+.dx-wcard:hover .dx-wcard__ico { transform: rotate(-8deg) scale(1.06); }
+.dx-list li { margin: 0 -8px; padding: 10px 8px; border-radius: var(--r-sm); transition: background var(--dur) var(--ease); }
+.dx-list li:hover { background: var(--n-50); }
+.dx-pager__link:hover { transform: translateY(-2px); }
+.dx-pager__link .ap-icon { transition: transform .3s var(--ease); }
+.dx-pager__link.is-next:hover small .ap-icon { transform: translateX(3px); }
+.dx-pager__link:not(.is-next):hover small .ap-icon { transform: scaleX(-1) translateX(3px); }
+
+/* Cara pakai yang dipin: langkah di kiri, pratinjau di kanan. */
+.dx-howto__body { display: grid; grid-template-columns: minmax(0, 1fr) 320px; grid-template-areas: "steps stage"; align-items: center; gap: 28px; padding: 20px; }
+.dx-howto__stage { grid-area: stage; }
+.dx-howto__steps { grid-area: steps; display: grid; gap: 8px; list-style: none; margin: 0; padding: 0; }
+.dx-howto__step { display: flex; align-items: flex-start; gap: 12px; width: 100%; padding: 12px 14px 16px; border: 1px solid var(--border); border-radius: var(--r); background: #fff; text-align: left; cursor: pointer; }
+.dx-howto__step:hover { border-color: var(--border-strong); background: var(--n-50); }
+.dx-howto__step.is-on { border-color: var(--brand-border); background: #fff; box-shadow: 0 0 0 3px var(--brand-soft); transform: translateX(4px); }
+.dx-howto__num { display: grid; place-items: center; flex: none; width: 28px; height: 28px; border-radius: 999px; border: 1px solid var(--n-300); background: #fff; color: var(--n-500); font-size: var(--fs-label); font-weight: 500; transition: background .35s, color .35s, border-color .35s, transform .35s var(--ease); }
+.dx-howto__step.is-on .dx-howto__num, .dx-howto__step.is-past .dx-howto__num { background: var(--brand); border-color: var(--brand); color: #fff; }
+.dx-howto__step.is-on .dx-howto__num { transform: scale(1.08); }
+.dx-howto__txt { min-width: 0; padding-top: 3px; }
+.dx-howto__txt b { display: block; font-size: var(--fs-label); color: var(--n-900); }
+.dx-howto__step:not(.is-on):not(.is-past) .dx-howto__txt b { color: var(--n-500); }
+.dx-howto__txt .dx-caption { display: block; max-height: 0; opacity: 0; overflow: hidden; transition: max-height .45s var(--ease), opacity .3s, margin .3s; }
+.dx-howto__step.is-on .dx-howto__txt .dx-caption { max-height: 90px; opacity: 1; margin-top: 3px; }
+.dx-howto__bar { position: absolute; left: 14px; right: 14px; bottom: 6px; height: 2px; border-radius: 2px; overflow: hidden; }
+.dx-howto__step.is-on .dx-howto__bar { background: var(--n-100); }
+.dx-howto__bar i { display: block; height: 100%; background: var(--brand); transform-origin: left; transform: scaleX(0); }
+.dx-howto__now { display: none; }
+
+/* Titik sentuh di pratinjau. */
+.dx-tap { position: absolute; left: 0; top: 0; z-index: 6; width: 28px; height: 28px; margin: -14px 0 0 -14px; opacity: 0; pointer-events: none; }
+.dx-tap__dot { position: absolute; inset: 0; border-radius: 50%; background: rgba(8, 60, 87, .32); border: 2px solid #fff; box-shadow: 0 2px 8px rgba(16, 24, 40, .25); }
+.dx-tap__ring { position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--dx-sand); opacity: 0; }
+
+/* Checklist: centang tergambar, teks dicoret. */
+.dx-check__box .ap-icon path { stroke-dasharray: 22; stroke-dashoffset: 22; transition: stroke-dashoffset .35s var(--ease) .05s; }
+.dx-check__item.is-on .dx-check__box .ap-icon path { stroke-dashoffset: 0; }
+.dx-check__item.is-on .dx-check__box { animation: dx-pop .35s var(--ease); }
+@keyframes dx-pop { 50% { transform: scale(1.22); } }
+.dx-check__txt { position: relative; }
+.dx-check__txt::after { content: ""; position: absolute; left: 0; right: 0; top: 55%; height: 1px; background: var(--n-400); transform: scaleX(0); transform-origin: left; transition: transform .35s var(--ease); }
+.dx-check__item.is-on .dx-check__txt::after { transform: scaleX(1); }
+.dx-meter.is-done i { background: linear-gradient(90deg, var(--brand), var(--dx-sand)); }
+
+.dx-disclosure[open] > p { animation: dx-drop .3s var(--ease); }
+@keyframes dx-drop { from { opacity: 0; transform: translateY(-4px); } }
+.dx-pop-enter-active { transition: opacity .35s var(--ease), transform .4s var(--ease); }
+.dx-pop-enter-from { opacity: 0; transform: translateY(8px) scale(.97); }
+
+/* Transisi antar-halaman docs. */
+.dx-page-enter-active, .dx-page-leave-active { transition: opacity .22s var(--ease), transform .28s var(--ease); }
+.dx-page-enter-from { opacity: 0; transform: translateY(10px); }
+.dx-page-leave-to { opacity: 0; transform: translateY(-6px); }
+
+/* Pratinjau dipin harus muat di layar: kecilkan HP sesuai tinggi jendela. */
+@media (min-width: 901px) and (max-height: 900px) { .dx-howto .dx-phone { transform: scale(.88); transform-origin: top center; margin-bottom: -67px; } }
+@media (min-width: 901px) and (max-height: 820px) { .dx-howto .dx-phone { transform: scale(.78); margin-bottom: -123px; } }
+@media (min-width: 901px) and (max-height: 740px) { .dx-howto .dx-phone { transform: scale(.68); margin-bottom: -179px; } }
+@media (min-width: 901px) and (max-height: 660px) { .dx-howto .dx-phone { transform: scale(.58); margin-bottom: -235px; } }
+
+@media (max-width: 900px) {
+	.dx-howto__body { display: flex; flex-direction: column; gap: 12px; padding: 12px 16px 16px; }
+	.dx-howto__stage { order: -1; }
+	.dx-howto .dx-stage { gap: 6px; padding: 8px; }
+	.dx-howto .dx-phone { transform: scale(.5); transform-origin: top center; margin-bottom: -280px; }
+	.dx-howto__steps { display: flex; justify-content: center; gap: 8px; }
+	.dx-howto__steps li { flex: 1; max-width: 72px; }
+	.dx-howto__step { justify-content: center; padding: 6px 6px 10px; }
+	.dx-howto__step.is-on { transform: none; }
+	.dx-howto__txt { display: none; }
+	.dx-howto__bar { left: 8px; right: 8px; bottom: 4px; }
+	.dx-howto__now { display: block; padding: 10px 12px; border: 1px solid var(--brand-border); border-radius: var(--r); background: var(--brand-soft); }
+	.dx-howto__now b { display: block; font-size: var(--fs-label); color: var(--n-900); margin-bottom: 2px; }
+}
+@media (max-width: 900px) and (max-height: 700px) { .dx-howto .dx-phone { transform: scale(.42); margin-bottom: -325px; } }
+
+@media (prefers-reduced-motion: reduce) {
+	.dx-ripple { display: none; }
 }

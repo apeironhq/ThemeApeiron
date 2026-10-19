@@ -6,6 +6,8 @@
  */
 import '~/assets/css/docs.css'
 import { docs, categories } from '~/data/docs'
+import { useDocsInk } from '~/composables/useDocsInk'
+import { loadDocsGsap, prefersReducedMotion } from '~/composables/useDocsGsap'
 
 const route = useRoute()
 const searchOpen = useState('dx-search', () => false)
@@ -14,6 +16,24 @@ const isMac = ref(false)
 
 const groups = categories.filter((c) => c.key !== 'semua').map((c) => ({ ...c, items: docs.filter((d) => d.cat === c.key) }))
 const isActive = (path: string) => route.path === path
+
+// Penanda menu aktif meluncur ke widget yang sedang dibuka.
+const nav = ref<HTMLElement | null>(null)
+useDocsInk(nav, () => route.path, '.dx-nav-item.is-active')
+
+// Efek riak di titik klik untuk tombol, tab, menu, dan kartu.
+const RIPPLE = '.dx-btn, .dx-seg button, .dx-secbar__item, .dx-nav-item, .dx-group__head, .dx-check__item, .dx-wcard, .dx-howto__step, .dx-disclosure summary, .dx-pager__link, .dx-search-btn, .dx-burger, .dx-search__item'
+function ripple(e: PointerEvent) {
+  const el = (e.target as HTMLElement)?.closest<HTMLElement>(RIPPLE)
+  if (!el || prefersReducedMotion()) return
+  const r = el.getBoundingClientRect()
+  const size = Math.max(r.width, r.height) * 2.2
+  const dot = document.createElement('span')
+  dot.className = 'dx-ripple'
+  dot.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX - r.left - size / 2}px;top:${e.clientY - r.top - size / 2}px`
+  el.appendChild(dot)
+  dot.addEventListener('animationend', () => dot.remove(), { once: true })
+}
 
 function onKey(e: KeyboardEvent) {
   const typing = /^(INPUT|TEXTAREA|SELECT)$/.test((e.target as HTMLElement)?.tagName ?? '')
@@ -27,14 +47,18 @@ function onKey(e: KeyboardEvent) {
 }
 
 watch(() => route.path, () => (sideOpen.value = false))
+// Ukur ulang posisi ScrollTrigger setelah transisi halaman selesai (halaman sempat bergeser).
+useNuxtApp().hook('page:transition:finish', () => { loadDocsGsap().then(({ ScrollTrigger }) => ScrollTrigger.refresh()) })
 watch(sideOpen, (v) => document.documentElement.classList.toggle('dx-lock', v))
 
 onMounted(() => {
   isMac.value = /Mac|iPhone|iPad/.test(navigator.platform)
   window.addEventListener('keydown', onKey)
+  document.addEventListener('pointerdown', ripple)
 })
 onBeforeUnmount(() => {
   window.removeEventListener('keydown', onKey)
+  document.removeEventListener('pointerdown', ripple)
   document.documentElement.classList.remove('dx-lock')
 })
 
@@ -57,7 +81,8 @@ useHead({ bodyAttrs: { class: 'dx-body' } })
         <button type="button" class="dx-side__close" aria-label="Tutup menu" @click="sideOpen = false"><ApIcon name="plus" /></button>
       </div>
 
-      <nav class="dx-side__nav">
+      <nav ref="nav" class="dx-side__nav">
+        <i class="dx-ink" aria-hidden="true"></i>
         <p class="dx-nav-label">Mulai</p>
         <NuxtLink to="/docs" class="dx-nav-item" :class="{ 'is-active': isActive('/docs') }" :aria-current="isActive('/docs') ? 'page' : undefined">
           <ApIcon name="layout" /><span>Ringkasan</span><span class="dx-nav-count">{{ docs.length }}</span>
