@@ -1387,16 +1387,28 @@ body.ap-landing {
 .ap-plan h3 { font-size: 20px; font-weight: 500; }
 .ap-plan__desc { margin-top: 8px; color: var(--muted); font-size: 14px; min-height: 44px; }
 .is-featured .ap-plan__desc { color: rgba(255, 255, 255, .7); }
-.ap-plan__price { margin: 22px 0 24px; display: flex; align-items: baseline; gap: 6px; }
+.ap-plan__price { margin: 6px 0 24px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; }
 .ap-plan__price b { font-family: var(--font-display); font-weight: 400; font-size: 46px; letter-spacing: -.02em; line-height: 1; }
-.ap-plan__price span { color: var(--muted); font-size: 14px; }
-.is-featured .ap-plan__price span { color: rgba(255, 255, 255, .6); }
+.ap-plan__price > span { color: var(--muted); font-size: 14px; }
+.is-featured .ap-plan__price > span { color: rgba(255, 255, 255, .6); }
 .ap-plan ul { flex: 1; margin-bottom: 28px; }
 .ap-plan li { display: flex; gap: 10px; padding: 9px 0; font-size: 15px; border-top: 1px solid var(--line); }
 .is-featured li { border-color: rgba(255, 255, 255, .12); }
 .ap-plan li .ap-icon { color: var(--navy); margin-top: 3px; }
 .is-featured li .ap-icon { color: var(--sand); }
 .ap-pricing__note { margin-top: 36px; text-align: center; color: var(--muted); }
+/* Harga normal dicoret + label hemat. Garis coret digambar oleh landing.js saat kartu terlihat. */
+.ap-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.ap-plan__price [data-price] { display: inline-block; font-variant-numeric: tabular-nums; }
+.ap-plan__deal { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 10px; margin-top: 20px; }
+.ap-plan__was { position: relative; text-decoration: none; color: var(--muted); font-size: 16px; }
+.ap-plan__was i { position: absolute; left: -1px; right: -1px; top: 50%; height: 2px; border-radius: 2px; background: #c2412d; transform-origin: 0 50%; rotate: -4deg; }
+.is-featured .ap-plan__was { color: rgba(255, 255, 255, .62); }
+.is-featured .ap-plan__was i { background: #f0a58f; }
+.ap-plan__off { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 999px; background: rgba(194, 65, 45, .09); color: #b2391f; font-size: 12.5px; font-weight: 500; }
+.ap-plan__off .ap-icon { width: 13px; height: 13px; }
+.is-featured .ap-plan__off { background: var(--sand); color: var(--navy-900); }
+.ap-plan__flag--soft { background: var(--sand-soft); color: #7a5418; }
 .ap-pricing__note a { color: var(--navy); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
 
 /* ---------- FAQ ---------- */

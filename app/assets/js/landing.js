@@ -65,6 +65,7 @@ export function initLanding() {
 	initReveals();
 	initBento();
 	initCounters();
+	initPricing();
 	initSteps();
 	initTestimonials();
 	initTimelineLoop();
@@ -760,6 +761,34 @@ export function initLanding() {
 					ease: 'power2.out',
 					onUpdate: () => { el.textContent = Math.round(proxy.v).toLocaleString('id-ID'); },
 				}),
+			});
+		});
+	}
+
+	/* Harga: harga normal dicoret, label hemat muncul, lalu angka turun ke harga diskon. */
+	function initPricing() {
+		$$('[data-price-plan]').forEach((plan) => {
+			const strike = $('[data-strike]', plan);
+			const badge = $('[data-off]', plan);
+			const price = $('[data-price]', plan);
+			if (!strike || !badge || !price) return;
+			const from = parseFloat(price.dataset.from) || 0;
+			const to = parseFloat(price.dataset.to) || 0;
+			const fmt = (v) => Math.round(v / 1000) * 1000;
+			const show = (v) => { price.textContent = fmt(v).toLocaleString('id-ID'); };
+			gsap.set(strike, { scaleX: 0 });
+			gsap.set(badge, { autoAlpha: 0, scale: 0.6, y: 4 });
+			show(from);
+			const proxy = { v: from };
+			ScrollTrigger.create({
+				trigger: plan,
+				start: 'top 80%',
+				once: true,
+				onEnter: () => gsap.timeline({ delay: 0.25 })
+					.to(strike, { scaleX: 1, duration: 0.5, ease: 'power2.inOut' })
+					.to(proxy, { v: to, duration: 1.1, ease: 'power3.out', onUpdate: () => show(proxy.v) }, '-=0.1')
+					.to(badge, { autoAlpha: 1, scale: 1, y: 0, duration: 0.5, ease: 'back.out(2.5)' }, '<0.2')
+					.fromTo(price, { y: 0 }, { keyframes: { y: [0, -3, 0] }, duration: 0.35, ease: 'power1.inOut' }, '-=0.15'),
 			});
 		});
 	}
