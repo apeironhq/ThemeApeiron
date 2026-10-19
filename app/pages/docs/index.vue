@@ -71,8 +71,7 @@ onMounted(async () => {
       const o = { v: 0 }
       tl.to(o, { v: Number(el.dataset.dxCount), duration: 1, ease: 'power2.out', onUpdate: () => (el.textContent = String(Math.round(o.v))) }, '<0.04')
     })
-    gsap.from('[data-dx-quick] > *', { y: 16, opacity: 0, stagger: 0.08, duration: 0.5, scrollTrigger: { trigger: '[data-dx-quick]', start: 'top 88%' } })
-    gsap.from('[data-dx-quick-line]', { scaleX: 0, transformOrigin: 'left center', duration: 0.9, ease: 'power2.inOut', scrollTrigger: { trigger: '[data-dx-quick]', start: 'top 88%' } })
+    gsap.from('[data-dx-quick] .dx-flight__txt', { y: 14, opacity: 0, stagger: 0.1, duration: 0.5, scrollTrigger: { trigger: '[data-dx-quick]', start: 'top 88%' } })
     ScrollTrigger.batch('[data-dx-card]', {
       start: 'top 94%', once: true,
       onEnter: (els) => gsap.from(els, { y: 22, opacity: 0, duration: 0.5, stagger: 0.04, clearProps: 'transform,opacity' }),
@@ -110,16 +109,7 @@ onBeforeUnmount(() => ctx?.revert())
           <p class="dx-caption">Tiga langkah sebelum memakai widget mana pun.</p>
         </div>
       </div>
-      <div class="dx-quick" data-dx-quick>
-        <i class="dx-quick__line" data-dx-quick-line aria-hidden="true"></i>
-        <div v-for="(q, i) in quick" :key="q.title" class="dx-quick__item">
-          <span class="dx-quick__num">{{ i + 1 }}</span>
-          <div>
-            <b>{{ q.title }}</b>
-            <p class="dx-caption">{{ q.text }}</p>
-          </div>
-        </div>
-      </div>
+      <DocsFlight :steps="quick" data-dx-quick />
     </section>
 
     <section id="widget" class="dx-page">

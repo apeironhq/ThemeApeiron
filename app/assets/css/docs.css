@@ -206,12 +206,24 @@ html.dx-lock { overflow: hidden; }
 .dx-kpi__value { font-size: calc(var(--fs-h1) + 4px); line-height: 1.15; font-weight: 500; color: var(--n-900); letter-spacing: -.012em; }
 .dx-kpi .dx-caption { margin-top: -6px; }
 
-.dx-quick { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap); padding: var(--pad); }
-.dx-quick__line { position: absolute; z-index: 0; left: calc(var(--pad) + 15px); right: calc(var(--pad) + 15px); top: calc(var(--pad) + 15px); height: 1px; background: repeating-linear-gradient(90deg, var(--n-300) 0 5px, transparent 5px 10px); }
-.dx-quick__item { position: relative; z-index: 1; display: flex; gap: 12px; align-items: flex-start; }
-.dx-quick__num { display: grid; place-items: center; flex: none; width: 30px; height: 30px; border-radius: 999px; background: var(--brand); color: #fff; font-size: var(--fs-label); font-weight: 500; box-shadow: 0 0 0 6px #fff; }
-.dx-quick__item b { display: block; font-size: var(--fs-label); color: var(--n-900); }
 
+/* Mulai cepat: jalur langkah + pesawat kertas. */
+.dx-flight { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap); padding: calc(var(--pad) + 2px) var(--pad) var(--pad); }
+.dx-flight__svg { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.dx-flight__base { fill: none; stroke: var(--n-300); stroke-width: 1.5; stroke-dasharray: 4 6; }
+.dx-flight__trail { fill: none; stroke: var(--brand); stroke-width: 2; stroke-linecap: round; }
+/* Lapisan: jalur (0) < pesawat (1) < langkah (2) — pesawat lewat di belakang lingkaran, tidak menutupi ikonnya. */
+.dx-flight__item { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+.dx-flight__dot { display: grid; place-items: center; flex: none; width: 46px; height: 46px; border-radius: 999px; border: 1.5px solid var(--n-300); background: #fff; color: var(--n-500); transition: background .4s var(--ease), color .4s var(--ease), border-color .4s var(--ease); }
+.dx-flight__dot .ap-icon { width: 20px; height: 20px; }
+.dx-flight__dot.is-on { background: var(--brand); border-color: var(--brand); color: #fff; }
+.dx-flight__txt small { display: block; margin-bottom: 2px; font-size: var(--fs-micro); font-weight: 500; letter-spacing: .05em; text-transform: uppercase; color: var(--n-400); }
+.dx-flight__txt b { display: block; margin-bottom: 2px; font-size: var(--fs-body); color: var(--n-900); }
+.dx-flight__plane { position: absolute; left: 0; top: 0; z-index: 1; width: 30px; height: 30px; margin: -15px 0 0 -15px; opacity: 0; pointer-events: none; will-change: transform; }
+.dx-flight__plane svg { width: 100%; height: 100%; overflow: visible; }
+.dx-flight__plane .is-wing { fill: #fff; stroke: var(--brand); stroke-width: 1.6; stroke-linejoin: round; }
+.dx-flight__plane .is-under { fill: var(--brand); }
+.dx-flight__plane .is-fold { fill: none; stroke: var(--brand); stroke-width: 1.2; stroke-linecap: round; }
 .dx-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--gap); }
 .dx-wcard { display: flex; flex-direction: column; gap: 6px; padding: var(--pad); border: 1px solid var(--line); border-radius: var(--r); background: #fff; }
 .dx-wcard:hover { border-color: var(--line-hover); }
@@ -482,8 +494,8 @@ html.dx-lock { overflow: hidden; }
 	.dx-search-btn { width: 40px; flex: none; margin-left: auto; padding: 0; justify-content: center; }
 	.dx-search-btn__label, .dx-search-btn kbd { display: none; }
 	.dx-top__buy { margin-left: 0; }
-	.dx-quick { grid-template-columns: minmax(0, 1fr); }
-	.dx-quick__line { display: none; }
+	.dx-flight { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+	.dx-flight__item { flex-direction: row; gap: 14px; }
 	.dx-seg { gap: 18px; }
 	.dx-whead { align-items: flex-start; }
 	.dx-whead__nav { display: none; }
