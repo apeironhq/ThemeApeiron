@@ -179,7 +179,6 @@ export const content = {
   ],
 
   // Harga dalam rupiah. `was` = harga normal yang dicoret; persen diskon dihitung otomatis.
-  // [GANTI] `was` masih perkiraan, sesuaikan dengan harga normal yang sebenarnya.
   pricing: [
     {
       name: 'Bulanan',
