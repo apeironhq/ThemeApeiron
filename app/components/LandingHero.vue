@@ -29,7 +29,7 @@ const sealVars = {
         <p class="ap-hero__lead">{{ h.lead }}</p>
         <div class="ap-hero__actions" data-hero-fade>
           <a class="ap-btn ap-btn--light" :href="c.links.buy" data-magnetic>Beli Sekarang <ApIcon name="arrow" /></a>
-          <a class="ap-btn ap-btn--outline-light" :href="c.links.demo" target="_blank" rel="noopener" data-cursor="Chat"><ApIcon name="chat" /> Minta Demo</a>
+          <a class="ap-btn ap-btn--outline-light" :href="c.links.docs" data-cursor="Baca"><ApIcon name="book" /> Dokumentasi</a>
         </div>
         <p class="ap-hero__note" data-hero-fade><span><ApIcon name="layout" /> Native Elementor</span><span><ApIcon name="code" /> Tanpa coding</span><span><ApIcon name="refresh" /> Update rutin</span></p>
       </div>
