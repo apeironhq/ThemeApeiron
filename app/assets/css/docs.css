@@ -264,7 +264,29 @@ html.dx-lock { overflow: hidden; }
 .dx-feat b { display: block; font-size: var(--fs-label); color: var(--n-900); margin-bottom: 2px; }
 .dx-feats--flat { padding: 4px 0 0; }
 
-.dx-pros { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap); align-items: start; }
+.dx-pros { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap); align-items: stretch; }
+/* Kartu berpasangan selalu sama tinggi; isi tambahan (tautan/ajakan) menempel di bawah. */
+.dx-pros > .dx-card { display: flex; flex-direction: column; }
+.dx-loop { position: relative; overflow: hidden; }
+/* Area gulir mengisi sisa tinggi kartu (pasangannya bisa punya tautan tambahan di bawah). */
+.dx-loop.is-looping { flex: 1 0 auto; }
+/* Kepala kartu berpasangan: badge tetap sebaris dengan judul. */
+.dx-pros .dx-card__head { flex-wrap: nowrap; }
+.dx-pros .dx-card__head > div { min-width: 0; }
+.dx-pros .dx-card__head > .dx-badge { flex: none; }
+.dx-loop .dx-list { will-change: transform; }
+.dx-loop.is-looping { -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 22px, #000 calc(100% - 22px), transparent 100%); mask-image: linear-gradient(to bottom, transparent 0, #000 22px, #000 calc(100% - 22px), transparent 100%); }
+/* Saat bergulir, pemisah ada di bawah tiap item agar sambungan salinan mulus. */
+.dx-loop.is-looping .dx-list li { border-top: 0; border-bottom: 1px solid var(--divider); }
+.dx-cardlink { display: flex; align-items: center; gap: 8px; width: 100%; margin-top: auto; padding: 13px var(--pad); border: 0; border-top: 1px solid var(--divider); background: none; color: var(--n-500); font-size: var(--fs-label); text-align: left; cursor: pointer; transition: color var(--dur) var(--ease); }
+.dx-cardlink .ap-icon { width: 16px; height: 16px; }
+.dx-cardlink .ap-icon:last-child { margin-left: auto; transition: transform .3s var(--ease); }
+.dx-cardlink:hover { color: var(--brand); }
+.dx-cardlink:hover .ap-icon:last-child { transform: translateX(3px); }
+.dx-help { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding: 14px var(--pad); border-top: 1px solid var(--divider); }
+.dx-help > span { display: flex; flex-direction: column; min-width: 0; }
+.dx-help b { font-size: var(--fs-label); color: var(--n-900); }
+.dx-tip { padding-bottom: 2px; }
 .dx-list { list-style: none; margin: 0; padding: 6px var(--pad) 10px; }
 .dx-list li { display: flex; align-items: flex-start; gap: 12px; margin: 0 -8px; padding: 12px 8px; border-radius: var(--r-sm); transition: background var(--dur) var(--ease); }
 .dx-list li + li { border-top: 1px solid var(--divider); }

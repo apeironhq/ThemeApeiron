@@ -9,6 +9,7 @@
 import { docs, docBySlug, categories, controlTypes } from '~/data/docs'
 import { loadDocsGsap, prefersReducedMotion } from '~/composables/useDocsGsap'
 import { useDocsInk } from '~/composables/useDocsInk'
+import { content } from '~/data/content'
 
 definePageMeta({ layout: 'docs', key: (r) => String(r.params.slug), pageTransition: { name: 'dx-page', mode: 'out-in' } })
 
@@ -67,6 +68,14 @@ function toggleGroup(i: number) {
   openGroups.value = s
 }
 const highlight = ref(String(route.query.c ?? ''))
+const links = content.links
+// Masalah umum: item pertama terbuka agar kartunya langsung berisi.
+const openTips = ref<Set<number>>(new Set([0]))
+function toggleTip(i: number) {
+  const s = new Set(openTips.value)
+  s.has(i) ? s.delete(i) : s.add(i)
+  openTips.value = s
+}
 
 // Buka/tutup grup: tinggi dianimasikan GSAP, baris di dalamnya muncul bergantian.
 async function onEnter(el: Element, done: () => void) {
@@ -123,6 +132,78 @@ watch(activeSec, (id) => {
   if (chip && secbar.value) secbar.value.scrollTo({ left: chip.offsetLeft - secbar.value.clientWidth / 2 + chip.offsetWidth / 2, behavior: 'smooth' })
 })
 
+/* ---------- Kartu berpasangan: tinggi sama, daftar yang lebih panjang bergulir berulang ----------
+   Di desktop, daftar terpanjang dibatasi setinggi daftar pasangannya (min. 190px) lalu digulir
+   otomatis tanpa jeda (salinan item ditempel di bawah agar sambungannya mulus). Berhenti
+   saat disorot/difokus dan saat keluar layar. Di layar sempit kartu bertumpuk, jadi tampil penuh. */
+let loopKills: (() => void)[] = []
+let loopTimer: ReturnType<typeof setTimeout> | undefined
+
+function teardownLoops() {
+  loopKills.forEach((k) => k())
+  loopKills = []
+  root.value?.querySelectorAll('[data-clone]').forEach((n) => n.remove())
+  root.value?.querySelectorAll<HTMLElement>('.dx-loop').forEach((l) => {
+    l.classList.remove('is-looping')
+    l.style.height = ''
+    ;(l.firstElementChild as HTMLElement | null)?.style.removeProperty('transform')
+  })
+  root.value?.querySelectorAll<HTMLElement>('.dx-pros .dx-card__head').forEach((h) => (h.style.minHeight = ''))
+}
+
+async function setupLoops() {
+  const { gsap, ScrollTrigger } = await loadDocsGsap()
+  teardownLoops()
+  if (window.innerWidth <= 900) return
+  // Kepala kartu berpasangan disamakan tingginya agar isi kedua kartu mulai sejajar.
+  root.value?.querySelectorAll<HTMLElement>('.dx-pros').forEach((pair) => {
+    const heads = Array.from(pair.querySelectorAll<HTMLElement>(':scope > .dx-card > .dx-card__head'))
+    const mh = Math.max(...heads.map((h) => h.offsetHeight))
+    heads.forEach((h) => (h.style.minHeight = `${mh}px`))
+  })
+  if (prefersReducedMotion()) return
+  root.value?.querySelectorAll<HTMLElement>('[data-dx-pair]').forEach((pair) => {
+    const loops = Array.from(pair.querySelectorAll<HTMLElement>('.dx-loop'))
+    const hs = loops.map((l) => (l.firstElementChild as HTMLElement).offsetHeight)
+    const H = Math.max(Math.min(...hs), 190)
+    loops.forEach((l, i) => {
+      const track = l.firstElementChild as HTMLElement
+      const items = Array.from(track.children) as HTMLElement[]
+      if (hs[i]! <= H + 2 || !items.length) return
+      l.classList.add('is-looping')
+      l.style.height = `${H}px`
+      items.forEach((c) => {
+        const k = c.cloneNode(true) as HTMLElement
+        k.dataset.clone = ''
+        k.setAttribute('aria-hidden', 'true')
+        track.appendChild(k)
+      })
+      const dist = (track.children[items.length] as HTMLElement).offsetTop - items[0]!.offsetTop
+      const tw = gsap.fromTo(track, { y: 0 }, { y: -dist, duration: dist / 26, ease: 'none', repeat: -1 })
+      const slow = () => gsap.to(tw, { timeScale: 0, duration: 0.4, overwrite: true })
+      const go = () => gsap.to(tw, { timeScale: 1, duration: 0.6, overwrite: true })
+      l.addEventListener('mouseenter', slow)
+      l.addEventListener('mouseleave', go)
+      l.addEventListener('focusin', slow)
+      l.addEventListener('focusout', go)
+      const st = ScrollTrigger.create({ trigger: l, start: 'top bottom', end: 'bottom top', onToggle: (x) => (x.isActive ? tw.resume() : tw.pause()) })
+      loopKills.push(() => {
+        tw.kill(); st.kill()
+        l.removeEventListener('mouseenter', slow); l.removeEventListener('mouseleave', go)
+        l.removeEventListener('focusin', slow); l.removeEventListener('focusout', go)
+      })
+    })
+  })
+}
+
+function onLoopResize() {
+  clearTimeout(loopTimer)
+  loopTimer = setTimeout(async () => {
+    await setupLoops()
+    ;(await loadDocsGsap()).ScrollTrigger.refresh()
+  }, 200)
+}
+
 // Hover kartu fitur: bagian ikon bergerak bergantian.
 function wiggle(e: MouseEvent) {
   if (prefersReducedMotion()) return
@@ -137,6 +218,10 @@ onMounted(async () => {
 
   const { gsap, ScrollTrigger } = await loadDocsGsap()
   const bar = document.querySelector<HTMLElement>('[data-dx-progress]')
+  // Atur tinggi kartu berpasangan dulu, karena memengaruhi posisi bagian yang dipin.
+  await setupLoops()
+  window.addEventListener('resize', onLoopResize)
+  document.fonts?.ready.then(onLoopResize)
   const topOffset = () => (document.querySelector<HTMLElement>('.dx-top')?.offsetHeight ?? 60) + (secbar.value?.offsetHeight ?? 46) + 12
 
   ctx = gsap.context(() => {
@@ -181,6 +266,12 @@ onMounted(async () => {
       .from('[data-dx-fact]', { y: 16, opacity: 0, scale: 0.97, stagger: 0.06, duration: 0.5 }, '-=0.35')
       .from('.dx-secbar', { opacity: 0, duration: 0.4 }, '-=0.35')
 
+    // Ikon widget di kepala halaman "bernapas" pelan secara berkala.
+    const idle = gsap.timeline({ repeat: -1, repeatDelay: 2.8, delay: 2.2 })
+    idle.to('[data-dx-head-ico] .dx-wico > *', { y: -2.5, duration: 0.25, stagger: 0.06, ease: 'power2.out' })
+      .to('[data-dx-head-ico] .dx-wico > *', { y: 0, duration: 0.6, stagger: 0.06, ease: 'bounce.out' }, '-=0.1')
+    ScrollTrigger.create({ trigger: '.dx-whead', start: 'top bottom', end: 'bottom top', onToggle: (x) => (x.isActive ? idle.resume() : idle.pause()) })
+
     ScrollTrigger.batch('[data-dx-feat]', {
       start: 'top 92%', once: true,
       onEnter: (els) => {
@@ -216,6 +307,9 @@ onMounted(async () => {
 })
 
 onBeforeUnmount(() => {
+  window.removeEventListener('resize', onLoopResize)
+  clearTimeout(loopTimer)
+  teardownLoops()
   ctx?.revert()
   const bar = document.querySelector<HTMLElement>('[data-dx-progress]')
   if (bar) bar.style.transform = 'scaleX(0)'
@@ -275,7 +369,7 @@ const typeLabel = (t: string) => controlTypes[t] ?? t
     </section>
 
     <!-- Kelebihan & batasan -->
-    <section id="kelebihan" class="dx-sec dx-pros">
+    <section id="kelebihan" class="dx-sec dx-pros" data-dx-pair>
       <div class="dx-card" data-dx-reveal>
         <div class="dx-card__head">
           <div>
@@ -284,27 +378,32 @@ const typeLabel = (t: string) => controlTypes[t] ?? t
           </div>
           <span class="dx-badge dx-badge--brand"><ApIcon name="thumb-up" /> {{ d.perks.length }}</span>
         </div>
-        <ul class="dx-list">
-          <li v-for="p in d.perks" :key="p.title">
-            <span class="dx-list__ico is-pro"><ApIcon :name="p.icon" /></span>
-            <div><b>{{ p.title }}</b><p class="dx-caption">{{ p.text }}</p></div>
-          </li>
-        </ul>
+        <div class="dx-loop">
+          <ul class="dx-list">
+            <li v-for="p in d.perks" :key="p.title">
+              <span class="dx-list__ico is-pro"><ApIcon :name="p.icon" /></span>
+              <div><b>{{ p.title }}</b><p class="dx-caption">{{ p.text }}</p></div>
+            </li>
+          </ul>
+        </div>
       </div>
       <div class="dx-card" data-dx-reveal>
         <div class="dx-card__head">
           <div>
             <h2>Batasan</h2>
-            <p class="dx-caption">Hal yang perlu diketahui sebelum memakai.</p>
+            <p class="dx-caption">Perlu diketahui sebelum memakai.</p>
           </div>
           <span class="dx-badge dx-badge--warn"><ApIcon name="thumb-down" /> {{ limits.length }}</span>
         </div>
-        <ul class="dx-list">
-          <li v-for="l in limits" :key="l">
-            <span class="dx-list__ico is-con"><ApIcon name="shield" /></span>
-            <div><p>{{ l }}</p></div>
-          </li>
-        </ul>
+        <div class="dx-loop">
+          <ul class="dx-list">
+            <li v-for="l in limits" :key="l">
+              <span class="dx-list__ico is-con"><ApIcon name="shield" /></span>
+              <div><p>{{ l }}</p></div>
+            </li>
+          </ul>
+        </div>
+        <button type="button" class="dx-cardlink" @click="goTo('masalah')"><ApIcon name="headset" /> Ada kendala? Lihat masalah umum <ApIcon name="arrow" /></button>
       </div>
     </section>
 
@@ -422,10 +521,19 @@ const typeLabel = (t: string) => controlTypes[t] ?? t
           </div>
         </div>
         <div class="dx-faq">
-          <details v-for="t in d.tips" :key="t.q" class="dx-disclosure">
-            <summary>{{ t.q }}<span class="dx-group__chev" aria-hidden="true"><ApIcon name="plus" /></span></summary>
-            <p class="dx-caption">{{ t.a }}</p>
-          </details>
+          <div v-for="(t, ti) in d.tips" :key="t.q" class="dx-group" :class="{ 'is-open': openTips.has(ti) }">
+            <button type="button" class="dx-group__head" :aria-expanded="openTips.has(ti)" @click="toggleTip(ti)">
+              <b>{{ t.q }}</b>
+              <span class="dx-group__chev" aria-hidden="true"><ApIcon name="plus" /></span>
+            </button>
+            <Transition :css="false" @enter="onEnter" @leave="onLeave">
+              <div v-if="openTips.has(ti)" class="dx-group__body"><p class="dx-caption dx-tip">{{ t.a }}</p></div>
+            </Transition>
+          </div>
+        </div>
+        <div class="dx-help">
+          <span><b>Masih ada kendala?</b><span class="dx-caption">Tim kami siap membantu lewat WhatsApp.</span></span>
+          <a :href="links.demo" target="_blank" rel="noopener" class="dx-btn dx-btn--secondary dx-btn--sm"><ApIcon name="chat" /> Tanya</a>
         </div>
       </section>
     </div>
