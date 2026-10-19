@@ -32,7 +32,10 @@ const groupsOf = (r: (typeof releases)[number]) =>
     .filter((g) => g.items.length)
 const shown = computed(() => releases.filter((r) => groupsOf(r).length))
 
-const latestCounts = order.map((t) => ({ type: t, meta: changeTypes[t], n: latest.changes.filter((c) => c.type === t).length })).filter((x) => x.n)
+const latestCounts = order
+  .map((t) => ({ type: t, meta: changeTypes[t], n: latest.changes.filter((c) => c.type === t).length }))
+  .filter((x) => x.n)
+  .map((x) => ({ ...x, share: Math.round((x.n / latest.changes.length) * 100) }))
 const maxCount = Math.max(...latestCounts.map((x) => x.n))
 const versionChars = latest.version.split('')
 const isDigit = (ch: string) => /\d/.test(ch)
@@ -121,6 +124,15 @@ async function setFilter(k: ChangeType | 'semua') {
   busy = false
 }
 
+// Sorot angka: segmen bergelombang dan cincin digambar ulang.
+function waveStat(e: MouseEvent) {
+  if (!api || prefersReducedMotion()) return
+  const el = e.currentTarget as HTMLElement
+  api.gsap.fromTo(el.querySelectorAll('.dx-clstat__segs i.is-on'), { y: 0 }, { keyframes: { y: [0, -4, 0] }, duration: 0.45, stagger: 0.05, ease: 'power1.inOut', overwrite: true })
+  const ring = el.querySelector<SVGCircleElement>('[data-cl-ring]')
+  if (ring) api.gsap.fromTo(ring, { strokeDasharray: '0 100' }, { strokeDasharray: `${ring.dataset.share} 100`, duration: 0.8, ease: 'power3.out', overwrite: true })
+}
+
 function onStackEnter() { hovering = true; timer?.pause() }
 function onStackLeave() { hovering = false; if (onScreen) timer?.resume() }
 
@@ -140,13 +152,17 @@ onMounted(async () => {
       .from('[data-cl-odo]', { marginTop: '0em', duration: 1.5, stagger: 0.14, ease: 'power3.out' }, '<0.1')
       .from('[data-cl-sep]', { opacity: 0, y: 6, duration: 0.4, stagger: 0.1 }, '<0.3')
       .from('.dx-clstack__card', { y: 36, opacity: 0, duration: 0.6, stagger: 0.06, ease: 'power3.out' }, '<')
-      .from('[data-cl-stat]', { x: 14, opacity: 0, duration: 0.45, stagger: 0.08 }, '<0.2')
-      .from('[data-cl-bar]', { scaleX: 0, duration: 0.9, stagger: 0.08, ease: 'power3.out' }, '<0.1')
-    gsap.utils.toArray<HTMLElement>('[data-cl-count]').forEach((el) => {
-      const o = { v: 0 }
-      tl.to(o, { v: Number(el.dataset.clCount), duration: 0.9, ease: 'power2.out', onUpdate: () => (el.textContent = String(Math.round(o.v))) }, '<0.05')
-    })
     tl.add(() => { layoutStack(true); runTimer() })
+
+    // Strip angka: cincin persentase tergambar, angka bergulir, segmen (satu per perubahan) muncul berurutan.
+    const st = gsap.timeline({ scrollTrigger: { trigger: '.dx-clhero__side', start: 'top 92%', once: true }, delay: 0.5 })
+    st.from('[data-cl-stat]', { y: 14, opacity: 0, duration: 0.5, stagger: 0.1, ease: 'power3.out' })
+      .from('.dx-clstat__ico', { scale: 0.4, rotate: -90, duration: 0.7, stagger: 0.1, ease: 'back.out(2)' }, '<')
+      .from('[data-cl-ring]', { strokeDasharray: '0 100', duration: 1.2, stagger: 0.12, ease: 'power3.inOut' }, '<0.15')
+      .from('[data-cl-odo-s]', { marginTop: '0em', duration: 1.3, stagger: 0.12, ease: 'power3.out' }, '<')
+      .from('.dx-clstat__segs i', { scaleX: 0, opacity: 0, duration: 0.4, stagger: 0.035, ease: 'back.out(3)' }, '<0.2')
+      .from('.dx-clstat em', { opacity: 0, x: -6, duration: 0.4, stagger: 0.1 }, '-=0.4')
+      .add(() => root.value?.querySelector('.dx-clhero__side')?.classList.add('is-live'))
 
     // Tumpukan berhenti saat tidak terlihat.
     stackSt = ScrollTrigger.create({
@@ -159,7 +175,7 @@ onMounted(async () => {
 
     // Tiap rilis: titik pop, kartu masuk, garis pindai melintas, poin muncul bergantian.
     gsap.utils.toArray<HTMLElement>('.dx-cl__item').forEach((item) => {
-      const t = gsap.timeline({ scrollTrigger: { trigger: item, start: 'top 84%', once: true } })
+      const t = gsap.timeline({ scrollTrigger: { trigger: item, start: 'top 92%', once: true } })
       reveals.push(t)
       t.from(item.querySelector('.dx-cl__node'), { scale: 0, duration: 0.5, ease: 'back.out(3)' })
         .fromTo(item.querySelector('.dx-cl__pulse'), { scale: 0.6, opacity: 0.8 }, { scale: 2.6, opacity: 0, duration: 0.9, ease: 'power2.out' }, '<0.1')
@@ -215,7 +231,7 @@ onBeforeUnmount(() => {
             <span class="dx-clstack__count"><b>{{ pad(stackIdx + 1) }}</b> / {{ pad(stack.length) }}</span>
           </p>
           <div class="dx-clstack__deck" role="button" tabindex="0" aria-label="Perubahan berikutnya" @click="stepStack(1)" @keydown.enter.prevent="stepStack(1)">
-            <div v-for="(c, i) in stack" :key="i" class="dx-clstack__card" :title="c.text" :aria-hidden="i !== stackIdx">
+            <div v-for="(c, i) in stack" :key="i" class="dx-clstack__card" :class="{ 'is-top': i === stackIdx }" :title="c.text" :aria-hidden="i !== stackIdx">
               <span class="dx-tint" :class="`dx-tint--${c.meta.tone}`"><ApIcon :name="c.meta.icon" /></span>
               <span class="dx-clstack__txt">
                 <small>{{ c.meta.label }}<template v-if="c.w"> · {{ c.w.title }}</template></small>
@@ -232,11 +248,25 @@ onBeforeUnmount(() => {
       </div>
 
       <div class="dx-clhero__side">
-        <div v-for="x in latestCounts" :key="x.type" class="dx-clstat" data-cl-stat>
-          <span class="dx-tint" :class="`dx-tint--${x.meta.tone}`"><ApIcon :name="x.meta.icon" /></span>
+        <div v-for="x in latestCounts" :key="x.type" class="dx-clstat" :class="`dx-clstat--${x.meta.tone}`" data-cl-stat @mouseenter="waveStat">
+          <span class="dx-clstat__ico">
+            <svg class="dx-clstat__ring" viewBox="0 0 48 48" aria-hidden="true">
+              <circle class="is-track" cx="24" cy="24" r="22" pathLength="100" />
+              <circle class="is-val" cx="24" cy="24" r="22" pathLength="100" :style="{ strokeDasharray: `${x.share} 100` }" :data-share="x.share" data-cl-ring />
+            </svg>
+            <ApIcon :name="x.meta.icon" />
+          </span>
           <span class="dx-clstat__body">
-            <span class="dx-clstat__row"><b :data-cl-count="x.n">{{ x.n }}</b><small>{{ x.meta.label }}</small></span>
-            <span class="dx-clstat__bar" :class="`dx-clstat__bar--${x.meta.tone}`"><i data-cl-bar :style="{ width: `${(x.n / maxCount) * 100}%` }"></i></span>
+            <span class="dx-clstat__row">
+              <b class="dx-clstat__num" :aria-label="String(x.n)">
+                <span v-for="(ch, i) in String(x.n).split('')" :key="i" class="dx-clhero__digit" aria-hidden="true">
+                  <span class="dx-odo" data-cl-odo-s :style="{ marginTop: `-${10 + Number(ch)}em` }"><span v-for="k in 20" :key="k">{{ (k - 1) % 10 }}</span></span>
+                </span>
+              </b>
+              <small>{{ x.meta.label }}</small>
+              <em>{{ x.share }}%</em>
+            </span>
+            <span class="dx-clstat__segs" aria-hidden="true"><i v-for="k in maxCount" :key="k" :class="{ 'is-on': k <= x.n }"></i></span>
           </span>
         </div>
         <p class="dx-clhero__how" data-cl-stat>
