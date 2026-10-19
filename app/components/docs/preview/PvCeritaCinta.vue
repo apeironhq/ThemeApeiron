@@ -40,10 +40,10 @@ watch(() => [props.s.anim, props.s.line], () => replay.value++)
 </template>
 
 <style scoped>
-.pv-cc { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 20px 12px; background: #fbf6ec; overflow: hidden; }
+.pv-cc { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 22px 22px; background: #fbf6ec; overflow: hidden; }
 .pv-cc__eyebrow { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: #9a7b4f; }
-.pv-cc__title { font-size: 20px; font-weight: 500; color: var(--dx-navy); margin-bottom: 10px; }
-.pv-cc__tl { position: relative; width: 100%; display: grid; gap: 12px; padding: 4px 0; border-radius: 12px; }
+.pv-cc__title { font-size: 19px; font-weight: 500; color: var(--dx-navy); margin-bottom: 8px; }
+.pv-cc__tl { position: relative; width: 100%; display: grid; gap: 8px; padding: 4px 0; border-radius: 12px; }
 .pv-cc__path { position: absolute; left: 50%; top: 0; width: 20px; height: 100%; transform: translateX(-50%); overflow: visible; }
 .pv-cc__path path { fill: none; stroke: #c9a46b; stroke-width: 1.6; stroke-dasharray: 5 5; vector-effect: non-scaling-stroke; }
 .line-ribbon .pv-cc__path path { stroke-width: 5; stroke-dasharray: none; stroke: #e5cfa5; }
@@ -51,18 +51,18 @@ watch(() => [props.s.anim, props.s.line], () => replay.value++)
 .pv-cc__marker { position: absolute; left: 50%; top: 0; z-index: 2; display: grid; place-items: center; width: 22px; height: 22px; margin-left: -11px; border-radius: 50%; background: var(--dx-navy); color: #e9d3a8; animation: pv-walk 6s ease-in-out infinite; }
 .pv-cc__marker svg { width: 12px; height: 12px; fill: currentColor; }
 @keyframes pv-walk { 0%, 8% { top: 0; } 50% { top: calc(100% - 22px); } 92%, 100% { top: 0; } }
-.pv-cc__card { position: relative; width: calc(50% - 18px); display: grid; gap: 2px; padding: 8px; border-radius: 6px; background: #fff; border: 1px solid #eadfcb; transform: rotate(-1.2deg); }
+.pv-cc__card { position: relative; width: calc(50% - 15px); display: grid; gap: 2px; padding: 7px; border-radius: 6px; background: #fff; border: 1px solid #eadfcb; transform: rotate(-1.2deg); }
 .pv-cc__card.is-right { justify-self: end; transform: rotate(1.2deg); }
-.pv-cc__photo { position: relative; height: 54px; border-radius: 3px; margin-bottom: 4px; }
+.pv-cc__photo { position: relative; height: 40px; border-radius: 3px; margin-bottom: 3px; }
 .tone-a { background: linear-gradient(140deg, #dbe9f0, #efe2cb); }
 .tone-b { background: linear-gradient(140deg, #efe2cb, #f6dfe3); }
 .tone-c { background: linear-gradient(140deg, #e3edf2, #f3ead8); }
 .pv-cc__tape { position: absolute; top: -6px; left: 50%; width: 30px; height: 10px; margin-left: -15px; background: rgba(201, 164, 107, .45); transform: rotate(-4deg); }
 .pv-cc__card small { font-size: 9px; color: #9a7b4f; }
 .pv-cc__card b { font-size: 11.5px; font-weight: 500; color: var(--dx-navy); }
-.pv-cc__card p { margin: 0; font-size: 9.5px; line-height: 1.4; color: var(--dx-muted); }
-.pv-cc__dot { position: absolute; top: 24px; right: -29px; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: #fff; border: 1px solid #e5cfa5; color: #c98a95; }
-.is-right .pv-cc__dot { right: auto; left: -29px; }
+.pv-cc__card p { display: -webkit-box; margin: 0; overflow: hidden; -webkit-line-clamp: 2; -webkit-box-orient: vertical; font-size: 9px; line-height: 1.35; color: var(--dx-muted); }
+.pv-cc__dot { position: absolute; top: 18px; right: -26px; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: #fff; border: 1px solid #e5cfa5; color: #c98a95; }
+.is-right .pv-cc__dot { right: auto; left: -26px; }
 .pv-cc__dot svg { width: 10px; height: 10px; fill: currentColor; }
 
 .anim-fade .pv-cc__card { animation: pv-fade-in .8s calc(var(--i) * .25s) both; }

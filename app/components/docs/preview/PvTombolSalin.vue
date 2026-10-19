@@ -48,7 +48,7 @@ onBeforeUnmount(() => clearTimeout(t))
 </template>
 
 <style scoped>
-.pv-cp { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 22px 18px; text-align: center; background: #fbf8f2; }
+.pv-cp { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 22px 24px; text-align: center; background: #fbf8f2; }
 .pv-cp__title { font-size: 18px; font-weight: 500; color: var(--dx-navy); }
 .pv-cp__lead { margin: 0; font-size: 11px; line-height: 1.55; color: var(--dx-muted); }
 .pv-cp__card { position: relative; width: 100%; display: grid; justify-items: start; gap: 4px; padding: 18px 16px; border-radius: 16px; text-align: left; color: #fff;

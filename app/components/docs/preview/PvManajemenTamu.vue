@@ -64,7 +64,7 @@ watch(() => props.focus, (f) => { open.value = f === 'template' && rows.value.le
 </template>
 
 <style scoped>
-.pv-gm { position: relative; display: flex; flex-direction: column; gap: 10px; padding: 14px 12px; background: #f6f8fa; overflow: hidden; }
+.pv-gm { position: relative; display: flex; flex-direction: column; gap: 10px; padding: 20px 22px; background: #f6f8fa; overflow: hidden; }
 .pv-gm__form { display: grid; gap: 8px; padding: 12px; border-radius: 14px; background: #fff; border: 1px solid var(--dx-line); }
 .pv-gm__title { font-size: 14px; font-weight: 500; color: var(--dx-navy); }
 .pv-gm textarea { resize: none; }
@@ -82,8 +82,8 @@ watch(() => props.focus, (f) => { open.value = f === 'template' && rows.value.le
 .pv-gm__act button { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 8px; border: 1px solid var(--dx-line); background: #fff; color: var(--dx-navy); cursor: pointer; }
 .pv-gm__act button.is-send { background: var(--dx-navy); border-color: var(--dx-navy); color: #fff; }
 .pv-gm__act svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
-.pv-gm__modal { position: absolute; inset: 0; display: flex; align-items: flex-end; background: rgba(4, 38, 58, .35); }
-.pv-gm__sheet { width: 100%; display: grid; gap: 8px; padding: 14px; border-radius: 18px 18px 0 0; background: #fff; }
+.pv-gm__modal { position: absolute; inset: 0; display: flex; align-items: flex-end; padding: 0 18px 18px; background: rgba(4, 38, 58, .35); }
+.pv-gm__sheet { width: 100%; display: grid; gap: 8px; padding: 14px; border-radius: 16px; background: #fff; }
 .pv-gm__sheet small { font-size: 10px; color: var(--dx-muted); }
 .pv-gm__sheet p { margin: 0; padding: 10px; border-radius: 10px; background: #eef4f7; font-size: 10.5px; line-height: 1.5; white-space: pre-line; word-break: break-all; }
 .pv-gm__sheet button { padding: 9px; border: 0; border-radius: 10px; background: var(--dx-navy); color: #fff; font: inherit; font-size: 11.5px; cursor: pointer; }
@@ -92,5 +92,5 @@ watch(() => props.focus, (f) => { open.value = f === 'template' && rows.value.le
 .pv-pop-enter-active, .pv-pop-leave-active { transition: background .35s; }
 .pv-pop-enter-active .pv-gm__sheet, .pv-pop-leave-active .pv-gm__sheet { transition: transform .45s cubic-bezier(.2, .8, .2, 1); }
 .pv-pop-enter-from, .pv-pop-leave-to { background: transparent; }
-.pv-pop-enter-from .pv-gm__sheet, .pv-pop-leave-to .pv-gm__sheet { transform: translateY(100%); }
+.pv-pop-enter-from .pv-gm__sheet, .pv-pop-leave-to .pv-gm__sheet { transform: translateY(120%); }
 </style>

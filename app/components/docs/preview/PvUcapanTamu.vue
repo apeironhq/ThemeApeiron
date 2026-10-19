@@ -54,7 +54,7 @@ const initial = (n: string) => n.trim()[0]?.toUpperCase() ?? '?'
 </template>
 
 <style scoped>
-.pv-ut { display: flex; flex-direction: column; gap: 10px; padding: 14px; background: #fbf8f2; overflow: hidden; }
+.pv-ut { display: flex; flex-direction: column; gap: 10px; padding: 20px 22px; background: #fbf8f2; overflow: hidden; }
 .pv-ut__form { display: grid; gap: 8px; padding: 12px; border-radius: 14px; background: #fff; border: 1px solid var(--dx-line); }
 .pv-ut__title { font-size: 14px; font-weight: 500; color: var(--dx-navy); }
 .pv-ut__lock { display: flex; align-items: center; gap: 6px; padding: 6px 8px; border-radius: 8px; background: var(--dx-navy-50); font-size: 10px; color: var(--dx-muted); }

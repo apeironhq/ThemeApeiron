@@ -84,9 +84,9 @@ function bump(d: number) { props.s.speed = Math.min(100, Math.max(5, Number(prop
 .pv-as__sec i { width: 100%; height: 7px; border-radius: 4px; background: #e9e2d4; }
 .pv-as__sec i.is-short { width: 65%; }
 .pv-as__img { width: 100%; height: 52px; border-radius: 10px; background: linear-gradient(140deg, #dbe9f0, #efe2cb); }
-.pv-as__hint { position: absolute; top: 12px; left: 12px; right: 12px; display: flex; align-items: center; gap: 6px; padding: 7px 10px; border-radius: 10px; background: rgba(255, 255, 255, .94); border: 1px solid var(--dx-line); font-size: 10px; color: var(--dx-muted); }
+.pv-as__hint { position: absolute; top: 22px; left: 22px; right: 22px; display: flex; align-items: center; gap: 6px; padding: 7px 10px; border-radius: 10px; background: rgba(255, 255, 255, .94); border: 1px solid var(--dx-line); font-size: 10px; color: var(--dx-muted); }
 .pv-as__hint svg { width: 14px; height: 14px; fill: none; stroke: var(--dx-navy); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex: none; }
-.pv-as__dock { position: absolute; right: 14px; bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.pv-as__dock { position: absolute; right: 22px; bottom: 22px; display: flex; align-items: center; gap: 8px; }
 .pv-as__speed { display: flex; align-items: center; gap: 6px; padding: 4px; border-radius: 999px; background: #fff; border: 1px solid var(--dx-line); }
 .pv-as__speed button { width: 24px; height: 24px; border-radius: 50%; border: 0; background: var(--dx-navy-50); color: var(--dx-navy); font: inherit; font-size: 14px; cursor: pointer; }
 .pv-as__speed b { min-width: 30px; text-align: center; font-size: 10.5px; font-weight: 500; color: var(--dx-navy); }

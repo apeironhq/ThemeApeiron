@@ -58,7 +58,7 @@ watch(() => props.focus, (f) => {
 </template>
 
 <style scoped>
-.pv-fo { position: relative; display: flex; flex-direction: column; gap: 12px; padding: 16px 14px; background: #f6f8fa; }
+.pv-fo { position: relative; display: flex; flex-direction: column; gap: 12px; padding: 20px 22px; background: #f6f8fa; }
 .pv-fo__head { display: flex; align-items: center; justify-content: space-between; }
 .pv-fo__head b { font-size: 14px; font-weight: 500; color: var(--dx-navy); }
 .pv-fo__conn { display: inline-flex; align-items: center; gap: 5px; padding: 4px 8px; border-radius: 999px; background: var(--dx-gold-soft); color: #7a5a26; font-size: 9.5px; }

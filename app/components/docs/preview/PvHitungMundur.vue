@@ -59,10 +59,10 @@ const dateText = computed(() => {
 	background: radial-gradient(120% 70% at 50% 0%, #eef5f8, #fff 70%); }
 .pv-cd__eyebrow { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--dx-muted); }
 .pv-cd__names { font-size: 24px; font-weight: 500; color: var(--dx-navy); }
-.pv-cd__timer { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 12px; border-radius: 16px; }
+.pv-cd__timer { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 8px; border-radius: 16px; }
 .pv-cd__timer.is-vertical { flex-direction: column; }
-.pv-cd__box { display: grid; place-items: center; width: 58px; padding: 10px 0 8px; border-radius: 12px; background: #fff; border: 1px solid var(--dx-line); }
-.pv-cd__box b { font-size: 22px; font-weight: 500; color: var(--dx-navy); font-variant-numeric: tabular-nums; }
+.pv-cd__box { display: grid; place-items: center; width: 46px; padding: 9px 0 7px; border-radius: 12px; background: #fff; border: 1px solid var(--dx-line); }
+.pv-cd__box b { font-size: 19px; font-weight: 500; color: var(--dx-navy); font-variant-numeric: tabular-nums; }
 .pv-cd__box small { font-size: 10px; color: var(--dx-muted); }
 .is-vertical .pv-cd__box { width: 74px; padding: 6px 0; }
 .pv-cd__sep { font-size: 18px; color: var(--dx-sand); }

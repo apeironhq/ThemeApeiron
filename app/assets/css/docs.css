@@ -384,10 +384,10 @@ html.dx-lock { overflow: hidden; }
 .dx-phone { position: relative; width: 290px; height: 560px; padding: 22px 9px 9px; border-radius: 36px; background: #101828; }
 .dx-phone__notch { position: absolute; top: 9px; left: 50%; width: 52px; height: 5px; margin-left: -26px; border-radius: 5px; background: rgba(255, 255, 255, .18); }
 .dx-phone__screen { position: relative; width: 100%; height: 100%; border-radius: 27px; overflow: hidden; background: #fff; }
-.dx-phone__screen [data-f] { transition: opacity .4s, filter .4s, box-shadow .4s; }
+.dx-phone__screen [data-f] { transition: opacity .4s, filter .4s; }
 .dx-phone__screen.has-focus [data-f]:not(.is-f):not(.is-fp) { opacity: .3; filter: grayscale(.5); }
-/* Sorotan = garis tepi emas tipis (outline), bukan bayangan. */
-.dx-phone__screen .is-f { box-shadow: 0 0 0 1.5px var(--dx-sand); }
+/* Sorotan: bingkai terpisah 1px yang berjarak dari elemen dan dari tepi layar (lihat DocsStage). */
+.dx-hl { position: absolute; left: 0; top: 0; z-index: 5; border: 1px solid rgba(201, 164, 107, .8); border-radius: 12px; background: rgba(201, 164, 107, .05); opacity: 0; pointer-events: none; will-change: transform; }
 .dx-stage.is-paused * { animation-play-state: paused !important; }
 
 .pv { position: relative; height: 100%; overflow: hidden; font-size: 12px; line-height: 1.4; color: var(--dx-ink); }

@@ -51,7 +51,7 @@ onBeforeUnmount(() => clearTimeout(t))
 </template>
 
 <style scoped>
-.pv-wa { display: flex; flex-direction: column; gap: 12px; padding: 16px 14px; background: #f5f7f9; }
+.pv-wa { display: flex; flex-direction: column; gap: 12px; padding: 20px 22px; background: #f5f7f9; }
 .pv-wa__form { display: grid; gap: 10px; padding: 14px; border-radius: 14px; background: #fff; border: 1px solid var(--dx-line); }
 .pv-wa__title { font-size: 14px; font-weight: 500; color: var(--dx-navy); }
 .pv-wa__pills { display: flex; gap: 5px; flex-wrap: wrap; }

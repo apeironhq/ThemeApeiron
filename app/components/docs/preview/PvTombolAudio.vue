@@ -43,14 +43,14 @@ function toggle() { props.s.playing = !props.s.playing }
 .pv-au__page i.is-short { width: 70%; }
 .pv-au__photo { width: 100%; height: 120px; border-radius: 14px; margin: 6px 0; background: linear-gradient(140deg, #e8dcc6, #d9e6ee); }
 
-.pv-au__source { position: absolute; top: 14px; left: 14px; right: 14px; display: flex; align-items: center; gap: 10px; padding: 9px 11px; border-radius: 12px; background: #fff; border: 1px solid var(--dx-line); }
+.pv-au__source { position: absolute; top: 22px; left: 22px; right: 22px; display: flex; align-items: center; gap: 10px; padding: 9px 11px; border-radius: 12px; background: #fff; border: 1px solid var(--dx-line); }
 .pv-au__source small { display: block; font-size: 9.5px; color: var(--dx-muted); }
 .pv-au__source b { font-size: 11.5px; font-weight: 500; color: var(--dx-ink); }
 .pv-au__src-ico { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; background: var(--dx-navy-50); color: var(--dx-navy); }
 .pv-au__src-ico svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.6; }
 
-.pv-au__now { position: absolute; left: 14px; bottom: 22px; right: 80px; display: flex; align-items: center; gap: 8px; padding: 9px 11px; border-radius: 12px; background: var(--dx-navy); color: #fff; font-size: 10.5px; line-height: 1.3; }
-.is-left .pv-au__now { left: 80px; right: 14px; }
+.pv-au__now { position: absolute; left: 22px; bottom: 26px; right: 86px; display: flex; align-items: center; gap: 8px; padding: 9px 11px; border-radius: 12px; background: var(--dx-navy); color: #fff; font-size: 10.5px; line-height: 1.3; }
+.is-left .pv-au__now { left: 86px; right: 22px; }
 .pv-au__eq { display: flex; align-items: flex-end; gap: 2px; height: 14px; flex: none; }
 .pv-au__eq i { width: 3px; height: 30%; border-radius: 2px; background: var(--dx-sand); }
 .is-playing .pv-au__eq i { animation: pv-eq .9s ease-in-out infinite alternate; }
@@ -59,8 +59,8 @@ function toggle() { props.s.playing = !props.s.playing }
 .pv-au__eq i:nth-child(4) { animation-delay: -.15s !important; }
 @keyframes pv-eq { to { height: 100%; } }
 
-.pv-au__btn { position: absolute; right: 18px; bottom: 18px; display: grid; place-items: center; width: 48px; height: 48px; border: 0; border-radius: 50%; background: #fff; color: var(--dx-navy); cursor: pointer; border: 1px solid var(--dx-line); }
-.is-left .pv-au__btn { right: auto; left: 18px; }
+.pv-au__btn { position: absolute; right: 22px; bottom: 22px; display: grid; place-items: center; width: 48px; height: 48px; border: 0; border-radius: 50%; background: #fff; color: var(--dx-navy); cursor: pointer; border: 1px solid var(--dx-line); }
+.is-left .pv-au__btn { right: auto; left: 22px; }
 .pv-au__btn svg { position: relative; width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
 .pv-au__ring { position: absolute; inset: -4px; border-radius: 50%; border: 2px solid rgba(8, 60, 87, .14); }
 .is-playing.fx-spin .pv-au__ring { border-color: rgba(8, 60, 87, .12); border-top-color: var(--dx-sand); animation: pv-spin 1.6s linear infinite; }

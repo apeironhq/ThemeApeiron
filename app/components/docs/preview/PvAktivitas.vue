@@ -49,7 +49,7 @@ const pos = computed(() => ({ 'Atas Kanan': 'tr', 'Atas Kiri': 'tl', 'Bawah Kana
 
 <style scoped>
 .pv-sp { position: relative; overflow: hidden; background: #fff; }
-.pv-sp__page { display: grid; justify-items: center; gap: 8px; padding: 18px 18px 0; text-align: center; }
+.pv-sp__page { display: grid; justify-items: center; gap: 8px; padding: 22px 22px 0; text-align: center; }
 .pv-sp__nav { justify-self: stretch; display: flex; justify-content: space-between; margin-bottom: 14px; }
 .pv-sp__nav i { width: 46px; height: 8px; border-radius: 4px; background: #e3eaef; }
 .pv-sp__nav i + i { width: 22px; }
@@ -61,11 +61,11 @@ const pos = computed(() => ({ 'Atas Kanan': 'tr', 'Atas Kiri': 'tl', 'Bawah Kana
 .pv-sp__grid { justify-self: stretch; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .pv-sp__grid i { height: 92px; border-radius: 12px; background: linear-gradient(140deg, #eef5f8, #f7efe1); }
 
-.pv-sp__pop { position: absolute; z-index: 2; display: flex; align-items: center; gap: 8px; width: calc(100% - 28px); max-width: 250px; padding: 9px 10px; border-radius: 14px; background: #fff; border: 1px solid var(--dx-line); }
-.at-bl { left: 14px; bottom: 16px; }
-.at-br { right: 14px; bottom: 16px; }
-.at-tl { left: 14px; top: 16px; }
-.at-tr { right: 14px; top: 16px; }
+.pv-sp__pop { position: absolute; z-index: 2; display: flex; align-items: center; gap: 8px; width: calc(100% - 44px); max-width: 240px; padding: 9px 10px; border-radius: 14px; background: #fff; border: 1px solid var(--dx-line); }
+.at-bl { left: 22px; bottom: 22px; }
+.at-br { right: 22px; bottom: 22px; }
+.at-tl { left: 22px; top: 22px; }
+.at-tr { right: 22px; top: 22px; }
 .pv-sp__av { display: grid; place-items: center; flex: none; width: 32px; height: 32px; border-radius: 10px; background: var(--dx-navy); color: #e9d3a8; font-size: 12px; }
 .pv-sp__txt { min-width: 0; flex: 1; }
 .pv-sp__txt b { display: block; font-size: 10.5px; font-weight: 500; line-height: 1.35; color: var(--dx-ink); }

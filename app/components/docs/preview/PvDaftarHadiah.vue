@@ -42,7 +42,7 @@ onBeforeUnmount(() => clearTimeout(t))
           <small>{{ g.cat }}</small>
           <b>{{ g.name }}</b>
           <span class="pv-dh__left">{{ g.left ? `Tersisa ${g.left} dari ${g.total}` : 'Sudah direservasi' }}</span>
-          <button type="button" :disabled="!g.left" data-f="reserve" @click="pick = i">{{ g.left ? 'Pilih Hadiah' : 'Penuh' }}</button>
+          <button type="button" :disabled="!g.left" @click="pick = i">{{ g.left ? 'Pilih Hadiah' : 'Penuh' }}</button>
         </div>
       </article>
     </div>
@@ -68,7 +68,7 @@ onBeforeUnmount(() => clearTimeout(t))
 </template>
 
 <style scoped>
-.pv-dh { position: relative; display: flex; flex-direction: column; gap: 10px; padding: 14px 12px; background: #f6f8fa; overflow: hidden; }
+.pv-dh { position: relative; display: flex; flex-direction: column; gap: 10px; padding: 20px 22px; background: #f6f8fa; overflow: hidden; }
 .pv-dh__head { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
 .pv-dh__head b { font-size: 14px; font-weight: 500; color: var(--dx-navy); }
 .pv-dh__conn { display: inline-flex; align-items: center; gap: 5px; padding: 4px 8px; border-radius: 999px; background: var(--dx-gold-soft); color: #7a5a26; font-size: 9.5px; }
@@ -93,16 +93,16 @@ onBeforeUnmount(() => clearTimeout(t))
 .pv-dh__left { font-size: 9.5px; color: #7a5a26; }
 .pv-dh__body button { margin-top: 4px; padding: 6px; border: 0; border-radius: 8px; background: var(--dx-navy); color: #fff; font: inherit; font-size: 10px; cursor: pointer; }
 .pv-dh__body button:disabled { background: #e3eaef; color: var(--dx-muted); cursor: default; }
-.pv-dh__modal { position: absolute; inset: 0; display: flex; align-items: flex-end; background: rgba(4, 38, 58, .35); }
-.pv-dh__sheet { width: 100%; display: grid; gap: 8px; padding: 16px 14px 18px; border-radius: 18px 18px 0 0; background: #fff; }
+.pv-dh__modal { position: absolute; inset: 0; display: flex; align-items: flex-end; padding: 0 18px 18px; background: rgba(4, 38, 58, .35); }
+.pv-dh__sheet { width: 100%; display: grid; gap: 8px; padding: 16px; border-radius: 16px; background: #fff; }
 .pv-dh__sheet > b { font-size: 14px; font-weight: 500; color: var(--dx-navy); }
 .pv-dh__sheet > small { font-size: 10.5px; color: var(--dx-muted); }
 .pv-dh__actions { display: grid; grid-template-columns: 1fr 1.4fr; gap: 6px; }
 .pv-dh__actions button { padding: 9px; border-radius: 10px; border: 0; background: var(--dx-navy); color: #fff; font: inherit; font-size: 11.5px; cursor: pointer; }
 .pv-dh__actions .is-ghost { background: #eef2f5; color: var(--dx-ink); }
-.pv-dh__toast { position: absolute; left: 12px; right: 12px; bottom: 14px; padding: 10px 12px; border-radius: 12px; background: var(--dx-navy); color: #fff; font-size: 11px; text-align: center; }
+.pv-dh__toast { position: absolute; left: 22px; right: 22px; bottom: 22px; padding: 10px 12px; border-radius: 12px; background: var(--dx-navy); color: #fff; font-size: 11px; text-align: center; }
 .pv-pop-enter-active, .pv-pop-leave-active { transition: background .35s; }
 .pv-pop-enter-active .pv-dh__sheet, .pv-pop-leave-active .pv-dh__sheet { transition: transform .45s cubic-bezier(.2, .8, .2, 1); }
 .pv-pop-enter-from, .pv-pop-leave-to { background: transparent; }
-.pv-pop-enter-from .pv-dh__sheet, .pv-pop-leave-to .pv-dh__sheet { transform: translateY(100%); }
+.pv-pop-enter-from .pv-dh__sheet, .pv-pop-leave-to .pv-dh__sheet { transform: translateY(120%); }
 </style>
