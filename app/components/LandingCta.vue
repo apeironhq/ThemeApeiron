@@ -21,7 +21,7 @@ import { content as c } from '~/data/content'
       <p class="ap-cta__lead" data-reveal>{{ c.cta.lead }}</p>
       <div class="ap-cta__actions" data-reveal>
         <a class="ap-btn ap-btn--light ap-btn--lg" :href="c.links.buy" data-magnetic>Beli Sekarang <ApIcon name="arrow" /></a>
-        <a class="ap-btn ap-btn--outline-light ap-btn--lg" :href="c.links.demo" target="_blank" rel="noopener" data-cursor="Chat"><ApIcon name="chat" /> Minta Demo</a>
+        <a class="ap-btn ap-btn--outline-light ap-btn--lg" :href="c.links.docs" data-cursor="Baca"><ApIcon name="book" /> Dokumentasi</a>
         <a class="ap-btn ap-btn--text-light" :href="c.links.live" data-cursor="Lihat">Lihat contoh undangan <ApIcon name="arrow" /></a>
       </div>
     </div>

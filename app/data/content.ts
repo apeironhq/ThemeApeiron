@@ -214,7 +214,7 @@ export const content = {
     { q: 'Bagaimana cara nama tamu tampil personal?', a: 'Widget Manajemen Tamu membuat link khusus per tamu, dan nama tamu otomatis tampil di sampul undangan.' },
     { q: 'Data apa saja yang masuk ke MDUNDIG?', a: 'Hanya data widget Daftar Hadiah dan Form Order. Konfirmasi RSVP dikirim ke WhatsApp mempelai, sedangkan Ucapan Tamu tersimpan di WordPress Anda.' },
     { q: 'Apa yang terjadi jika lisensi habis?', a: 'Plugin tetap berjalan di situs Anda. Perpanjang lisensi untuk terus mendapat pembaruan dan dukungan.' },
-    { q: 'Bisakah saya minta demo dulu?', a: 'Tentu. Klik tombol "Minta Demo" dan tim kami akan menghubungi Anda lewat WhatsApp.' },
+    { q: 'Bisakah saya minta demo dulu?', a: 'Tentu. Klik tombol "Tanya via WhatsApp" di bawah, tim kami akan membalas dan menyiapkan demo untuk Anda.' },
   ],
 
   cta: {

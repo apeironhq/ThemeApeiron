@@ -12,7 +12,7 @@ import { content as c } from '~/data/content'
       </nav>
 
       <div class="ap-nav__cta">
-        <a class="ap-btn ap-btn--ghost ap-btn--sm" :href="c.links.demo" target="_blank" rel="noopener" data-cursor="Chat">Minta Demo</a>
+        <a class="ap-btn ap-btn--ghost ap-btn--sm" :href="c.links.docs" data-cursor="Baca">Dokumentasi</a>
         <a class="ap-btn ap-btn--primary ap-btn--sm" :href="c.links.buy" data-magnetic>Beli Sekarang</a>
       </div>
 
@@ -24,7 +24,7 @@ import { content as c } from '~/data/content'
     <div class="ap-nav__sheet" data-nav-sheet hidden>
       <a v-for="item in c.nav" :key="item.href" :href="item.href">{{ item.label }}</a>
       <a class="ap-btn ap-btn--primary" :href="c.links.buy">Beli Sekarang</a>
-      <a class="ap-btn ap-btn--ghost" :href="c.links.demo" target="_blank" rel="noopener">Minta Demo</a>
+      <a class="ap-btn ap-btn--ghost" :href="c.links.docs">Dokumentasi</a>
     </div>
   </header>
 </template>
