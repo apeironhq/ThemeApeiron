@@ -407,8 +407,10 @@ html.dx-lock { overflow: hidden; }
 :is(.dx-btn, .dx-seg button, .dx-secbar__item, .dx-nav-item, .dx-group__head, .dx-check__item, .dx-wcard, .dx-howto__step, .dx-disclosure summary, .dx-pager__link, .dx-search-btn, .dx-burger, .dx-search__item) { position: relative; overflow: hidden; isolation: isolate; }
 .dx-ripple { position: absolute; z-index: -1; border-radius: 50%; background: currentColor; opacity: .14; transform: scale(0); pointer-events: none; animation: dx-ripple .6s cubic-bezier(.2, .7, .2, 1) forwards; }
 @keyframes dx-ripple { to { transform: scale(1); opacity: 0; } }
-:is(.dx-btn, .dx-seg button, .dx-secbar__item, .dx-howto__step, .dx-wcard, .dx-pager__link, .dx-check__item, .dx-burger) { transition-property: background, border-color, color, box-shadow, transform; transition-duration: var(--dur), var(--dur), var(--dur), var(--dur), .18s; }
-:is(.dx-btn, .dx-seg button, .dx-secbar__item, .dx-howto__step, .dx-wcard, .dx-pager__link, .dx-burger):active { transform: scale(.975); }
+/* Efek tekan & angkat memakai properti `scale`/`translate` (bukan `transform`), agar tidak
+   bentrok dengan animasi GSAP yang menganimasikan `transform` pada elemen yang sama. */
+:is(.dx-btn, .dx-howto__step, .dx-wcard, .dx-pager__link, .dx-burger, .dx-fact) { transition-property: background, border-color, color, box-shadow, scale, translate; transition-duration: var(--dur), var(--dur), var(--dur), var(--dur), .18s, .35s; transition-timing-function: var(--ease); }
+:is(.dx-btn, .dx-howto__step, .dx-wcard, .dx-pager__link, .dx-burger):active { scale: .975; }
 
 /* Penanda aktif yang meluncur (sidebar, bilah section, tab). */
 .dx-ink { position: absolute; left: 0; top: 0; z-index: 0; opacity: 0; pointer-events: none; will-change: transform; }
@@ -429,17 +431,15 @@ html.dx-lock { overflow: hidden; }
 .dx-seg.has-ink button.is-on { background: transparent; box-shadow: none; }
 
 /* Kartu: sedikit terangkat saat disorot. */
-.dx-fact { transition: border-color var(--dur) var(--ease), transform .35s var(--ease); }
-.dx-fact:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+.dx-fact:hover { border-color: var(--border-strong); translate: 0 -2px; }
 .dx-feat { margin: 0 -10px; padding: 10px; border-radius: var(--r); transition: background var(--dur) var(--ease); }
 .dx-feat:hover { background: var(--n-50); }
-.dx-wcard:hover { transform: translateY(-2px); }
-.dx-wcard:hover:active { transform: scale(.98); }
+.dx-wcard:hover { translate: 0 -2px; }
 .dx-wcard__ico { transition: transform .4s var(--ease); }
 .dx-wcard:hover .dx-wcard__ico { transform: rotate(-8deg) scale(1.06); }
 .dx-list li { margin: 0 -8px; padding: 10px 8px; border-radius: var(--r-sm); transition: background var(--dur) var(--ease); }
 .dx-list li:hover { background: var(--n-50); }
-.dx-pager__link:hover { transform: translateY(-2px); }
+.dx-pager__link:hover { translate: 0 -2px; }
 .dx-pager__link .ap-icon { transition: transform .3s var(--ease); }
 .dx-pager__link.is-next:hover small .ap-icon { transform: translateX(3px); }
 .dx-pager__link:not(.is-next):hover small .ap-icon { transform: scaleX(-1) translateX(3px); }
@@ -450,7 +450,7 @@ html.dx-lock { overflow: hidden; }
 .dx-howto__steps { grid-area: steps; display: grid; gap: 8px; list-style: none; margin: 0; padding: 0; }
 .dx-howto__step { display: flex; align-items: flex-start; gap: 12px; width: 100%; padding: 12px 14px 16px; border: 1px solid var(--border); border-radius: var(--r); background: #fff; text-align: left; cursor: pointer; }
 .dx-howto__step:hover { border-color: var(--border-strong); background: var(--n-50); }
-.dx-howto__step.is-on { border-color: var(--brand-border); background: #fff; box-shadow: 0 0 0 3px var(--brand-soft); transform: translateX(4px); }
+.dx-howto__step.is-on { border-color: var(--brand-border); background: #fff; box-shadow: 0 0 0 3px var(--brand-soft); translate: 4px 0; }
 .dx-howto__num { display: grid; place-items: center; flex: none; width: 28px; height: 28px; border-radius: 999px; border: 1px solid var(--n-300); background: #fff; color: var(--n-500); font-size: var(--fs-label); font-weight: 500; transition: background .35s, color .35s, border-color .35s, transform .35s var(--ease); }
 .dx-howto__step.is-on .dx-howto__num, .dx-howto__step.is-past .dx-howto__num { background: var(--brand); border-color: var(--brand); color: #fff; }
 .dx-howto__step.is-on .dx-howto__num { transform: scale(1.08); }
@@ -473,7 +473,7 @@ html.dx-lock { overflow: hidden; }
 .dx-check__box .ap-icon path { stroke-dasharray: 22; stroke-dashoffset: 22; transition: stroke-dashoffset .35s var(--ease) .05s; }
 .dx-check__item.is-on .dx-check__box .ap-icon path { stroke-dashoffset: 0; }
 .dx-check__item.is-on .dx-check__box { animation: dx-pop .35s var(--ease); }
-@keyframes dx-pop { 50% { transform: scale(1.22); } }
+@keyframes dx-pop { 50% { scale: 1.22; } }
 .dx-check__txt { position: relative; }
 .dx-check__txt::after { content: ""; position: absolute; left: 0; right: 0; top: 55%; height: 1px; background: var(--n-400); transform: scaleX(0); transform-origin: left; transition: transform .35s var(--ease); }
 .dx-check__item.is-on .dx-check__txt::after { transform: scaleX(1); }
@@ -503,7 +503,7 @@ html.dx-lock { overflow: hidden; }
 	.dx-howto__steps { display: flex; justify-content: center; gap: 8px; }
 	.dx-howto__steps li { flex: 1; max-width: 72px; }
 	.dx-howto__step { justify-content: center; padding: 6px 6px 10px; }
-	.dx-howto__step.is-on { transform: none; }
+	.dx-howto__step.is-on { translate: none; }
 	.dx-howto__txt { display: none; }
 	.dx-howto__bar { left: 8px; right: 8px; bottom: 4px; }
 	.dx-howto__now { display: block; padding: 10px 12px; border: 1px solid var(--brand-border); border-radius: var(--r); background: var(--brand-soft); }

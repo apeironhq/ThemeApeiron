@@ -179,7 +179,7 @@ onMounted(async () => {
       .from('[data-dx-head-ico] .dx-wico > *', { y: 4, opacity: 0, stagger: 0.05, duration: 0.4 }, '-=0.4')
       .from('[data-dx-head-fade]', { y: 12, opacity: 0, stagger: 0.06, duration: 0.5 }, '-=0.45')
       .from('[data-dx-fact]', { y: 16, opacity: 0, scale: 0.97, stagger: 0.06, duration: 0.5 }, '-=0.35')
-      .from('.dx-secbar__item', { y: 8, opacity: 0, stagger: 0.03, duration: 0.35 }, '-=0.35')
+      .from('.dx-secbar', { opacity: 0, duration: 0.4 }, '-=0.35')
 
     ScrollTrigger.batch('[data-dx-feat]', {
       start: 'top 92%', once: true,
