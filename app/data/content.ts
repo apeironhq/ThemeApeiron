@@ -29,8 +29,8 @@ export const content = {
   ],
 
   hero: {
-    title: 'Plugin Elementor untuk kebutuhan undangan digital.',
-    lead: 'ApeironKit melengkapi Elementor dengan widget khusus undangan: sampul pembuka, RSVP ke WhatsApp, musik, ucapan tamu, sampai daftar hadiah. Untuk jasa undangan digital dan agency WordPress. Tinggal seret dan atur, tanpa coding.',
+    title: 'ApeironKit, plugin untuk kebutuhan undangan digital.',
+    lead: 'Buat, kelola, dan bagikan undangan digital langsung dari Elementor di WordPress. Dibuat untuk jasa undangan dan agency yang ingin mengerjakan undangan klien lebih cepat, tanpa coding.',
     couple: 'Raka & Nadia',
     initials: 'R & N',
     date: 'Sabtu, 12 Desember 2026',
