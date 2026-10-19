@@ -6,6 +6,7 @@
 import { docs, categories, type DocCategory } from '~/data/docs'
 import { loadDocsGsap, prefersReducedMotion } from '~/composables/useDocsGsap'
 import { useDocsInk } from '~/composables/useDocsInk'
+import { latest } from '~/data/changelog'
 
 definePageMeta({ layout: 'docs', pageTransition: { name: 'dx-page', mode: 'out-in' } })
 useSeoMeta({
@@ -119,7 +120,13 @@ onBeforeUnmount(() => ctx?.revert())
         <h1>Dokumentasi Widget</h1>
         <p class="dx-caption">Fitur, kelebihan, batasan, cara pakai, dan semua pengaturan widget ApeironKit.</p>
       </div>
-      <button type="button" class="dx-btn dx-btn--secondary" @click="searchOpen = true"><ApIcon name="search" /> Cari pengaturan</button>
+      <div class="dx-pagehead__actions">
+        <NuxtLink to="/docs/changelog" class="dx-release">
+          <span class="dx-release__dot" aria-hidden="true"></span>
+          <b>v{{ latest.version }}</b><span class="dx-release__txt">{{ latest.title }}</span><ApIcon name="arrow" />
+        </NuxtLink>
+        <button type="button" class="dx-btn dx-btn--secondary" @click="searchOpen = true"><ApIcon name="search" /> Cari pengaturan</button>
+      </div>
     </div>
 
     <div class="dx-kpis">

@@ -4,6 +4,8 @@
  * Indeks dibuat sekali dari data/docs.ts, pencarian berjalan sepenuhnya di browser.
  */
 import { docs } from '~/data/docs'
+import { releases, changeTypes, releaseId } from '~/data/changelog'
+import type { IconName } from '~/data/icons'
 
 const open = defineModel<boolean>('open', { default: false })
 const q = ref('')
@@ -11,7 +13,7 @@ const active = ref(0)
 const input = ref<HTMLInputElement | null>(null)
 const list = ref<HTMLElement | null>(null)
 
-interface Entry { kind: string; title: string; sub: string; to: string; icon: string; hay: string }
+interface Entry { kind: string; title: string; sub: string; to: string; icon: string; hay: string; ap?: IconName }
 
 const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
 
@@ -28,6 +30,15 @@ const index: Entry[] = docs.flatMap((d) => {
   for (const t of d.tips) rows.push({ kind: 'Masalah', title: t.q, sub: d.title, to: `${base}#masalah`, icon: d.key, hay: norm(`${t.q} ${t.a} ${d.title}`) })
   return rows
 })
+// Rilis dan tiap perubahannya juga bisa dicari ("changelog", "1.5.5", "perbaikan").
+for (const r of releases) {
+  const to = `/docs/changelog#${releaseId(r.version)}`
+  index.push({ kind: 'Changelog', title: `v${r.version} · ${r.title}`, sub: r.summary, to, icon: '', ap: 'refresh', hay: norm(`${r.version} ${r.title} ${r.summary} changelog pembaruan rilis update versi`) })
+  for (const c of r.changes) {
+    const t = changeTypes[c.type]
+    index.push({ kind: 'Changelog', title: c.text, sub: `v${r.version} › ${t.label}`, to, icon: '', ap: t.icon, hay: norm(`${c.text} ${t.label} ${r.version} changelog`) })
+  }
+}
 
 const results = computed(() => {
   const terms = norm(q.value.trim()).split(/\s+/).filter(Boolean)
@@ -36,7 +47,7 @@ const results = computed(() => {
   for (const e of index) {
     if (!terms.every((t) => e.hay.includes(t))) continue
     const title = norm(e.title)
-    let s = e.kind === 'Widget' ? 30 : e.kind === 'Pengaturan' || e.kind === 'Fitur' ? 10 : 5
+    let s = e.kind === 'Widget' ? 30 : e.kind === 'Pengaturan' || e.kind === 'Fitur' ? 10 : e.kind === 'Changelog' && e.title.startsWith('v') ? 8 : 5
     for (const t of terms) s += title.startsWith(t) ? 20 : title.includes(t) ? 10 : 0
     scored.push({ e, s })
   }
@@ -97,7 +108,7 @@ function mark(text: string) {
               v-for="(e, i) in results" :key="e.to + e.title" type="button" class="dx-search__item" :class="{ 'is-active': i === active }"
               @mousemove="active = i" @click="go(e)"
             >
-              <span class="dx-search__ico"><DocsIcon :k="e.icon" /></span>
+              <span class="dx-search__ico"><ApIcon v-if="e.ap" :name="e.ap" /><DocsIcon v-else :k="e.icon" /></span>
               <span class="dx-search__txt">
                 <b v-html="mark(e.title)" />
                 <small>{{ e.sub }}</small>

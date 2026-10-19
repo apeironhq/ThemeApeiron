@@ -7,8 +7,8 @@ import { content as c } from '~/data/content'
     <div class="ap-container ap-updates__inner">
       <header class="ap-head">
         <h2 class="ap-title" data-split>Plugin yang aktif dirawat, bukan ditinggal.</h2>
-        <p class="ap-lead" data-reveal>Setiap rilis membawa widget baru, perbaikan, dan peningkatan performa. Semua perubahan tercatat di dokumentasi.</p>
-        <a class="ap-btn ap-btn--ghost" :href="c.links.docs" data-reveal data-cursor="Baca"><ApIcon name="book" /> Buka Dokumentasi</a>
+        <p class="ap-lead" data-reveal>Setiap rilis membawa widget baru, perbaikan, dan peningkatan performa. Semua perubahan tercatat lengkap di changelog.</p>
+        <a class="ap-btn ap-btn--ghost" :href="c.links.changelog" data-reveal data-cursor="Baca"><ApIcon name="refresh" /> Lihat changelog</a>
       </header>
 
       <!-- Daftar rilis berjalan otomatis (loop). Isinya diduplikasi agar sambungannya mulus. -->

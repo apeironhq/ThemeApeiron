@@ -6,6 +6,7 @@
  */
 import '~/assets/css/docs.css'
 import { docs, categories } from '~/data/docs'
+import { latest } from '~/data/changelog'
 import { useDocsInk } from '~/composables/useDocsInk'
 import { loadDocsGsap, prefersReducedMotion } from '~/composables/useDocsGsap'
 
@@ -86,6 +87,9 @@ useHead({ bodyAttrs: { class: 'dx-body' } })
         <p class="dx-nav-label">Mulai</p>
         <NuxtLink to="/docs" class="dx-nav-item" :class="{ 'is-active': isActive('/docs') }" :aria-current="isActive('/docs') ? 'page' : undefined">
           <ApIcon name="layout" /><span>Ringkasan</span><span class="dx-nav-count">{{ docs.length }}</span>
+        </NuxtLink>
+        <NuxtLink to="/docs/changelog" class="dx-nav-item" :class="{ 'is-active': isActive('/docs/changelog') }" :aria-current="isActive('/docs/changelog') ? 'page' : undefined">
+          <ApIcon name="refresh" /><span>Changelog</span><span class="dx-nav-ver">v{{ latest.version }}</span>
         </NuxtLink>
 
         <template v-for="g in groups" :key="g.key">

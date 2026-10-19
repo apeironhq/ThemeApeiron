@@ -6,6 +6,7 @@
  */
 import type { IconName } from './icons'
 import { widgets } from './widgets'
+import { releases, releaseDate } from './changelog'
 
 type IconItem = [IconName, string]
 
@@ -18,6 +19,7 @@ export const content = {
     demo: `https://wa.me/${waNumber}?text=${waText}`,
     live: '#', // [GANTI] link contoh undangan live
     docs: '/docs', // dokumentasi widget (app/pages/docs)
+    changelog: '/docs/changelog',
   },
 
   nav: [
@@ -163,14 +165,8 @@ export const content = {
     { value: 100, suffix: '%', label: 'Diatur dari Elementor' },
   ],
 
-  // [GANTI] isi dengan changelog asli setiap rilis. Format item: [ikon, teks].
-  updates: [
-    { version: '1.5.5', date: 'Okt 2026', items: [['wrench', 'Kontrol Typography Elementor kini benar-benar mengatur font yang tampil'], ['refresh', 'Nilai bawaan kontrol widget disetel ulang agar lebih rapi']] as IconItem[] },
-    { version: '1.5.0', date: 'Sep 2026', items: [['gift', 'Widget Cerita Cinta dan Daftar Hadiah'], ['zap', 'Performa CSS lebih ringan']] as IconItem[] },
-    { version: '1.4.0', date: 'Agu 2026', items: [['users', 'Manajemen Tamu untuk nama tamu personal'], ['mail', 'Form Order untuk jasa undangan']] as IconItem[] },
-    { version: '1.3.0', date: 'Jul 2026', items: [['music', 'Tombol Audio dengan kontrol yang lebih halus'], ['chat', 'Ucapan Tamu kini mendukung stiker']] as IconItem[] },
-    { version: '1.2.0', date: 'Jun 2026', items: [['layers', 'Sampul: pita, segel, dan label tamu'], ['clock', 'Hitung Mundur dengan tata letak baru']] as IconItem[] },
-  ],
+  // Diambil dari data/changelog.ts (sumber yang sama dengan /docs/changelog).
+  updates: releases.map((r) => ({ version: r.version, date: releaseDate(r.date), items: r.highlights as IconItem[] })),
 
   // [GANTI] testimoni contoh — ganti dengan testimoni asli pelanggan.
   testimonials: [
