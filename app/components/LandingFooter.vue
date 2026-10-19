@@ -9,7 +9,7 @@ const year = new Date().getFullYear()
     <div class="ap-container ap-footer__inner">
       <div>
         <ApLogo light />
-        <p>Plugin Elementor untuk undangan digital yang modern dan profesional.</p>
+        <p>Plugin Elementor untuk membuat undangan pernikahan digital, bagi jasa undangan dan agency WordPress.</p>
       </div>
       <nav aria-label="Tautan footer">
         <a v-for="item in c.nav" :key="item.href" :href="item.href">{{ item.label }}</a>

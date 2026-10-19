@@ -6,7 +6,7 @@ import { content as c } from '~/data/content'
   <section class="ap-section ap-audience">
     <div class="ap-container">
       <header class="ap-head">
-        <h2 class="ap-title" data-split>Dibuat untuk bisnis yang hidup dari undangan.</h2>
+        <h2 class="ap-title" data-split>Siapa yang memakai ApeironKit?</h2>
       </header>
       <div class="ap-audience__grid" data-approach>
         <article v-for="(a, i) in c.audience" :key="a.tag" class="ap-audience__card" :class="{ 'is-dark': i > 0 }" data-tilt data-reveal>

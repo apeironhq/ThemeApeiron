@@ -45,7 +45,7 @@ export default defineNuxtConfig({
         { name: 'theme-color', content: '#083C57' },
         {
           name: 'description',
-          content: 'ApeironKit memberi jasa undangan dan agency WordPress 13 widget Elementor siap pakai: sampul pembuka, RSVP ke WhatsApp, musik, ucapan tamu, dan daftar hadiah yang terhubung ke dashboard MDUNDIG.'
+          content: 'ApeironKit adalah plugin Elementor untuk membuat undangan pernikahan digital: 13 widget siap pakai seperti sampul pembuka, RSVP ke WhatsApp, musik, ucapan tamu, dan daftar hadiah. Untuk jasa undangan dan agency WordPress.'
         },
         { property: 'og:title', content: 'ApeironKit · Plugin Elementor untuk Undangan Digital' },
         { property: 'og:type', content: 'website' }
