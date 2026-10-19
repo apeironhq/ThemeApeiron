@@ -18,6 +18,7 @@ const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,
 const index: Entry[] = docs.flatMap((d) => {
   const base = `/docs/${d.slug}`
   const rows: Entry[] = [{ kind: 'Widget', title: d.title, sub: d.tagline, to: base, icon: d.key, hay: norm(`${d.title} ${d.tagline}`) }]
+  for (const f of d.features ?? []) rows.push({ kind: 'Fitur', title: f.title, sub: `${d.title} › ${f.text}`, to: `${base}#fitur`, icon: d.key, hay: norm(`${f.title} ${f.text} ${d.title} fitur`) })
   for (const g of d.content) {
     for (const [label, desc] of g.items) {
       rows.push({ kind: 'Pengaturan', title: label, sub: `${d.title} › ${g.title}`, to: `${base}?c=${encodeURIComponent(label)}#pengaturan`, icon: d.key, hay: norm(`${label} ${desc} ${d.title} ${g.title}`) })
@@ -35,7 +36,7 @@ const results = computed(() => {
   for (const e of index) {
     if (!terms.every((t) => e.hay.includes(t))) continue
     const title = norm(e.title)
-    let s = e.kind === 'Widget' ? 30 : e.kind === 'Pengaturan' ? 10 : 5
+    let s = e.kind === 'Widget' ? 30 : e.kind === 'Pengaturan' || e.kind === 'Fitur' ? 10 : 5
     for (const t of terms) s += title.startsWith(t) ? 20 : title.includes(t) ? 10 : 0
     scored.push({ e, s })
   }
@@ -86,7 +87,7 @@ function mark(text: string) {
         <div class="dx-search__panel">
           <label class="dx-search__field">
             <ApIcon name="search" />
-            <input ref="input" v-model="q" type="search" placeholder="Cari widget, pengaturan, atau masalah…" autocomplete="off" spellcheck="false">
+            <input ref="input" v-model="q" type="search" placeholder="Cari widget, fitur, pengaturan, atau masalah…" autocomplete="off" spellcheck="false">
             <kbd @click="open = false">Esc</kbd>
           </label>
 

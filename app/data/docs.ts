@@ -42,11 +42,13 @@ export interface DocWidget {
   mdundig?: boolean
   perks: { icon: string; title: string; text: string }[]
   steps: { title: string; text: string; focus: string }[]
-  knobs: DocKnob[]
+  knobs: DocKnob[] // nilai awal pratinjau di panggung "cara pakai"
   content: { title: string; items: DocControl[] }[]
   style: string[]
   tips: { q: string; a: string }[]
   checklist: string[]
+  features?: { icon: string; title: string; text: string }[]
+  limits?: string[]
 }
 
 /** Label jenis kontrol Elementor, ditampilkan sebagai badge kecil. */
@@ -465,10 +467,10 @@ export const docs: DocWidget[] = [
     ],
     style: ['Tombol', 'Ikon'],
     tips: [
-      { q: 'Tombol tidak menyalin apa pun', a: 'Browser hanya mengizinkan clipboard di situs HTTPS. Pastikan undangan memakai https://.' },
+      { q: 'Tombol tidak menyalin apa pun', a: 'Periksa Jenis Salinan dan isinya. Jika kosong atau URL tidak valid, tombol menampilkan pesan yang Anda atur di Feedback.' },
       { q: 'Spasi di nomor rekening ikut tersalin', a: 'Tulis nomor tanpa spasi di Isi yang Akan Disalin. Spasi untuk tampilan cukup di teks section.' },
     ],
-    checklist: ['Isi salinan sudah benar', 'Situs memakai HTTPS', 'Pesan berhasil sudah diisi', 'Dicoba tempel di aplikasi bank'],
+    checklist: ['Isi salinan sudah benar', 'Jenis Salinan sesuai', 'Pesan berhasil sudah diisi', 'Dicoba tempel di aplikasi bank'],
   },
 
   /* ------------------------------------------------------------ Cerita Cinta */
@@ -712,5 +714,213 @@ export const docs: DocWidget[] = [
     checklist: ['Gaya loader sesuai tema', 'Nama mempelai sudah diisi', 'Maximum Timeout tidak terlalu lama', 'Sudah dicek di HP'],
   },
 ]
+
+/**
+ * Fitur lengkap dan batasan tiap widget. Ditulis dari kontrol yang terdaftar dan dari
+ * perilaku skrip front-end plugin (assets/js/widgets/*.js), bukan klaim pemasaran.
+ */
+const featureSets: Record<string, Pick<DocWidget, 'features' | 'limits'>> = {
+  'sampul': {
+    features: [
+      { icon: 'layers', title: 'Gatefold, pita, dan segel', text: 'Dua panel membuka, pita turun, lingkaran segel berisi teks atau logo.' },
+      { icon: 'users', title: 'Kartu penerima', text: 'Nama tamu dari ?to= atau /to/, dengan nama cadangan.' },
+      { icon: 'tag', title: 'Token nama', text: '{primary}, {secondary}, {separator}, {names} untuk pita dan strip tengah.' },
+      { icon: 'refresh', title: '2 animasi panel, 4 transisi', text: 'Bergeser atau Menyusut; Modal Turun, Modal Naik, Fade Out, Tanpa Transisi.' },
+      { icon: 'shield', title: 'Kunci scroll dan Escape', text: 'Halaman terkunci sampai dibuka; tombol Esc bisa membuka sampul.' },
+      { icon: 'zap', title: 'Aksi setelah terbuka', text: 'Kirim event JS, klik selector, atau gulir ke section tertentu.' },
+      { icon: 'clock', title: 'Sekali per pengunjung', text: 'Status tersimpan di LocalStorage dengan key yang bisa diatur.' },
+      { icon: 'globe', title: 'Tampil per perangkat', text: 'Pilih perangkat yang menampilkan sampul.' },
+    ],
+    limits: [
+      'Nama tamu hanya terbaca dari link (?to= atau /to/). Link tanpa nama menampilkan nama cadangan.',
+      'Saat Strip Tengah aktif, panel selalu memakai animasi bergeser.',
+      'Tanpa Tampil Sekali per Pengunjung, sampul muncul setiap halaman dibuka.',
+    ],
+  },
+  'hitung-mundur': {
+    features: [
+      { icon: 'clock', title: 'Sinkron jam server', text: 'Memakai selisih waktu server, jadi tetap tepat walau jam HP tamu salah.' },
+      { icon: 'calendar', title: 'Zona waktu WordPress', text: 'Waktu target mengikuti Settings › General.' },
+      { icon: 'layers', title: 'Unit fleksibel', text: 'Hari, jam, menit, detik bisa disembunyikan dan diganti labelnya.' },
+      { icon: 'code', title: '2 sampai 4 digit', text: 'Tetap rapi untuk acara yang masih ratusan hari lagi.' },
+      { icon: 'layout', title: 'Horizontal atau vertikal', text: 'Dengan pemisah opsional seperti ":".' },
+      { icon: 'sparkle', title: 'Transisi angka', text: 'Durasi dan easing: Linear, Ease, Ease In, Ease Out, Ease In Out.' },
+      { icon: 'tag', title: 'Dynamic Tags', text: 'Tanggal dan teks bisa diambil dari Dynamic Tags Elementor.' },
+      { icon: 'badge', title: 'Pesan saat selesai', text: 'Plus opacity kotak setelah waktu habis.' },
+    ],
+    limits: [
+      'Satu widget menghitung ke satu waktu. Untuk akad dan resepsi, pasang dua widget.',
+      'Kotak angka tetap tampil setelah selesai; atur pesan atau opacity kotaknya.',
+    ],
+  },
+  'tombol-audio': {
+    features: [
+      { icon: 'music', title: '3 sumber audio', text: 'File Media Library, URL audio, atau video YouTube.' },
+      { icon: 'tag', title: 'URL dinamis', text: 'Dynamic Tag yang valid menggantikan file, dengan file sebagai cadangan.' },
+      { icon: 'play', title: 'Mulai bersama Sampul', text: 'Saat Buka Undangan diklik atau setelah sampul selesai terbuka.' },
+      { icon: 'refresh', title: 'Potong dan ulangi', text: 'Mulai dan berhenti di detik tertentu, lalu ulangi.' },
+      { icon: 'zap', title: 'Sinkron video', text: 'Pause musik atau turunkan volume sampai batas persen saat video bersuara diputar.' },
+      { icon: 'shield', title: 'Jeda saat pindah tab', text: 'Musik berhenti saat tamu meninggalkan tab; bisa dimatikan.' },
+      { icon: 'sparkle', title: '5 efek saat diputar', text: 'Cincin Berputar, Denyut Cincin, Putar + Denyut, Ketukan, Cahaya Halus.' },
+      { icon: 'layout', title: 'Normal atau mengambang', text: 'Tombol di alur halaman atau melayang di sudut layar.' },
+    ],
+    limits: [
+      'Browser bisa memblokir putar otomatis sampai tamu menyentuh layar.',
+      'Sinkron dengan embed YouTube/Vimeo butuh status pemutaran dari API player-nya.',
+      'Video latar dan video tanpa suara diabaikan saat sinkronisasi.',
+    ],
+  },
+  'form-whatsapp': {
+    features: [
+      { icon: 'send', title: 'Langsung ke WhatsApp', text: 'Pesan tersusun rapi dan terbuka ke nomor mempelai.' },
+      { icon: 'layout', title: '7 tipe field', text: 'Teks, Email, Telepon, Angka, URL, Tanggal, Paragraf.' },
+      { icon: 'code', title: 'Token otomatis', text: 'Label "Nama Tamu" otomatis menjadi token [nama_tamu].' },
+      { icon: 'users', title: 'Pilihan kehadiran', text: 'Opsi sendiri, masuk ke pesan lewat [konfirmasi].' },
+      { icon: 'wrench', title: 'Batas angka', text: 'Minimal, maksimal, dan kelipatan, misalnya jumlah tamu 1–5.' },
+      { icon: 'shield', title: 'Validasi lengkap', text: 'Pesan untuk field kosong, token tidak cocok, dan nomor tidak valid.' },
+      { icon: 'badge', title: 'Wajib per field', text: 'Tentukan field mana yang harus diisi.' },
+      { icon: 'palette', title: '7 grup gaya', text: 'Wrapper, label, input, textarea, tombol, kehadiran, dan state.' },
+    ],
+    limits: [
+      'Tidak menyimpan data di server; rekap RSVP dari chat WhatsApp mempelai.',
+      'Tamu perlu WhatsApp (aplikasi atau WhatsApp Web) untuk mengirim.',
+      'Satu nomor tujuan per widget.',
+    ],
+  },
+  'ucapan-tamu': {
+    features: [
+      { icon: 'chat', title: 'Tersimpan di WordPress', text: 'Data ucapan ada di database situs Anda sendiri.' },
+      { icon: 'heart', title: 'Stiker gambar dan video', text: 'Lewat popup atau langsung di form, dengan 5 posisi di komentar.' },
+      { icon: 'users', title: 'Kehadiran dan ringkasan', text: 'Badge di tiap ucapan dan total per pilihan.' },
+      { icon: 'refresh', title: 'Balas, edit, hapus', text: 'Izin terpisah untuk komentar dan balasan.' },
+      { icon: 'shield', title: 'Kunci ke link tamu', text: 'Hanya tamu dengan link ?to= yang bisa mengirim.' },
+      { icon: 'layout', title: '3 mode daftar', text: 'Otomatis saat penuh, Scroll tetap, atau Paginasi.' },
+      { icon: 'clock', title: '3 format waktu', text: 'Relatif, tanggal lengkap, atau bawaan WordPress.' },
+      { icon: 'palette', title: '21 grup gaya', text: 'Dari form, kartu komentar, stiker, sampai popup balasan.' },
+    ],
+    limits: [
+      'Ucapan tidak dikirim ke MDUNDIG; datanya ikut database dan backup WordPress.',
+      'Dengan Kunci ke Link Tamu, tamu tanpa link ?to= tidak bisa mengirim.',
+    ],
+  },
+  'daftar-hadiah': {
+    features: [
+      { icon: 'gift', title: 'Reservasi anti-ganda', text: 'Reservasi terkonfirmasi mengurangi kapasitas secara otomatis.' },
+      { icon: 'plug', title: 'Terhubung ke MDUNDIG', text: 'Cukup token website dan Uji Koneksi.' },
+      { icon: 'badge', title: 'Galeri per hadiah', text: 'Foto utama sebagai sampul, foto tambahan di popup bergaleri.' },
+      { icon: 'layout', title: '2 layout + swipe', text: 'Card vertikal atau horizontal, swipe atau grid di HP.' },
+      { icon: 'tag', title: 'Link toko', text: 'Tautan pembelian per hadiah dengan teks sendiri.' },
+      { icon: 'wrench', title: 'Ketersediaan manual', text: 'Matikan hadiah tertentu kapan saja.' },
+      { icon: 'layers', title: 'Batas item tampil', text: 'Tampilkan sebagian atau semua hadiah.' },
+      { icon: 'palette', title: '9 grup gaya', text: 'Card, foto, status, tombol, popup, formulir, dan lainnya.' },
+    ],
+    limits: [
+      'Kapasitas berkurang otomatis hanya saat koneksi online ke MDUNDIG aktif; tanpa itu jumlahnya manual.',
+      'Rekap reservasi dikelola di dashboard MDUNDIG, bukan di WordPress.',
+    ],
+  },
+  'manajemen-tamu': {
+    features: [
+      { icon: 'users', title: 'Link pribadi per tamu', text: 'Setiap nama mendapat link ?to=, spasi otomatis aman.' },
+      { icon: 'mail', title: 'Template ucapan', text: 'Formal dan Muslim siap pakai, bisa ditambah sendiri.' },
+      { icon: 'tag', title: 'Token pesan', text: '[nama] dan [link-undangan] terisi otomatis.' },
+      { icon: 'layers', title: 'Impor Excel', text: 'Tambahkan atau ganti daftar, bisa melewati baris judul.' },
+      { icon: 'copy', title: 'Salin dan kirim', text: 'Langsung dari tabel hasil.' },
+      { icon: 'refresh', title: 'Draft otomatis', text: 'Isian tersimpan di browser, aman saat halaman dimuat ulang.' },
+      { icon: 'book', title: 'Template unduhan', text: 'Tautkan file Excel contoh untuk diunduh.' },
+      { icon: 'wrench', title: 'Semua label bisa diganti', text: 'Teks form, tabel, dan tombol.' },
+    ],
+    limits: [
+      'Draft tersimpan di browser yang dipakai, tidak tersinkron ke perangkat lain.',
+      'Widget tidak dikunci otomatis; taruh di halaman yang tidak dibagikan ke tamu.',
+    ],
+  },
+  'tombol-salin': {
+    features: [
+      { icon: 'copy', title: 'Satu ketukan', text: 'Tanpa tekan lama dan memilih teks.' },
+      { icon: 'tag', title: '4 sumber salinan', text: 'Teks manual, URL halaman ini, URL kustom, atau hasil shortcode.' },
+      { icon: 'shield', title: 'Jalan di browser lama', text: 'Ada cara cadangan jika Clipboard API tidak tersedia.' },
+      { icon: 'sparkle', title: 'Feedback di tombol', text: 'Label berganti pesan berhasil selama durasi yang diatur.' },
+      { icon: 'headset', title: '4 pesan status', text: 'Berhasil, kosong, URL tidak valid, dan gagal.' },
+      { icon: 'layout', title: 'Ikon dan posisi', text: 'Ikon di awal atau akhir, tombol kiri, tengah, atau kanan.' },
+    ],
+    limits: [
+      'Satu tombol menyalin satu isi. Untuk beberapa rekening, pasang beberapa tombol.',
+    ],
+  },
+  'cerita-cinta': {
+    features: [
+      { icon: 'book', title: '2 skin scrapbook', text: 'Scrapbook Story (timeline) atau Scrapbook Collage.' },
+      { icon: 'heart', title: '3 gaya timeline', text: 'Doodle Path, Ribbon Trail, Journey Icon, dengan penanda bergerak.' },
+      { icon: 'layers', title: 'Slideshow per cerita', text: 'Efek transisi, durasi tampil, dan kecepatan sendiri.' },
+      { icon: 'cursor', title: 'Titik fokus foto', text: 'Geser posisi X dan Y tanpa mengubah file.' },
+      { icon: 'tag', title: 'Dekorasi tape dan sudut', text: 'Ikon atau gambar PNG/WebP.' },
+      { icon: 'sparkle', title: '5 animasi masuk', text: 'Tanpa, Fade In, Slide Up, Slide Alternating, Zoom In.' },
+      { icon: 'palette', title: 'Gaya per cerita', text: 'Warna, border, dan bayangan berbeda tiap cerita.' },
+    ],
+    limits: [
+      'Banyak foto slideshow menambah berat halaman; kompres foto sebelum diunggah.',
+    ],
+  },
+  'form-order': {
+    features: [
+      { icon: 'layers', title: 'Step builder', text: 'Susun tahap form sendiri, tiap tahap dengan ID.' },
+      { icon: 'wrench', title: 'Field bebas', text: 'Tipe, opsi nilai|label, wajib, tampil, dan lebar field.' },
+      { icon: 'refresh', title: 'Draft otomatis', text: 'Isian tersimpan di browser dengan masa simpan yang diatur.' },
+      { icon: 'plug', title: 'Masuk MDUNDIG', text: 'Pesanan tercatat di dashboard MDUNDIG.' },
+      { icon: 'shield', title: 'Antrean kirim ulang', text: 'Pesanan yang gagal terkirim dicoba lagi otomatis.' },
+      { icon: 'layout', title: 'Navigasi menempel di HP', text: 'Tombol Kembali, Lanjut, Kirim tetap terlihat.' },
+      { icon: 'badge', title: 'Ringkasan sebelum kirim', text: 'Petunjuk pengiriman dengan token {submit}.' },
+      { icon: 'palette', title: '17 grup gaya', text: 'Dari input, radio, ringkasan, sampai notifikasi draft.' },
+    ],
+    limits: [
+      'Butuh koneksi Form Order API yang sudah diuji di ApeironKit › Form Order.',
+      'ID field bawaan jangan diubah setelah integrasi berjalan.',
+    ],
+  },
+  'aktivitas': {
+    features: [
+      { icon: 'zap', title: 'Popup bukti sosial', text: 'Bergantian menampilkan nama dan produk yang dipesan.' },
+      { icon: 'wrench', title: 'Data dari dashboard', text: 'Dikelola di ApeironKit › Aktivitas.' },
+      { icon: 'code', title: 'Format per halaman', text: 'Kalimat sendiri dengan {name} dan {product}.' },
+      { icon: 'layout', title: '4 sudut layar', text: 'Atas atau bawah, kiri atau kanan.' },
+      { icon: 'badge', title: 'Foto pelanggan', text: 'Tampil di samping teks popup.' },
+    ],
+    limits: [
+      'Hanya menampilkan aktivitas yang tersimpan di ApeironKit › Aktivitas.',
+      'Dibuat untuk halaman penjualan, bukan undangan pernikahan.',
+    ],
+  },
+  'gulir-otomatis': {
+    features: [
+      { icon: 'cursor', title: '2 gaya gerak', text: 'Halus Berkelanjutan atau Scroll per Bagian.' },
+      { icon: 'zap', title: 'Hingga 120Hz', text: 'Native Refresh, Balanced 60fps, atau Hemat 45fps.' },
+      { icon: 'refresh', title: 'Paham interaksi tamu', text: 'Melambat saat tamu menggulir, lanjut setelah diam.' },
+      { icon: 'layout', title: 'Panel kecepatan', text: 'Tombol + dan − yang bisa digeser.' },
+      { icon: 'clock', title: '3 mode scroll', text: 'Otomatis, Tekan & Tahan, atau Otomatis + Manual.' },
+      { icon: 'badge', title: 'Progres dan kembali ke atas', text: 'Lingkaran atau garis, tombol muncul setelah sekian persen.' },
+      { icon: 'shield', title: 'Ramah aksesibilitas', text: 'Mengikuti pengaturan kurangi animasi dan berhenti saat tab disembunyikan.' },
+      { icon: 'sparkle', title: '7 animasi muncul', text: 'Fade, Slide, Scale, Bounce, Zoom, Flip, Elastic.' },
+    ],
+    limits: [
+      'Gerakan bisa kurang optimal di iOS; tersedia opsi Nonaktifkan di iOS.',
+      'Panjang halaman memengaruhi lama gulir; atur kecepatan sesuai isi.',
+    ],
+  },
+  'pemuat-halaman': {
+    features: [
+      { icon: 'sparkle', title: '3 gaya loader', text: 'Default, Coffee, atau Water.' },
+      { icon: 'clock', title: 'Progres sungguhan', text: 'Persentase mengikuti status pemuatan dokumen.' },
+      { icon: 'shield', title: 'Tidak pernah macet', text: 'Maximum Timeout selalu melepas loader.' },
+      { icon: 'refresh', title: 'Sekali per pengunjung', text: 'Lewat LocalStorage.' },
+      { icon: 'layers', title: '5 animasi masuk, 6 keluar', text: 'Termasuk Curtain Lift dan Soft Blur.' },
+      { icon: 'globe', title: 'Per perangkat', text: 'Atur tampil di desktop, tablet, atau HP.' },
+    ],
+    limits: [
+      'Minimum Display Time menambah waktu tunggu walau halaman sudah siap.',
+    ],
+  },
+}
+for (const d of docs) Object.assign(d, featureSets[d.slug])
 
 export const docBySlug = (slug: string) => docs.find((d) => d.slug === slug)
