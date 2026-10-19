@@ -3,17 +3,33 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: false },
 
-  // Font Ubuntu di-host sendiri (public/fonts, subset Latin), tidak menahan render seperti Google Fonts.
-  css: [
-    '~/assets/css/fonts.css',
-    '~/assets/css/landing.css', '~/assets/css/brand.css', '~/assets/css/features.css', '~/assets/css/demos.css', '~/assets/css/editor.css', '~/assets/css/ambient.css', '~/assets/css/howto.css', '~/assets/css/cards.css', '~/assets/css/perf.css'],
+  // Font Ubuntu di-host sendiri (public/fonts, subset Latin), dipakai landing page dan /docs.
+  // CSS landing page diimpor di pages/index.vue, CSS dokumentasi di layouts/docs.vue,
+  // agar tiap halaman hanya memuat gayanya sendiri.
+  css: ['~/assets/css/fonts.css'],
+  // CSS dimuat sebagai file (bisa di-cache browser), bukan disisipkan ke HTML:
+  // CSS landing page cukup besar, dan HTML yang membengkak memperlambat LCP.
+  features: { inlineStyles: false },
+
+  hooks: {
+    // Jangan prefetch chunk halaman lain (docs, 13 pratinjau widget) di landing page;
+    // chunk itu tetap dimuat saat dibutuhkan, tetapi tidak berebut bandwidth di awal.
+    'build:manifest': (manifest) => {
+      for (const key in manifest) manifest[key]!.dynamicImports = []
+    },
+  },
 
   // Pertahankan spasi antar-elemen seperti output PHP, agar tata letak teks identik.
   vue: { compilerOptions: { whitespace: 'preserve' } },
 
   // Halaman statis: dirender sekali saat build, lalu disajikan dari CDN Vercel.
   routeRules: {
-    '/': { prerender: true }
+    '/': { prerender: true },
+    '/docs/**': { prerender: true }
+  },
+  nitro: {
+    // /docs dirender statis; halaman tiap widget ditemukan lewat tautan di beranda docs.
+    prerender: { crawlLinks: true, routes: ['/docs'] }
   },
 
   app: {
@@ -22,7 +38,6 @@ export default defineNuxtConfig({
     buildAssetsDir: `/_nuxt/${Date.now().toString(36)}/`,
     head: {
       htmlAttrs: { lang: 'id' },
-      bodyAttrs: { class: 'ap-landing' },
       title: 'ApeironKit · Plugin Elementor untuk Undangan Digital',
       meta: [
         { charset: 'utf-8' },
@@ -38,12 +53,6 @@ export default defineNuxtConfig({
       link: [
         { rel: 'preload', as: 'font', type: 'font/woff2', href: '/fonts/ubuntu-latin-400-normal.woff2', crossorigin: '' },
         { rel: 'preload', as: 'font', type: 'font/woff2', href: '/fonts/ubuntu-latin-500-normal.woff2', crossorigin: '' }
-      ],
-      script: [
-        {
-          // Sembunyikan elemen yang akan dianimasikan; tampilkan lagi jika GSAP gagal berjalan.
-          innerHTML: "document.documentElement.classList.add('ap-js');setTimeout(function(){if(!window.__apReady)document.documentElement.classList.remove('ap-js')},4000);"
-        }
       ]
     }
   }

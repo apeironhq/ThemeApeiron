@@ -16,7 +16,7 @@ export const content = {
     buy: '#harga', // [GANTI] link checkout
     demo: `https://wa.me/${waNumber}?text=${waText}`,
     live: '#', // [GANTI] link contoh undangan live
-    docs: '#', // [GANTI] link dokumentasi (mis. https://domain-wordpress/doc/)
+    docs: '/docs', // dokumentasi widget (app/pages/docs)
   },
 
   nav: [

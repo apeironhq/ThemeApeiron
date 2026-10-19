@@ -7,6 +7,24 @@
  * di-hydrate ulang oleh Vue (hydrate-never). Animasi bagian atas jalan segera; modul
  * untuk section bawah dimuat & dijalankan saat browser luang agar awal halaman ringan.
  */
+import '~/assets/css/landing.css'
+import '~/assets/css/brand.css'
+import '~/assets/css/features.css'
+import '~/assets/css/demos.css'
+import '~/assets/css/editor.css'
+import '~/assets/css/ambient.css'
+import '~/assets/css/howto.css'
+import '~/assets/css/cards.css'
+import '~/assets/css/perf.css'
+
+useHead({
+  bodyAttrs: { class: 'ap-landing' },
+  script: [{
+    // Sembunyikan elemen yang akan dianimasikan; tampilkan lagi jika GSAP gagal berjalan.
+    innerHTML: "document.documentElement.classList.add('ap-js');setTimeout(function(){if(!window.__apReady)document.documentElement.classList.remove('ap-js')},4000);",
+  }],
+})
+
 const whenIdle = (fn: () => void) => {
   const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number }
   if (w.requestIdleCallback) w.requestIdleCallback(fn, { timeout: 1200 })
