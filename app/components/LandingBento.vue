@@ -58,7 +58,7 @@ const wishes = [
                   <svg viewBox="0 0 32 32"><path d="M16 3 4 29h5l7-16 7 16h5z" fill="currentColor" /><circle cx="16" cy="22" r="2.4" fill="currentColor" /></svg>
                   <b>ApeironKit</b>
                 </div>
-                <span class="ap-orb3__label" data-orb-label>13 widget</span>
+                <span class="ap-orb3__label" data-orb-label>{{ widgets.length }} widget</span>
               </template>
 
               <!-- 2. Ucapan mengalir + cincin kehadiran -->

@@ -42,7 +42,7 @@ const guests = [['A', 'Bapak Andi', 'Andi'], ['S', 'Ibu Sari', 'Sari'], ['D', 'S
                   <span class="hw-wp__key"><span data-key data-text="APK-7F2C-91XD"></span></span>
                   <i class="hw-ok" data-ok><ApIcon name="key" /></i>
                 </div>
-                <span class="hw-ready" data-ready><ApIcon name="layout" /> 13 widget siap di Elementor</span>
+                <span class="hw-ready" data-ready><ApIcon name="layout" /> {{ widgets.length }} widget siap di Elementor</span>
               </div>
 
               <!-- 2. Rancang di Elementor: seret widget, ganti warna -->

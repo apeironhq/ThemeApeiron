@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
  * Beranda dokumentasi (gaya dashboard MDUNDIG): angka ringkas, mulai cepat,
- * dan kartu 13 widget dengan filter kategori (transisi GSAP Flip).
+ * dan kartu semua widget dengan filter kategori (transisi GSAP Flip).
  */
 import { docs, categories, type DocCategory } from '~/data/docs'
 import { loadDocsGsap, prefersReducedMotion } from '~/composables/useDocsGsap'
@@ -10,7 +10,7 @@ import { useDocsInk } from '~/composables/useDocsInk'
 definePageMeta({ layout: 'docs', pageTransition: { name: 'dx-page', mode: 'out-in' } })
 useSeoMeta({
   title: 'Dokumentasi Widget · ApeironKit',
-  description: 'Panduan 13 widget ApeironKit untuk Elementor: fitur, kelebihan, batasan, cara pakai, dan penjelasan setiap pengaturan.',
+  description: 'Panduan semua widget ApeironKit untuk Elementor: fitur, kelebihan, batasan, cara pakai, dan penjelasan setiap pengaturan.',
 })
 
 const searchOpen = useState('dx-search', () => false)
@@ -117,7 +117,7 @@ onBeforeUnmount(() => ctx?.revert())
     <div class="dx-pagehead" data-dx-fade>
       <div>
         <h1>Dokumentasi Widget</h1>
-        <p class="dx-caption">Fitur, kelebihan, batasan, cara pakai, dan semua pengaturan 13 widget ApeironKit.</p>
+        <p class="dx-caption">Fitur, kelebihan, batasan, cara pakai, dan semua pengaturan widget ApeironKit.</p>
       </div>
       <button type="button" class="dx-btn dx-btn--secondary" @click="searchOpen = true"><ApIcon name="search" /> Cari pengaturan</button>
     </div>

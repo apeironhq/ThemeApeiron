@@ -1,5 +1,5 @@
 /**
- * 13 widget ApeironKit, urut seperti di panel Elementor (kategori "Apeiron Kit").
+ * Daftar widget ApeironKit, urut seperti di panel Elementor (kategori "Apeiron Kit").
  * Ikon = SVG asli plugin (assets/icon/*.svg dan eicon Elementor), dipecah per bagian
  * (kelas wi-*) agar tiap bagian bisa dianimasikan.
  */

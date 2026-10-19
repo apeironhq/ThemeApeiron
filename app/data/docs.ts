@@ -1,5 +1,5 @@
 /**
- * Isi dokumentasi /docs untuk 13 widget ApeironKit.
+ * Isi dokumentasi /docs untuk setiap widget ApeironKit.
  *
  * Nama kontrol, pilihan, dan grup Gaya diambil dari kode plugin (Registers*Controls.php),
  * jadi istilah di sini sama persis dengan yang tampil di panel Elementor.

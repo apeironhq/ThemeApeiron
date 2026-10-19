@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /**
- * 13 widget di dalam tampilan editor Elementor: panel widget di kiri, halaman di kanan.
+ * Semua widget di dalam tampilan editor Elementor: panel widget di kiri, halaman di kanan.
  * Kursor menyeret tile ke halaman, widget terpilih (garis seleksi + label Edit),
  * lalu memperagakan fungsinya. Animasinya ada di assets/js/widgets.js.
  */
@@ -15,7 +15,7 @@ const svgAttrs = { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', '
     <DecoIcons set="widgets" />
     <div class="ap-container">
       <header class="ap-head ap-head--center">
-        <h2 class="ap-title" data-split>13 widget, langsung muncul di panel Elementor.</h2>
+        <h2 class="ap-title" data-split>Semua widget langsung muncul di panel Elementor.</h2>
         <p class="ap-lead" data-reveal>Seret widget dari panel ke halaman, lalu lihat langsung cara kerjanya. Semua diatur dari Elementor, tanpa kode.</p>
       </header>
 
