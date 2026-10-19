@@ -29,7 +29,7 @@ export const content = {
   ],
 
   hero: {
-    title: 'Plugin Elementor untuk undangan pernikahan digital.',
+    title: 'Plugin Elementor untuk kebutuhan undangan digital.',
     lead: 'ApeironKit melengkapi Elementor dengan widget khusus undangan: sampul pembuka, RSVP ke WhatsApp, musik, ucapan tamu, sampai daftar hadiah. Untuk jasa undangan digital dan agency WordPress. Tinggal seret dan atur, tanpa coding.',
     couple: 'Raka & Nadia',
     initials: 'R & N',
@@ -211,7 +211,7 @@ export const content = {
   ],
 
   faq: [
-    { q: 'Apa itu ApeironKit?', a: 'ApeironKit adalah plugin WordPress yang menambahkan widget khusus undangan pernikahan ke Elementor. Anda menyusun undangan digital dengan seret dan atur, lalu membagikan link-nya ke tamu.' },
+    { q: 'Apa itu ApeironKit?', a: 'ApeironKit adalah plugin untuk kebutuhan undangan digital. Plugin ini menambahkan widget khusus undangan ke Elementor di WordPress, jadi Anda cukup menyusun undangan dengan seret dan atur, lalu membagikan link-nya ke tamu.' },
     { q: 'Siapa yang cocok memakai ApeironKit?', a: 'Jasa undangan digital, agency, dan freelancer WordPress yang membuat undangan untuk klien. Pasangan yang membuat undangannya sendiri di WordPress juga bisa memakainya.' },
     { q: 'Apakah wajib memakai Elementor?', a: 'Ya. ApeironKit adalah ekstensi Elementor, jadi Elementor (versi gratis sudah cukup) harus terpasang.' },
     { q: 'Apakah perlu bisa coding?', a: 'Tidak. Semua widget diatur lewat panel Elementor: warna, font, teks, dan animasi.' },
