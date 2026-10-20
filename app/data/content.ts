@@ -13,6 +13,11 @@ type IconItem = [IconName, string]
 const waNumber = '6285189865707' // nomor WhatsApp, format 62xxx tanpa + atau spasi
 const waText = encodeURIComponent('Halo Apeiron, saya ingin minta demo ApeironKit.')
 
+// Tombol "Pilih Paket" membuka WhatsApp dengan pesan pesanan sesuai paketnya.
+const rupiah = (n: number) => 'Rp' + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+export const orderLink = (p: { name: string; price: number; period: string }) =>
+  `https://wa.me/${waNumber}?text=${encodeURIComponent(`Hai, saya mau pesan ApeironKit paket ${p.name} (${rupiah(p.price)} ${p.period}).`)}`
+
 export const content = {
   links: {
     buy: '#harga', // [GANTI] link checkout

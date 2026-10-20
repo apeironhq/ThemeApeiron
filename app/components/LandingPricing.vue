@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { content as c } from '~/data/content'
+import { content as c, orderLink } from '~/data/content'
 
 // 49000 -> "49.000" (format rupiah tanpa bergantung pada Intl).
 const num = (n: number) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.')
@@ -30,7 +30,7 @@ const off = (p: { price: number; was: number }) => Math.round((1 - p.price / p.w
           <ul>
             <li v-for="f in p.features" :key="f[1]"><ApListItem :item="f" /></li>
           </ul>
-          <a class="ap-btn ap-btn--block" :class="p.featured ? 'ap-btn--light' : 'ap-btn--primary'" :href="c.links.buy" data-magnetic>Pilih Paket {{ p.name }}</a>
+          <a class="ap-btn ap-btn--block" :class="p.featured ? 'ap-btn--light' : 'ap-btn--primary'" :href="orderLink(p)" target="_blank" rel="noopener" data-magnetic><ApIcon name="chat" /> Pilih Paket {{ p.name }}</a>
         </article>
       </div>
       <p class="ap-pricing__note" data-reveal>Butuh lisensi untuk banyak website? <a :href="c.links.demo" target="_blank" rel="noopener">Hubungi kami lewat WhatsApp</a>.</p>
