@@ -168,14 +168,14 @@ export const content = {
   // Diambil dari data/changelog.ts (sumber yang sama dengan /docs/changelog).
   updates: releases.map((r) => ({ version: r.version, date: releaseDate(r.date), items: r.highlights as IconItem[] })),
 
-  // [GANTI] testimoni contoh — ganti dengan testimoni asli pelanggan.
+  // [GANTI] testimoni dan nama masih contoh fiktif — ganti dengan testimoni asli pelanggan (dengan izin mereka) sebelum dipromosikan.
   testimonials: [
-    { quote: 'Dulu satu undangan butuh dua hari. Sekarang pagi pesan, sore sudah dikirim ke klien.', name: 'Nama Pelanggan', role: 'Jasa Undangan · Bandung' },
-    { quote: 'Widget sampulnya paling sering bikin klien bilang "wah". Itu yang menjual.', name: 'Nama Pelanggan', role: 'Studio Undangan · Yogyakarta' },
-    { quote: 'Tim kami langsung bisa pakai karena semuanya native Elementor.', name: 'Nama Pelanggan', role: 'Agency WordPress · Jakarta' },
-    { quote: 'Konfirmasi tamu langsung masuk WhatsApp, ucapan tampil rapi di undangan. Revisi jauh berkurang.', name: 'Nama Pelanggan', role: 'Wedding Organizer · Surabaya' },
-    { quote: 'Ringan dibuka di HP tamu, padahal animasinya banyak.', name: 'Nama Pelanggan', role: 'Jasa Undangan · Medan' },
-    { quote: 'Update-nya rutin dan dokumentasinya jelas. Jarang sekali plugin lokal seperti ini.', name: 'Nama Pelanggan', role: 'Freelancer WordPress · Bali' },
+    { quote: 'Dulu satu undangan butuh dua hari. Sekarang pagi pesan, sore sudah dikirim ke klien.', name: 'Rina Kartika', role: 'Jasa Undangan · Bandung' },
+    { quote: 'Widget sampulnya paling sering bikin klien bilang "wah". Itu yang menjual.', name: 'Dimas Pratama', role: 'Studio Undangan · Yogyakarta' },
+    { quote: 'Tim kami langsung bisa pakai karena semuanya native Elementor.', name: 'Ayu Lestari', role: 'Agency WordPress · Jakarta' },
+    { quote: 'Konfirmasi tamu langsung masuk WhatsApp, ucapan tampil rapi di undangan. Revisi jauh berkurang.', name: 'Fajar Nugroho', role: 'Wedding Organizer · Surabaya' },
+    { quote: 'Ringan dibuka di HP tamu, padahal animasinya banyak.', name: 'Sari Wulandari', role: 'Jasa Undangan · Medan' },
+    { quote: 'Update-nya rutin dan dokumentasinya jelas. Jarang sekali plugin lokal seperti ini.', name: 'Bayu Saputra', role: 'Freelancer WordPress · Bali' },
   ],
 
   // Harga dalam rupiah. `was` = harga normal yang dicoret; persen diskon dihitung otomatis.

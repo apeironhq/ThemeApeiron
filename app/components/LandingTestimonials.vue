@@ -21,7 +21,7 @@ const rows = [all.slice(0, half), all.slice(half)]
             <figure v-for="(t, i) in row" :key="i" class="ap-quote" :aria-hidden="copy > 1 ? 'true' : undefined">
               <blockquote>“{{ t.quote }}”</blockquote>
               <figcaption>
-                <span class="ap-quote__avatar">{{ t.role.charAt(0) }}</span>
+                <span class="ap-quote__avatar">{{ t.name.split(' ').map((w) => w.charAt(0)).join('').slice(0, 2) }}</span>
                 <span><b>{{ t.name }}</b><small>{{ t.role }}</small></span>
               </figcaption>
             </figure>
