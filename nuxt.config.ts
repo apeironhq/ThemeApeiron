@@ -51,6 +51,11 @@ export default defineNuxtConfig({
         { property: 'og:type', content: 'website' }
       ],
       link: [
+        // Ikon tab browser: logo Apeiron putih di atas kotak navy.
+        { rel: 'icon', href: '/favicon.ico', sizes: 'any' },
+        { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32.png' },
+        { rel: 'icon', type: 'image/png', sizes: '192x192', href: '/icon-192.png' },
+        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
         { rel: 'preload', as: 'font', type: 'font/woff2', href: '/fonts/ubuntu-latin-400-normal.woff2', crossorigin: '' },
         { rel: 'preload', as: 'font', type: 'font/woff2', href: '/fonts/ubuntu-latin-500-normal.woff2', crossorigin: '' }
       ]
