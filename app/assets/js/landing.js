@@ -53,35 +53,35 @@ export function initLanding() {
 		});
 	}
 
+	// Bagian atas langsung jalan agar intro hero mulus sejak frame pertama.
 	initFit();
 	initNav(smoother);
 	initHero();
 	initGate();
-	initMarquee();
-	initStory();
-	initJourney();
-	initDashboard3D();
-	initSplitTitles();
-	initReveals();
-	initBento();
-	initCounters();
-	initPricing();
-	initSteps();
-	initTestimonials();
-	initTimelineLoop();
-	initFaq(smoother);
-	initCtaOrnament();
 
-	if (finePointer) {
-		initCursor();
-		initMagnetic();
-		initTilt();
-		initSpotlight();
-	}
+	// Section di bawah lipatan disiapkan bertahap (potongan <= 8ms per frame, urutan tetap),
+	// sehingga tidak ada satu tugas panjang yang membuat intro hero tersendat.
+	const queue = [
+		initMarquee, initStory, initJourney, initDashboard3D, initSplitTitles, initReveals,
+		initBento, initCounters, initPricing, initSteps, initTestimonials, initTimelineLoop,
+		() => initFaq(smoother), initCtaOrnament,
+	];
+	if (finePointer) queue.push(initCursor, initMagnetic, initTilt, initSpotlight);
+	const ready = new Promise((resolve) => {
+		const step = () => {
+			const t0 = performance.now();
+			while (queue.length && performance.now() - t0 < 8) queue.shift()();
+			if (queue.length) requestAnimationFrame(() => setTimeout(step, 0));
+			else { ScrollTrigger.refresh(); resolve(); }
+		};
+		requestAnimationFrame(() => setTimeout(step, 0));
+	});
+	// index.vue menunggu ini sebelum memuat modul section bawah.
+	window.__apLandingReady = ready;
 
 	// Posisi pin dihitung ulang setelah font selesai dimuat.
 	if (document.fonts && document.fonts.ready) {
-		document.fonts.ready.then(() => ScrollTrigger.refresh());
+		Promise.all([document.fonts.ready, ready]).then(() => ScrollTrigger.refresh());
 	}
 
 
