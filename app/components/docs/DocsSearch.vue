@@ -98,7 +98,7 @@ function mark(text: string) {
         <div class="dx-search__panel">
           <label class="dx-search__field">
             <ApIcon name="search" />
-            <input ref="input" v-model="q" type="search" placeholder="Cari widget, fitur, pengaturan, atau masalah…" autocomplete="off" spellcheck="false">
+            <input ref="input" v-model="q" type="search" placeholder="Cari widget atau pengaturan…" autocomplete="off" spellcheck="false">
             <kbd @click="open = false">Esc</kbd>
           </label>
 
