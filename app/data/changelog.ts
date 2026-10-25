@@ -2,8 +2,8 @@
  * Riwayat rilis ApeironKit — satu sumber untuk /docs/changelog dan bagian "Pembaruan" di landing page.
  * Rilis baru cukup ditambahkan di paling atas array `releases`.
  *
- * Isi 1.5.5 diambil dari commit plugin (87eb2d8, e431849).
- * [GANTI] Rilis bertanda `draft: true` masih contoh lama dari landing page — ganti dengan catatan asli.
+ * Isi 1.5.5 diambil dari commit plugin (87eb2d8, e431849). 1.0.5 sampai 1.3.5 disusun dari git log plugin
+ * (commit bump versi dan commit fitur di antaranya). 1.0.6 dan 1.0.7 hanya menaikkan nomor versi, jadi tidak dicatat.
  */
 import type { IconName } from './icons'
 
@@ -63,52 +63,58 @@ export const releases: Release[] = [
     ],
   },
   {
-    version: '1.5.0',
-    highlights: [['gift', 'Widget Cerita Cinta dan Daftar Hadiah'], ['zap', 'Performa CSS lebih ringan']],
-    date: '2026-07-01',
-    title: 'Cerita Cinta dan Daftar Hadiah',
-    summary: 'Dua widget baru untuk perjalanan cinta mempelai dan wishlist hadiah yang terhubung ke MDUNDIG.',
-    draft: true,
+    version: '1.3.5',
+    highlights: [['mail', 'Form Order menyimpan draft secara otomatis'], ['clock', 'Masa simpan draft bisa 1 sampai 30 hari']],
+    date: '2026-10-06',
+    title: 'Draft otomatis Form Order',
+    summary: 'Isian Form Order kini tersimpan otomatis di browser, jadi calon klien bisa melanjutkan pesanan tanpa mengisi ulang.',
     changes: [
-      { type: 'baru', text: 'Widget Cerita Cinta: timeline scrapbook dengan foto dan penanda bergerak.', widget: 'cerita-cinta' },
-      { type: 'baru', text: 'Widget Daftar Hadiah: reservasi hadiah tanpa hadiah kembar, tercatat di MDUNDIG.', widget: 'daftar-hadiah' },
-      { type: 'performa', text: 'CSS widget lebih ringan.' },
+      { type: 'peningkatan', text: 'Draft otomatis di Form Order: isian dan step terakhir tersimpan per form, lalu dipulihkan setelah halaman dimuat ulang.', widget: 'form-order' },
+      { type: 'peningkatan', text: 'Masa penyimpanan draft bisa dipilih 1, 3, 7, 14, atau 30 hari, dan draft bisa dihapus otomatis setelah pesanan terkirim.', widget: 'form-order' },
+      { type: 'peningkatan', text: 'Notifikasi opsional saat draft dipulihkan, tanggal dalam format Indonesia, dan indikator memuat yang lebih jelas di HP.', widget: 'form-order' },
+      { type: 'peningkatan', text: 'Informasi pembaruan plugin di dashboard WordPress kini mengarah ke situs Apeiron.' },
     ],
   },
   {
-    version: '1.4.0',
-    highlights: [['users', 'Manajemen Tamu untuk nama tamu personal'], ['mail', 'Form Order untuk jasa undangan']],
-    date: '2026-06-01',
-    title: 'Manajemen Tamu dan Form Order',
-    summary: 'Link undangan pribadi untuk tiap tamu, dan form pesanan bertahap untuk jasa undangan.',
-    draft: true,
+    version: '1.2.5',
+    highlights: [['mail', 'Widget baru Form Order untuk jasa undangan'], ['music', 'Musik mengalah saat video bersuara diputar']],
+    date: '2026-10-03',
+    title: 'Form Order dan sinkronisasi video',
+    summary: 'Widget ke-11 untuk menerima pesanan jasa undangan, dan Tombol Audio yang menyesuaikan diri saat tamu memutar video.',
     changes: [
-      { type: 'baru', text: 'Widget Manajemen Tamu untuk link dan nama tamu personal.', widget: 'manajemen-tamu' },
-      { type: 'baru', text: 'Widget Form Order untuk menerima pesanan jasa undangan.', widget: 'form-order' },
+      { type: 'baru', text: 'Widget Form Order: form pesanan bertahap yang disusun lewat Step / Section Builder, dengan label, tipe, opsi, wajib diisi, dan lebar tiap field.', widget: 'form-order' },
+      { type: 'baru', text: 'Ringkasan konfirmasi sebelum kirim, tombol Kembali dan Lanjut, serta pesan validasi yang bisa diubah.', widget: 'form-order' },
+      { type: 'baru', text: 'Tab Form Order di dashboard ApeironKit untuk mengatur tujuan pengiriman pesanan dan Secret Key.', widget: 'form-order' },
+      { type: 'peningkatan', text: 'Sinkronisasi Video di Tombol Audio: musik dijeda atau volumenya diturunkan saat video bersuara diputar. Video latar dan video tanpa suara diabaikan.', widget: 'tombol-audio' },
+      { type: 'peningkatan', text: 'File Audio di Tombol Audio bisa diisi lewat Dynamic Tag; bila kosong atau tidak valid, file bawaan tetap dipakai.', widget: 'tombol-audio' },
     ],
   },
   {
-    version: '1.3.0',
-    highlights: [['music', 'Tombol Audio dengan kontrol yang lebih halus'], ['chat', 'Ucapan Tamu kini mendukung stiker']],
-    date: '2026-05-01',
-    title: 'Audio dan stiker ucapan',
-    summary: 'Kontrol pemutar musik yang lebih halus dan stiker di Ucapan Tamu.',
-    draft: true,
+    version: '1.1.5',
+    highlights: [['refresh', 'Update plugin langsung dari dashboard WordPress'], ['chat', 'Popup Ucapan Tamu bisa di tengah atau bawah']],
+    date: '2026-09-27',
+    title: 'Pembaruan otomatis dan popup yang lebih luwes',
+    summary: 'ApeironKit kini bisa diperbarui dari dashboard WordPress, popup Ucapan Tamu lebih mudah diatur, dan Sampul tampil tanpa kedipan.',
     changes: [
-      { type: 'peningkatan', text: 'Tombol Audio dengan kontrol yang lebih halus.', widget: 'tombol-audio' },
-      { type: 'baru', text: 'Ucapan Tamu kini mendukung stiker.', widget: 'ucapan-tamu' },
+      { type: 'peningkatan', text: 'Versi baru ApeironKit kini muncul di halaman Plugin WordPress dan bisa dipasang seperti plugin lainnya.' },
+      { type: 'peningkatan', text: 'Popup stiker serta popup balas dan edit di Ucapan Tamu bisa ditempatkan di tengah atau bawah layar.', widget: 'ucapan-tamu' },
+      { type: 'peningkatan', text: 'Pilih apakah halaman tetap bisa digulir saat popup Ucapan Tamu terbuka, dan area mana yang ikut bergulir.', widget: 'ucapan-tamu' },
+      { type: 'peningkatan', text: 'Opsi Interaksi Pengguna di Gulir Otomatis: tetap berjalan atau berhenti saat tamu menyentuh layar.', widget: 'gulir-otomatis' },
+      { type: 'perbaikan', text: 'Sampul langsung menutupi halaman sejak awal dimuat, jadi isi undangan tidak sempat terlihat sebelum Sampul muncul.', widget: 'sampul' },
+      { type: 'perbaikan', text: 'Status lisensi tetap terbaca saat server lisensi sedang tidak bisa dihubungi.' },
     ],
   },
   {
-    version: '1.2.0',
-    highlights: [['layers', 'Sampul: pita, segel, dan label tamu'], ['clock', 'Hitung Mundur dengan tata letak baru']],
-    date: '2026-04-01',
-    title: 'Sampul Classic',
-    summary: 'Sampul dengan pita, segel, dan label tamu, serta tata letak baru Hitung Mundur.',
-    draft: true,
+    version: '1.0.5',
+    highlights: [['sparkle', 'Rilis perdana ApeironKit'], ['layers', '10 widget Elementor untuk undangan digital']],
+    date: '2026-09-05',
+    title: 'Rilis perdana',
+    summary: 'Versi pertama ApeironKit: sepuluh widget Elementor untuk membuat undangan pernikahan digital, dari pembuka sampai ucapan tamu.',
     changes: [
-      { type: 'baru', text: 'Sampul: pita, segel, dan label tamu.', widget: 'sampul' },
-      { type: 'peningkatan', text: 'Hitung Mundur dengan tata letak baru.', widget: 'hitung-mundur' },
+      { type: 'baru', text: 'Widget pembuka: Sampul, Pemuat Halaman, Tombol Audio, dan Gulir Otomatis.' },
+      { type: 'baru', text: 'Widget acara dan tamu: Hitung Mundur, Ucapan Tamu, Form WhatsApp, Manajemen Tamu, dan Aktivitas.' },
+      { type: 'baru', text: 'Tombol Salin untuk nomor rekening atau alamat kirim hadiah.', widget: 'tombol-salin' },
+      { type: 'baru', text: 'Dashboard ApeironKit untuk aktivasi lisensi dan menyalakan atau mematikan widget.' },
     ],
   },
 ]

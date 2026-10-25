@@ -5,8 +5,11 @@
  */
 import { content as c } from '~/data/content'
 import { widgets } from '~/data/widgets'
+import { releases } from '~/data/changelog'
 
 const b = c.bento
+// Empat rilis terakhir, lama ke baru, untuk animasi nomor versi yang naik.
+const versions = releases.slice(0, 4).map((r) => r.version).reverse()
 const pad = (n: number) => String(n).padStart(2, '0')
 const svgAttrs = { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '1.5', 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true' }
 
@@ -121,7 +124,7 @@ const wishes = [
                 </div>
                 <div class="ap-lic__ver" data-lic-ver>
                   <div class="ap-lic__ver-track" data-lic-track>
-                    <span>v1.3.0</span><span>v1.4.0</span><span>v1.5.0</span><span>v1.5.5</span>
+                    <span v-for="v in versions" :key="v">v{{ v }}</span>
                   </div>
                   <em data-lic-badge>Terbaru</em>
                 </div>
