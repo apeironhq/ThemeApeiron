@@ -94,4 +94,10 @@ export const widgets: WidgetItem[] = [
     dest: 'Tercatat di dashboard MDUNDIG',
     icon: '<g class="wi-box"><rect x="3" y="3" width="8" height="8" rx="1"/><path d="M5.5 8.5 7 6.5l1.5 2"/></g><g class="wi-box"><rect x="13" y="3" width="8" height="8" rx="1"/><path d="M15.5 8.5 17 6.5l1.5 2"/></g><g class="wi-box"><rect x="3" y="13" width="8" height="8" rx="1"/><path d="M5.5 18.5 7 16.5l1.5 2"/></g><g class="wi-box"><rect x="13" y="13" width="8" height="8" rx="1"/><path d="M15.5 18.5 17 16.5l1.5 2"/></g>',
   },
+  {
+    key: 'parallax',
+    title: 'Paralaks 2.5D',
+    desc: 'Adegan scroll sinematik: kamera 3D bergerak menembus layer gambar, video, dan teks yang berkedalaman.',
+    icon: '<path class="wi-l1" d="M12 3.5 21 8l-9 4.5L3 8l9-4.5Z"/><path class="wi-l2" d="m4.5 12 7.5 3.75L19.5 12"/><path class="wi-l3" d="m4.5 16 7.5 3.75L19.5 16" opacity=".55"/>',
+  },
 ]

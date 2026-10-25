@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /**
- * Peragaan mini satu widget di halaman editor section "13 widget".
+ * Peragaan mini satu widget di section daftar widget.
  * Markup statis; gerakannya dimainkan oleh assets/js/widgets.js (demos[key]).
  */
 import { content as c } from '~/data/content'
@@ -217,5 +217,19 @@ const h = c.hero
       </div>
     </div>
     <div class="wd-toast" data-toast><ApIcon name="gift" /> Reservasi tercatat di MDUNDIG</div>
+  </div>
+
+  <!-- Paralaks 2.5D: kamera mendekat, layer jauh-tengah-dekat bergerak dengan kecepatan berbeda -->
+  <div v-else-if="k === 'parallax'" class="wd wd--px">
+    <div class="wd-px__cam" data-cam>
+      <span class="wd-px__layer is-far" data-depth="far"><i class="wd-px__sun"></i><i class="wd-px__arch"></i></span>
+      <span class="wd-px__layer is-mid" data-depth="mid"><i class="wd-px__hill is-a"></i><i class="wd-px__hill is-b"></i></span>
+      <div class="wd-px__text">
+        <small><span data-word>The</span> <span data-word>Wedding</span> <span data-word>of</span></small>
+        <b><span data-word>{{ h.couple }}</span></b>
+      </div>
+      <span class="wd-px__layer is-near" data-depth="near"><i class="wd-px__leaf is-l"></i><i class="wd-px__leaf is-r"></i></span>
+    </div>
+    <span class="wd-px__hint" data-hint><ApIcon name="cursor" /> Gulir untuk masuk</span>
   </div>
 </template>

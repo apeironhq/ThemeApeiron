@@ -29,6 +29,21 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    // [GANTI] nomor versi menunggu rilis resmi plugin (header plugin masih 1.5.5).
+    version: '1.6.0',
+    highlights: [['layers', 'Widget baru Paralaks 2.5D'], ['play', 'Kamera 3D sinematik yang mengikuti scroll']],
+    date: '2026-10-25',
+    title: 'Paralaks 2.5D',
+    summary: 'Widget ke-14: adegan scroll sinematik dengan kamera 3D yang menembus layer gambar, video, dan teks berkedalaman.',
+    changes: [
+      { type: 'baru', text: 'Widget Paralaks 2.5D: bingkai menempel di layar sementara kamera 3D berpindah adegan mengikuti scroll.', widget: 'paralaks-2-5d' },
+      { type: 'baru', text: 'Enam jenis layer: Gambar, Video, Teks Langsung, Template Elementor, Bentuk / Gradasi, dan Container Elementor, masing-masing dengan kedalaman Z sendiri.', widget: 'paralaks-2-5d' },
+      { type: 'baru', text: 'Animasi Layer per adegan (geser, skala, rotasi, opasitas, blur) dan teks yang muncul per baris, kata, atau huruf.', widget: 'paralaks-2-5d' },
+      { type: 'baru', text: 'Gerak berulang, goyang tertiup angin saat scroll, efek partikel, serta kamera yang ikut kursor dan kemiringan HP.', widget: 'paralaks-2-5d' },
+      { type: 'peningkatan', text: 'Paralaks bisa langsung memainkan adegan pertama saat Sampul dibuka, dan tombol #ds-next ikut memulai Tombol Audio.', widget: 'sampul' },
+    ],
+  },
+  {
     version: '1.5.5',
     highlights: [['wrench', 'Kontrol Typography Elementor kini benar-benar mengatur font yang tampil'], ['refresh', 'Nilai bawaan kontrol widget disetel ulang agar lebih rapi']],
     date: '2026-08-24',

@@ -19,6 +19,7 @@ const map: Record<string, () => Promise<any>> = {
   'aktivitas': () => import('./preview/PvAktivitas.vue'),
   'gulir-otomatis': () => import('./preview/PvGulirOtomatis.vue'),
   'pemuat-halaman': () => import('./preview/PvPemuatHalaman.vue'),
+  'paralaks-2-5d': () => import('./preview/PvParalaks.vue'),
 }
 const comp = computed(() => (map[props.slug] ? defineAsyncComponent(map[props.slug]!) : null))
 </script>

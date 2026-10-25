@@ -1,5 +1,5 @@
 /**
- * Section "13 widget" dalam tampilan editor Elementor:
+ * Section daftar widget dalam tampilan editor Elementor:
  * kursor menyeret tile dari panel ke halaman, widget terpilih (garis seleksi + label Edit),
  * lalu memperagakan fungsinya (popup isi data, pesan WhatsApp, balasan mempelai, dst.).
  * Dipanggil setelah initLanding() (GSAP + plugin sudah terdaftar di window).
@@ -49,6 +49,7 @@ export function initWidgetPanel() {
 		cover: (s) => gsap.fromTo(q(s, '.wi-seal'), { scale: 0.3, rotation: -90, svgOrigin: '12 12' }, { scale: 1, rotation: 0, svgOrigin: '12 12', duration: 0.7, ease: 'back.out(2.6)' }),
 		story: (s) => draw(q(s, '.wi-branch'), 0.6, 0),
 		registry: (s) => gsap.fromTo(q(s, '.wi-box'), { scale: 0.5, opacity: 0, transformOrigin: '50% 50%' }, { scale: 1, opacity: 1, duration: 0.45, stagger: 0.09, ease: 'back.out(2.5)' }),
+		parallax: (s) => gsap.fromTo(q(s, '.wi-l1, .wi-l2, .wi-l3'), { y: (i) => -3 * (2 - i) }, { y: 0, duration: 0.7, stagger: 0.08, ease: 'back.out(2.2)' }),
 	};
 	const playIcon = (wrap) => {
 		const svg = wrap && wrap.querySelector('svg');
@@ -306,6 +307,20 @@ export function initWidgetPanel() {
 				.fromTo($('.wd-gift__img', gift), { scale: 0.85, rotation: -8 }, { scale: 1, rotation: 0, duration: 0.7, ease: 'elastic.out(1, 0.4)' })
 				.add(toastIn($('[data-toast]', r)), '-=0.5')
 				.add(hold(1.4));
+		},
+
+		// Kamera menembus layer: tiap lapisan bergerak sesuai kedalamannya, lalu teks muncul per kata.
+		parallax(r) {
+			const layer = (n) => $('[data-depth="' + n + '"]', r);
+			return gsap.timeline()
+				.set($$('[data-word]', r), { yPercent: 110, autoAlpha: 0 })
+				.to(layer('far'), { scale: 1.08, yPercent: -4, duration: 3, ease: 'power1.inOut' }, 0.2)
+				.to(layer('mid'), { scale: 1.22, yPercent: -10, duration: 3, ease: 'power1.inOut' }, 0.2)
+				.to(layer('near'), { scale: 1.5, yPercent: 14, duration: 3, ease: 'power1.inOut' }, 0.2)
+				.to($('[data-cam]', r), { rotationX: 6, rotationY: -8, duration: 1.5, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 0.2)
+				.to($$('[data-word]', r), { yPercent: 0, autoAlpha: 1, duration: 0.6, stagger: 0.12, ease: 'expo.out' }, 1.2)
+				.to($('[data-hint]', r), { autoAlpha: 0, y: 8, duration: 0.4 }, 0.6)
+				.add(hold(1.2));
 		},
 	};
 

@@ -10,13 +10,16 @@ const b = c.bento
 const pad = (n: number) => String(n).padStart(2, '0')
 const svgAttrs = { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '1.5', 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true' }
 
-// 13 ikon widget di dua cincin orbit (5 dalam, 8 luar) mengelilingi inti ApeironKit.
+// Semua ikon widget di dua cincin orbit mengelilingi inti ApeironKit; ±40% di cincin dalam,
+// sisanya di luar, jadi tata letaknya ikut menyesuaikan saat widget bertambah.
+const innerCount = Math.round(widgets.length * 0.4)
+const outerCount = widgets.length - innerCount
 const orbit = widgets.map((w, i) => {
-  const inner = i < 5
-  const n = inner ? 5 : 8
-  const k = inner ? i : i - 5
+  const inner = i < innerCount
+  const n = inner ? innerCount : outerCount
+  const k = inner ? i : i - innerCount
   const r = inner ? 88 : 148
-  const a = (k / n) * Math.PI * 2 - Math.PI / 2 + (inner ? 0 : Math.PI / 8)
+  const a = (k / n) * Math.PI * 2 - Math.PI / 2 + (inner ? 0 : Math.PI / n)
   return { ...w, style: { left: `${200 + r * Math.cos(a) - 22}px`, top: `${160 + r * Math.sin(a) - 22}px` } }
 })
 

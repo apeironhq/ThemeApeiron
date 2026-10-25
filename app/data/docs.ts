@@ -713,6 +713,82 @@ export const docs: DocWidget[] = [
     ],
     checklist: ['Gaya loader sesuai tema', 'Nama mempelai sudah diisi', 'Maximum Timeout tidak terlalu lama', 'Sudah dicek di HP'],
   },
+  /* ----------------------------------------------------------- Paralaks 2.5D */
+  {
+    slug: 'paralaks-2-5d', key: 'parallax', cat: 'pembuka', title: 'Paralaks 2.5D',
+    tagline: 'Adegan scroll sinematik dengan kamera 3D yang menembus layer berkedalaman.',
+    intro: 'Paralaks 2.5D menahan satu bingkai di layar sementara tamu menggulir. Kamera bergerak dari adegan ke adegan, dan setiap layer (gambar, video, teks, atau container) bergeser sesuai kedalamannya sehingga undangan terasa seperti film pendek.',
+    perks: [
+      { icon: 'layers', title: 'Kedalaman sungguhan', text: 'Tiap layer punya posisi Z sendiri, dari latar jauh sampai bunga di depan kamera.' },
+      { icon: 'play', title: 'Kamera per adegan', text: 'Atur geser, zoom, miring, dan putaran kamera di akhir setiap adegan.' },
+      { icon: 'sparkle', title: 'Animasi per layer', text: 'Geser, skala, rotasi, opasitas, dan blur pada adegan tertentu, plus teks yang muncul per kata.' },
+      { icon: 'cursor', title: 'Ikut gerak tamu', text: 'Kamera bisa mengikuti kursor di desktop dan kemiringan HP.' },
+    ],
+    steps: [
+      { title: 'Letakkan di awal halaman', text: 'Cari "Paralaks 2.5D" di panel Elementor dan seret ke section paling atas, tepat setelah Sampul. Bingkai akan menempel di layar selama adegan berjalan.', focus: 'frame' },
+      { title: 'Susun layer dan kedalaman', text: 'Di Layer dan Konten, tambahkan layer (Gambar, Video, Teks, Template, Bentuk, atau Container) dengan ID Layer unik, lalu isi Kedalaman (Z): -800 latar jauh, 0 subjek, 200 bunga di depan.', focus: 'depth' },
+      { title: 'Buat adegan kamera', text: 'Di Adegan dan Kamera, atur Kamera Awal lalu tambahkan adegan. Tiap adegan punya Panjang Scroll, Pola Gerakan Kamera, dan posisi kamera di akhir adegan.', focus: 'camera' },
+      { title: 'Hidupkan layer', text: 'Di Animasi Layer, pilih ID Layer Tujuan dan Nomor Adegan, lalu isi target seperti Geser Y atau Opasitas. Nyalakan Animasi Muncul Teks untuk judul.', focus: 'text' },
+    ],
+    knobs: [
+      { key: 'persp', label: 'Perspektif Kamera', type: 'range', value: 1000, min: 600, max: 2000, step: 100, unit: 'px' },
+      { key: 'idle', label: 'Aktifkan Gerakan Berulang', type: 'toggle', value: true },
+      { key: 'split', label: 'Pembagian Teks', type: 'select', value: 'Kata', options: ['Baris', 'Kata', 'Huruf'] },
+      { key: 'particles', label: 'Jumlah Partikel', type: 'range', value: 0, min: 0, max: 30, step: 5 },
+    ],
+    content: [
+      { title: 'Layer dan Konten', items: [
+        ['Jenis Layer', 'Gambar, Video, Teks Langsung, Template Elementor, Bentuk / Gradasi, atau Container Elementor (bila fitur Container aktif).', 'select'],
+        ['ID Layer', 'Nama unik untuk menghubungkan layer dengan Animasi Layer, misalnya bunga-depan.', 'text'],
+        ['File Video · Ulangi (Loop)', 'Video diputar tanpa suara saat layer terlihat dan dijeda saat tersembunyi.', 'media'],
+        ['Teks di Atas Judul · Judul · Subjudul · Isi Teks', 'Isi layer Teks Langsung.', 'text'],
+        ['Teks Tombol · Tautan Tombol', 'Isi #ds-next agar tombol meluncurkan kamera ke adegan berikutnya.', 'url'],
+        ['Ruang Layer', 'Otomatis, Ikut kamera 3D, atau Tetap di layar. Otomatis membuat teks, bentuk, dan container tetap terbaca.', 'select'],
+        ['Kedalaman (Z)', '-800 latar jauh, 0 subjek, 200 bunga depan.', 'slider'],
+        ['Posisi Horizontal · Vertikal · Titik Jangkar · Lebar', 'Letak dan ukuran layer di dalam bingkai.', 'slider'],
+        ['Ruang Lebih (Overscan)', 'Mencegah tepi gambar terlihat saat kamera bergeser.', 'slider'],
+        ['Jenis Gerakan', 'Gerak berulang: Mengambang, Bergoyang, Bernapas (zoom), atau Melayang ke samping.', 'select'],
+        ['Bergoyang Saat Scroll', 'Layer melengkung seperti tertiup angin sesuai kecepatan scroll, cocok untuk bunga dan daun.', 'switch'],
+        ['Pembagian Teks · Efek Muncul', 'Teks dipecah per Baris, Kata, atau Huruf, lalu muncul dari bawah, perlahan, atau dari buram ke tajam.', 'select'],
+      ] },
+      { title: 'Adegan dan Kamera', items: [
+        ['Kamera Awal', 'Posisi kamera sebelum adegan pertama.', 'number'],
+        ['Nama Adegan · Panjang Scroll', '100 = satu layar penuh. Makin panjang, makin pelan adegannya.', 'slider'],
+        ['Pola Gerakan Kamera', 'Linear, Sine, Power 1–4, Expo, Circ, Back, dan lainnya.', 'select'],
+        ['Kamera di Akhir Adegan', 'Geser Kamera X/Y, Zoom Kamera Z, Miring Atas/Bawah, Putar Kiri/Kanan, Rotasi Bidang.', 'number'],
+      ] },
+      { title: 'Animasi Layer', items: [
+        ['ID Layer Tujuan · Nomor Adegan', 'Layer yang dianimasikan dan adegan tempat animasinya berjalan.', 'text'],
+        ['Mulai dalam Adegan · Durasi Animasi · Pola Gerakan', 'Kapan animasi dimulai dan berapa lama.', 'slider'],
+        ['Target Animasi', 'Geser X, Geser Y, Skala, Rotasi, Opasitas, dan Blur. Kosongkan yang ingin tetap.', 'number'],
+        ['Animasi Muncul Teks', 'Huruf, kata, atau baris muncul berurutan selama gerakan ini.', 'switch'],
+      ] },
+      { title: 'Pengaturan Animasi', items: [
+        ['Kehalusan Scroll', 'Waktu animasi mengejar scroll. 0 = langsung, 1–1,5 = sinematik.', 'slider'],
+        ['Berhenti di Tiap Adegan · Pola Berhenti', 'Setelah tamu berhenti menggulir, kamera meluncur ke adegan terdekat.', 'switch'],
+        ['Tetap di Belakang Konten Berikutnya', 'Bingkai diam sebagai latar, konten di bawahnya bergulir di atasnya.', 'switch'],
+        ['Mainkan Adegan 1 Setelah Sampul Dibuka', 'Kamera langsung meluncur saat Sampul dibuka.', 'switch'],
+        ['Perspektif Kamera', 'Makin kecil, efek 3D makin kuat.', 'slider'],
+        ['Jaga Ukuran Asli Layer', 'Layer jauh tidak mengecil; kedalaman hanya memengaruhi parallax.', 'switch'],
+        ['Aktifkan Gerakan Berulang · Kekuatan Goyangan Scroll', 'Saklar utama gerak halus dan seberapa jauh layer bergoyang.', 'switch'],
+        ['Gerakan Halus Kamera', 'Kamera "bernapas" agar adegan tidak terasa beku saat diam.', 'slider'],
+        ['Kamera Ikut Kursor · Kamera Ikut Kemiringan HP · Kekuatan Kemiringan', 'Kamera bereaksi pada kursor dan sensor HP.', 'switch'],
+        ['Mode Pratinjau Editor', 'Interaktif untuk menguji scroll, atau tahan di adegan tertentu. Hanya di editor.', 'select'],
+      ] },
+      { title: 'Efek Partikel dan Petunjuk Gulir', items: [
+        ['Jumlah Partikel · Bentuk · Warna · Ukuran', 'Serbuk cahaya, kelopak bunga, atau bokeh di berbagai kedalaman. 0 = mati.', 'slider'],
+        ['Tampilkan Petunjuk · Waktu Tampil · Teks Petunjuk', 'Ajakan menggulir di bagian bawah bingkai.', 'switch'],
+      ] },
+    ],
+    style: ['Bingkai', 'Lapisan Warna', 'Teks', 'Panel', 'Tombol', 'Petunjuk Gulir'],
+    tips: [
+      { q: 'Tepi gambar terlihat saat kamera bergeser', a: 'Naikkan Ruang Lebih (Overscan) pada layer itu, atau kurangi geser kamera di adegan tersebut.' },
+      { q: 'Animasi layer tidak berjalan', a: 'Pastikan ID Layer Tujuan di Animasi Layer sama persis dengan ID Layer di Layer dan Konten, dan Nomor Adegan sesuai.' },
+      { q: 'Terasa berat di HP', a: 'Matikan Efek Partikel dan Gerakan Halus Kamera, kurangi jumlah layer video, dan pakai gambar yang sudah dikompres.' },
+      { q: 'Kemiringan HP tidak bekerja di iPhone', a: 'iPhone meminta izin sensor. Izin diminta saat tamu membuka Sampul atau mengetuk bingkai.' },
+    ],
+    checklist: ['Tiap layer punya ID Layer unik', 'Kedalaman latar, subjek, dan depan sudah dibedakan', 'Teks tetap terbaca di setiap adegan', 'Gambar sudah dikompres', 'Sudah dicek di HP'],
+  },
 ]
 
 /**
@@ -918,6 +994,25 @@ const featureSets: Record<string, Pick<DocWidget, 'features' | 'limits'>> = {
     ],
     limits: [
       'Minimum Display Time menambah waktu tunggu walau halaman sudah siap.',
+    ],
+  },
+  'paralaks-2-5d': {
+    features: [
+      { icon: 'layers', title: '6 jenis layer', text: 'Gambar, Video, Teks Langsung, Template, Bentuk / Gradasi, dan Container Elementor.' },
+      { icon: 'play', title: 'Kamera 3D per adegan', text: 'Geser X/Y, zoom Z, miring, putar, dan rotasi, dengan pola gerakan sendiri.' },
+      { icon: 'sparkle', title: 'Animasi layer per adegan', text: 'Geser, skala, rotasi, opasitas, dan blur pada waktu tertentu dalam adegan.' },
+      { icon: 'tag', title: 'Teks muncul berurutan', text: 'Per baris, kata, atau huruf, dengan efek naik, pudar, atau buram ke tajam.' },
+      { icon: 'refresh', title: 'Gerak berulang dan angin', text: 'Mengambang, bergoyang, bernapas, melayang, plus goyang mengikuti kecepatan scroll.' },
+      { icon: 'cursor', title: 'Kursor dan kemiringan HP', text: 'Kamera ikut kursor di desktop dan sensor HP, termasuk izin sensor iPhone.' },
+      { icon: 'zap', title: 'Terhubung ke Sampul', text: 'Adegan 1 bisa langsung berjalan saat Sampul dibuka; tombol #ds-next ikut memulai Tombol Audio.' },
+      { icon: 'shield', title: 'Hemat dan aman gerak', text: 'Video dijeda saat tidak terlihat, dan gerak dibuat tenang bila perangkat meminta gerak dikurangi.' },
+    ],
+    limits: [
+      'Efek terbaik saat widget diletakkan di awal halaman; bingkai menempel di layar selama semua adegan berjalan.',
+      'Layer video selalu tanpa suara. Untuk musik, pakai Tombol Audio.',
+      'Kamera ikut kursor hanya di perangkat dengan mouse; kemiringan HP butuh izin sensor di iPhone.',
+      'Banyak layer video, partikel, dan gambar besar membuat HP lama bekerja lebih berat.',
+      'Container Elementor sebagai layer hanya tersedia bila fitur Container di Elementor aktif.',
     ],
   },
 }
