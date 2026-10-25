@@ -29,8 +29,8 @@ export interface Release {
 
 export const releases: Release[] = [
   {
-    // [GANTI] nomor versi menunggu rilis resmi plugin (header plugin masih 1.5.5).
-    version: '1.6.0',
+    // [GANTI] 1.6.5 masih menunggu rilis resmi plugin (header plugin masih 1.5.5).
+    version: '1.6.5',
     highlights: [['layers', 'Widget baru Paralaks 2.5D'], ['play', 'Kamera 3D sinematik yang mengikuti scroll']],
     date: '2026-10-25',
     title: 'Paralaks 2.5D',
